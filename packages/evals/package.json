@@ -1,0 +1,15 @@
+{
+  "name": "@teacher-gate/evals",
+  "version": "0.1.0",
+  "description": "Teacher Gate evaluation suite: evidence fabrication, schema validity, agreement, leakage, fairness, compared with direct prompting.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "bin": { "teacher-gate-eval": "./src/cli.ts" },
+  "scripts": { "eval": "tsx src/cli.ts" },
+  "dependencies": {
+    "@teacher-gate/core": "workspace:*",
+    "@teacher-gate/models": "workspace:*",
+    "@teacher-gate/public-goods": "workspace:*"
+  }
+}

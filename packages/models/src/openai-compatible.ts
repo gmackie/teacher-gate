@@ -42,7 +42,8 @@ export class OpenAICompatibleModel implements ModelAdapter {
     };
     if (o.sendTemperature !== false) body.temperature = request.temperature ?? 0;
     if (request.seed !== undefined) body.seed = request.seed;
-    if (request.json && o.jsonMode !== false) body.response_format = { type: "json_object" };
+    if (request.jsonSchema !== undefined && o.jsonMode !== false) body.response_format = { type: "json_schema", json_schema: { name: "output", schema: request.jsonSchema } };
+    else if (request.json && o.jsonMode !== false) body.response_format = { type: "json_object" };
     const res = await (o.fetch ?? fetch)(`${o.baseUrl.replace(/\/$/, "")}/chat/completions`, {
       method: "POST",
       headers: { "content-type": "application/json", ...(o.apiKey === undefined ? {} : { authorization: `Bearer ${o.apiKey}` }) },

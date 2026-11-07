@@ -11,7 +11,9 @@ import { OpenAICompatibleModel, vllmModel } from "./openai-compatible";
  * - Keys and hosts: `ANTHROPIC_API_KEY`; `OPENAI_API_KEY` and `OPENAI_BASE_URL`; `OLLAMA_HOST`;
  *   `VLLM_BASE_URL` and `VLLM_API_KEY`.
  */
-export function modelFromEnv(env: Record<string, string | undefined> = process.env, override?: { provider?: string; model?: string }): ModelAdapter {
+export function modelFromEnv(rawEnv: Record<string, string | undefined> = process.env, override?: { provider?: string; model?: string }): ModelAdapter {
+  // An empty variable counts as unset, so it never overrides an SDK's own credential resolution.
+  const env = Object.fromEntries(Object.entries(rawEnv).filter(([, v]) => v !== undefined && v !== ""));
   const provider = override?.provider ?? env.TEACHER_GATE_PROVIDER ?? "ollama";
   const model = override?.model ?? env.TEACHER_GATE_MODEL;
   switch (provider) {

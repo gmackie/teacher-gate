@@ -1,0 +1,17 @@
+{
+  "name": "@teacher-gate/public-goods",
+  "version": "0.1.0",
+  "description": "One loader interface for education public goods: datasets, misconception maps and evaluators, plus labelled synthetic placeholders.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@teacher-gate/core": "workspace:*",
+    "zod": "^4.1.0"
+  },
+  "scripts": {
+    "fetch:kg": "tsx scripts/fetch-kg.ts"
+  }
+}
