@@ -1,0 +1,12 @@
+{
+  "name": "@teacher-gate/models",
+  "version": "0.1.0",
+  "description": "Model adapters for Teacher Gate: OpenAI-compatible, Anthropic, Ollama and vLLM. Bring your own keys.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.6.0",
+    "@teacher-gate/core": "workspace:*"
+  }
+}
