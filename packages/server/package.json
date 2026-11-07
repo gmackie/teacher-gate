@@ -1,0 +1,14 @@
+{
+  "name": "@teacher-gate/server",
+  "version": "0.1.0",
+  "description": "A thin HTTP service for Teacher Gate, so products in any language can call the harness.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "bin": { "teacher-gate-server": "./src/main.ts" },
+  "scripts": { "start": "tsx src/main.ts" },
+  "dependencies": {
+    "@teacher-gate/core": "workspace:*",
+    "@teacher-gate/models": "workspace:*"
+  }
+}
