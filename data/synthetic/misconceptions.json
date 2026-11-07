@@ -1,0 +1,584 @@
+{
+  "meta": {
+    "id": "syn-misconceptions",
+    "title": "Synthetic science misconception catalog and labelled class sets",
+    "license": "CC-BY-4.0",
+    "synthetic": true,
+    "placeholderFor": "learning-equality-misconception-maps",
+    "author": "Teacher Gate contributors",
+    "created": "2026-11-07",
+    "notes": "The catalog describes well-known science-education misconceptions in the dataset author's own words; every class-set prompt and response was invented by the author, with no real student work or curriculum text. Response labels are the author's own judgement, defensible from each response's wording, and have not been validated by teachers. Spelling and grammar errors are deliberate and must be preserved. To swap in Learning Equality's grades 6-12 items, rubrics and misconception maps once they are released, add a loader in packages/public-goods that returns this same { meta, catalog, classSets } shape."
+  },
+  "catalog": [
+    {
+      "id": "syn-mc-heat-01",
+      "title": "Cold flows",
+      "description": "Treats cold as a substance that moves out of cold objects into warmer ones, instead of thermal energy moving from warmer objects to colder ones.",
+      "standards": [
+        "MS-PS3-3",
+        "MS-PS3-4"
+      ],
+      "indicators": [
+        "the cold goes into",
+        "lets the cold out",
+        "the cold travels to your hand",
+        "keeps the cold in"
+      ],
+      "source": "synthetic:teacher-gate"
+    },
+    {
+      "id": "syn-mc-heat-02",
+      "title": "Objects that feel colder are at a lower temperature",
+      "description": "Believes a material that feels cold, such as metal, is at a lower temperature than other objects in the same room, rather than conducting energy away from the hand faster.",
+      "standards": [
+        "MS-PS3-3"
+      ],
+      "indicators": [
+        "the metal is colder than the wood",
+        "metal is always cold",
+        "it was a lower temperature because it felt cold"
+      ],
+      "source": "synthetic:teacher-gate"
+    },
+    {
+      "id": "syn-mc-heat-03",
+      "title": "Insulators produce warmth",
+      "description": "Thinks that blankets, coats or foam cups generate heat themselves, rather than slowing the transfer of thermal energy.",
+      "standards": [
+        "MS-PS3-3"
+      ],
+      "indicators": [
+        "the blanket makes heat",
+        "a jacket gives you warmth",
+        "the foam warms it up"
+      ],
+      "source": "synthetic:teacher-gate"
+    },
+    {
+      "id": "syn-mc-heat-04",
+      "title": "Heat and temperature are the same thing",
+      "description": "Uses temperature and thermal energy interchangeably, for example saying an object with more thermal energy must be hotter, or that a large and a small object at the same temperature hold the same energy.",
+      "standards": [
+        "MS-PS3-4"
+      ],
+      "indicators": [
+        "more heat means a higher temperature",
+        "the big pot is hotter because it has more water",
+        "they have the same heat because they are the same temperature"
+      ],
+      "source": "synthetic:teacher-gate"
+    },
+    {
+      "id": "syn-mc-heat-05",
+      "title": "Heat only moves upward",
+      "description": "Overgeneralizes 'heat rises' to mean thermal energy can only travel upward, so a warm object cannot warm something beside or below it.",
+      "standards": [
+        "MS-PS3-3"
+      ],
+      "indicators": [
+        "heat only goes up",
+        "heat rises so the bottom won't warm up",
+        "the heat can't go down"
+      ],
+      "source": "synthetic:teacher-gate"
+    },
+    {
+      "id": "syn-mc-part-01",
+      "title": "Particles have the properties of the bulk material",
+      "description": "Gives individual particles the visible properties of the substance, such as particles that melt, get hot, get wet, or grow and shrink when heated or cooled.",
+      "standards": [
+        "MS-PS1-4"
+      ],
+      "indicators": [
+        "the molecules get bigger when heated",
+        "the particles melt",
+        "the particles get cold and shrink"
+      ],
+      "source": "synthetic:teacher-gate"
+    },
+    {
+      "id": "syn-mc-part-02",
+      "title": "Particles in a solid do not move",
+      "description": "Believes particles in a solid, or in very cold matter, are completely still rather than vibrating in place.",
+      "standards": [
+        "MS-PS1-4"
+      ],
+      "indicators": [
+        "in ice the molecules don't move at all",
+        "solid particles are frozen in place",
+        "when it's cold the particles stop"
+      ],
+      "source": "synthetic:teacher-gate"
+    },
+    {
+      "id": "syn-mc-part-03",
+      "title": "Something fills the space between particles",
+      "description": "Thinks the space between particles is filled with air or another substance, rather than being empty.",
+      "standards": [
+        "MS-PS1-4"
+      ],
+      "indicators": [
+        "between the particles there is air",
+        "the gaps are filled with water",
+        "air is in between the molecules"
+      ],
+      "source": "synthetic:teacher-gate"
+    },
+    {
+      "id": "syn-mc-part-04",
+      "title": "Gases have no mass",
+      "description": "Thinks matter in the gas state, such as water vapor or air, weighs nothing or stops being matter.",
+      "standards": [
+        "MS-PS1-4"
+      ],
+      "indicators": [
+        "air weighs nothing",
+        "water vapor doesn't have any mass",
+        "when it evaporates it turns into nothing"
+      ],
+      "source": "synthetic:teacher-gate"
+    },
+    {
+      "id": "syn-mc-part-05",
+      "title": "Condensation comes through the container",
+      "description": "Explains water forming on the outside of a cold container as liquid leaking or seeping through the wall, or as the coldness itself turning into water, rather than water vapor from the air condensing.",
+      "standards": [
+        "MS-PS1-4"
+      ],
+      "indicators": [
+        "the water leaked through the can",
+        "the can is sweating out the juice",
+        "the cold turns into water"
+      ],
+      "source": "synthetic:teacher-gate"
+    },
+    {
+      "id": "syn-mc-photo-01",
+      "title": "Plant mass comes from soil",
+      "description": "Believes most of a plant's mass is material taken up from the soil, rather than carbon from carbon dioxide in the air.",
+      "standards": [
+        "MS-LS1-6"
+      ],
+      "indicators": [
+        "the tree gets its mass from the dirt",
+        "it sucks up the soil",
+        "the soil goes into the plant"
+      ],
+      "source": "synthetic:teacher-gate"
+    },
+    {
+      "id": "syn-mc-photo-02",
+      "title": "Plant mass comes from water alone",
+      "description": "Thinks a plant is built mainly from the water it absorbs, with no role for carbon dioxide.",
+      "standards": [
+        "MS-LS1-6"
+      ],
+      "indicators": [
+        "the tree is made of the water it drinks",
+        "the water turns into wood",
+        "it gets heavy from all the water"
+      ],
+      "source": "synthetic:teacher-gate"
+    },
+    {
+      "id": "syn-mc-photo-03",
+      "title": "Plants take in food from outside",
+      "description": "Thinks plants absorb ready-made food, such as fertilizer or 'plant food' in the soil, rather than making their own sugars by photosynthesis.",
+      "standards": [
+        "MS-LS1-6"
+      ],
+      "indicators": [
+        "fertilizer is the plant's food",
+        "the roots eat the nutrients",
+        "plants get food from the ground"
+      ],
+      "source": "synthetic:teacher-gate"
+    },
+    {
+      "id": "syn-mc-photo-04",
+      "title": "Plants breathe in carbon dioxide instead of oxygen",
+      "description": "Treats photosynthesis as the plant's version of breathing and concludes that plants do not use oxygen or carry out cellular respiration.",
+      "standards": [
+        "MS-LS1-6"
+      ],
+      "indicators": [
+        "plants breathe CO2 like we breathe oxygen",
+        "plants don't need oxygen",
+        "plants breathe the opposite of us"
+      ],
+      "source": "synthetic:teacher-gate"
+    },
+    {
+      "id": "syn-mc-photo-05",
+      "title": "Light becomes the plant's matter",
+      "description": "Believes sunlight itself is converted into the substance of the plant, rather than supplying the energy that drives the reaction.",
+      "standards": [
+        "MS-LS1-6"
+      ],
+      "indicators": [
+        "the plant is made out of sunlight",
+        "the sunlight turns into the wood",
+        "the tree is stored-up light"
+      ],
+      "source": "synthetic:teacher-gate"
+    }
+  ],
+  "classSets": [
+    {
+      "id": "syn-cs-heat",
+      "item": {
+        "id": "syn-item-heat-spoons",
+        "prompt": "A metal spoon and a wooden spoon have been in the same kitchen drawer all night. In the morning, the metal spoon feels colder when you pick it up. Explain why it feels colder, and what happens if you hold each spoon in your hand for a minute.",
+        "standards": [
+          "MS-PS3-3"
+        ]
+      },
+      "responses": [
+        {
+          "id": "syn-cs-heat-r01",
+          "learnerRef": "syn-L101",
+          "text": "Both spoons are at the same temperature because they were in the same drawer all night. The metal one feels colder because metal is a good conductor, so it takes thermal energy out of your hand faster than wood does. If you hold them both, the metal one warms up faster in your hand.",
+          "labels": []
+        },
+        {
+          "id": "syn-cs-heat-r02",
+          "learnerRef": "syn-L102",
+          "text": "The metal spoon is colder then the wooden spoon. Metal is always colder than wood, thats why it feels cold. If you hold them the wood one will feel warm and the metal will stay cold.",
+          "labels": [
+            "syn-mc-heat-02"
+          ]
+        },
+        {
+          "id": "syn-cs-heat-r03",
+          "learnerRef": "syn-L103",
+          "text": "The metal spoon lets the cold go into your hand, that is why your hand feels cold. Wood keeps the cold in so you dont feel it. If you hold the metal one long enough all the cold will come out of it.",
+          "labels": [
+            "syn-mc-heat-01"
+          ]
+        },
+        {
+          "id": "syn-cs-heat-r04",
+          "learnerRef": "syn-L104",
+          "text": "The metal spoon was a lower temperature because it felt cold and the cold travels to your hand from the metal. The wooden one is warmer temperature.",
+          "labels": [
+            "syn-mc-heat-01",
+            "syn-mc-heat-02"
+          ]
+        },
+        {
+          "id": "syn-cs-heat-r05",
+          "learnerRef": "syn-L105",
+          "text": "I think its because of the drawer. Maybe the metal spoon was at the bottom of the drawer and heat rises so the heat cant go down to it. The wooden spoon was on top so it got warm.",
+          "labels": [
+            "syn-mc-heat-05"
+          ]
+        },
+        {
+          "id": "syn-cs-heat-r06",
+          "learnerRef": "syn-L106",
+          "text": "They are the same temperature as the room. Energy moves from your warm hand into the spoon. Metal conducts energy away from your skin fast so it feels cold, wood is an insulator so it doesnt.",
+          "labels": []
+        },
+        {
+          "id": "syn-cs-heat-r07",
+          "learnerRef": "syn-L107",
+          "text": "Wood is like a blanket, it makes heat so it feels warmer. Metal doesnt make any heat. So the wooden spoon feels warmer when you hold it.",
+          "labels": [
+            "syn-mc-heat-03"
+          ]
+        },
+        {
+          "id": "syn-cs-heat-r08",
+          "learnerRef": "syn-L108",
+          "text": "The metal spoon is bigger so it has more cold in it. Also the wood spoon has more heat so it is a higher temperature, more heat means a higher temperature.",
+          "labels": [
+            "syn-mc-heat-04"
+          ]
+        },
+        {
+          "id": "syn-cs-heat-r09",
+          "learnerRef": "syn-L109",
+          "text": "i dont know. maybe somebody washed the metal spoon in cold water. we have wooden spoons at my grandmas house for cooking soup.",
+          "labels": []
+        },
+        {
+          "id": "syn-cs-heat-r10",
+          "learnerRef": "syn-L110",
+          "text": "The metal spoon feels colder because metal is always cold, its a cold material. If you hold it, your hand gives the spoon its warmth and the metal will eventually warm up.",
+          "labels": [
+            "syn-mc-heat-02"
+          ]
+        },
+        {
+          "id": "syn-cs-heat-r11",
+          "learnerRef": "syn-L111",
+          "text": "Metal spoons are the same temperature as wood ones in the drawer. When you touch metal, thermal energy goes from your hand into the metal quickly because metal is a conductor. That is why it feels cold even though it isn't colder.",
+          "labels": []
+        },
+        {
+          "id": "syn-cs-heat-r12",
+          "learnerRef": "syn-L112",
+          "text": "Wood is an insulator so it keeps the cold out and metal lets the cold in. The metal soaked up the cold air in the drawer all night so now it is colder.",
+          "labels": [
+            "syn-mc-heat-01",
+            "syn-mc-heat-02"
+          ]
+        },
+        {
+          "id": "syn-cs-heat-r13",
+          "learnerRef": "syn-L113",
+          "text": "The wooden spoon gives off warmth like a jacket does so your hand feels warm. If you hold the metal spoon the cold goes into your fingers.",
+          "labels": [
+            "syn-mc-heat-03",
+            "syn-mc-heat-01"
+          ]
+        },
+        {
+          "id": "syn-cs-heat-r14",
+          "learnerRef": "syn-L114",
+          "text": "Both spoons have the same heat because they are the same temperature, so the metal one should not feel different. I think it just feels colder because it's heavier.",
+          "labels": [
+            "syn-mc-heat-04"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "syn-cs-particles",
+      "item": {
+        "id": "syn-item-particles-can",
+        "prompt": "A cold can of juice is taken out of the refrigerator and left on a table. After a few minutes, drops of water form on the outside of the can. Use a model of particles to explain where the water came from and what is happening to the water particles.",
+        "standards": [
+          "MS-PS1-4"
+        ]
+      },
+      "responses": [
+        {
+          "id": "syn-cs-particles-r01",
+          "learnerRef": "syn-L115",
+          "text": "The air has water vapor in it. When the water vapor particles touch the cold can, they lose energy and slow down, and they get close together and turn into liquid water drops. The water came from the air, not from inside the can.",
+          "labels": []
+        },
+        {
+          "id": "syn-cs-particles-r02",
+          "learnerRef": "syn-L116",
+          "text": "The juice inside the can is leaking through the metal a little bit and making drops on the outside. The particles of juice are small enough to go through.",
+          "labels": [
+            "syn-mc-part-05"
+          ]
+        },
+        {
+          "id": "syn-cs-particles-r03",
+          "learnerRef": "syn-L117",
+          "text": "The can is sweating. The cold turns into water on the outside of the can, just like when you sweat when you are hot. The water particles get cold and shrink so they fall down the can.",
+          "labels": [
+            "syn-mc-part-05",
+            "syn-mc-part-01"
+          ]
+        },
+        {
+          "id": "syn-cs-particles-r04",
+          "learnerRef": "syn-L118",
+          "text": "Water vapor is in the air. It hits the cold can and condenses. The water particles slow down and stick together. When it's really cold like ice, the particles stop moving completely.",
+          "labels": [
+            "syn-mc-part-02"
+          ]
+        },
+        {
+          "id": "syn-cs-particles-r05",
+          "learnerRef": "syn-L119",
+          "text": "The water came from the air around the can. Between the water vapor particles there is more air, and the air pushes the water onto the can.",
+          "labels": [
+            "syn-mc-part-03"
+          ]
+        },
+        {
+          "id": "syn-cs-particles-r06",
+          "learnerRef": "syn-L120",
+          "text": "The particles of water in the air are moving fast. When they hit the cold can they transfer energy to the can and slow down. Slower particles attract each other and form a liquid, so drops form.",
+          "labels": []
+        },
+        {
+          "id": "syn-cs-particles-r07",
+          "learnerRef": "syn-L121",
+          "text": "The water molecules are wet and when they get cold they get wetter and drip on the can. Wet molecules stick to things.",
+          "labels": [
+            "syn-mc-part-01"
+          ]
+        },
+        {
+          "id": "syn-cs-particles-r08",
+          "learnerRef": "syn-L122",
+          "text": "Water vapor doesnt have any mass so it can just float in the air, then when it touches the can it gets mass again and turns into drops of water.",
+          "labels": [
+            "syn-mc-part-04"
+          ]
+        },
+        {
+          "id": "syn-cs-particles-r09",
+          "learnerRef": "syn-L123",
+          "text": "i think somebody spilled on it. or maybe it was in a cooler with ice before. my mom always buys the grape kind.",
+          "labels": []
+        },
+        {
+          "id": "syn-cs-particles-r10",
+          "learnerRef": "syn-L124",
+          "text": "The juice is so cold inside that it freezes the can and the cold turns into water on the outside. Water vapor is just air and air weighs nothing so it can't make the drops.",
+          "labels": [
+            "syn-mc-part-05",
+            "syn-mc-part-04"
+          ]
+        },
+        {
+          "id": "syn-cs-particles-r11",
+          "learnerRef": "syn-L125",
+          "text": "Water particles in the air are a gas. They condense on the can because the can is cold. In the drops the particles are close but still moving and sliding past each other.",
+          "labels": []
+        },
+        {
+          "id": "syn-cs-particles-r12",
+          "learnerRef": "syn-L126",
+          "text": "The cold makes the water particles in the air freeze in place and stop moving, so they stick to the can and stay there as drops.",
+          "labels": [
+            "syn-mc-part-02"
+          ]
+        },
+        {
+          "id": "syn-cs-particles-r13",
+          "learnerRef": "syn-L127",
+          "text": "When the vapor particles get cold they shrink and get heavy, then they fall onto the can like rain. There is air between all the particles holding them up until then.",
+          "labels": [
+            "syn-mc-part-01",
+            "syn-mc-part-03"
+          ]
+        },
+        {
+          "id": "syn-cs-particles-r14",
+          "learnerRef": "syn-L128",
+          "text": "The can is metal and metal has tiny holes, so water from inside the can leaks out through the holes slowly. That's why only the outside is wet and the table under it.",
+          "labels": [
+            "syn-mc-part-05"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "syn-cs-photosynthesis",
+      "item": {
+        "id": "syn-item-photo-tree",
+        "prompt": "A seed with a mass of less than one gram grows into a tree with a mass of several hundred kilograms. Where does most of that mass come from? Explain your thinking.",
+        "standards": [
+          "MS-LS1-6"
+        ]
+      },
+      "responses": [
+        {
+          "id": "syn-cs-photosynthesis-r01",
+          "learnerRef": "syn-L129",
+          "text": "Most of the tree's mass comes from carbon dioxide in the air. In photosynthesis the tree uses light energy to combine carbon dioxide and water into sugar, and it builds wood out of the sugar. The light is the energy, not the matter.",
+          "labels": []
+        },
+        {
+          "id": "syn-cs-photosynthesis-r02",
+          "learnerRef": "syn-L130",
+          "text": "The tree gets its mass from the dirt. Its roots suck up the soil and the soil goes into the tree and makes it bigger. Thats why you need good soil to grow plants.",
+          "labels": [
+            "syn-mc-photo-01"
+          ]
+        },
+        {
+          "id": "syn-cs-photosynthesis-r03",
+          "learnerRef": "syn-L131",
+          "text": "Trees drink a lot of water every day so the tree is made of the water it drinks. The water turns into wood over many years.",
+          "labels": [
+            "syn-mc-photo-02"
+          ]
+        },
+        {
+          "id": "syn-cs-photosynthesis-r04",
+          "learnerRef": "syn-L132",
+          "text": "The roots eat the nutrients and fertilizer in the ground. Fertilizer is the plant's food and food is what makes you get bigger, so that is where the mass comes from.",
+          "labels": [
+            "syn-mc-photo-03"
+          ]
+        },
+        {
+          "id": "syn-cs-photosynthesis-r05",
+          "learnerRef": "syn-L133",
+          "text": "The mass comes from sunlight. The tree is made out of sunlight because it soaks up the sun every day with its leaves and turns it into more tree.",
+          "labels": [
+            "syn-mc-photo-05"
+          ]
+        },
+        {
+          "id": "syn-cs-photosynthesis-r06",
+          "learnerRef": "syn-L134",
+          "text": "Plants take in carbon dioxide from the air through the leaves and water from the roots. They make glucose, and the carbon atoms in the glucose end up in the wood. So most of it comes from the air.",
+          "labels": []
+        },
+        {
+          "id": "syn-cs-photosynthesis-r07",
+          "learnerRef": "syn-L135",
+          "text": "A tree gets bigger because plants breathe CO2 like we breathe oxygen, so it doesn't need oxygen. The rest of its mass comes from the soil because the soil goes into the roots.",
+          "labels": [
+            "syn-mc-photo-04",
+            "syn-mc-photo-01"
+          ]
+        },
+        {
+          "id": "syn-cs-photosynthesis-r08",
+          "learnerRef": "syn-L136",
+          "text": "Seeds grow into trees because they have water, sunlight and soil. Trees are really important because they give us oxygen and shade.",
+          "labels": []
+        },
+        {
+          "id": "syn-cs-photosynthesis-r09",
+          "learnerRef": "syn-L137",
+          "text": "It gets heavy from all the water. Water is heavy, a gallon of water is like 8 pounds, so a tree full of water would be hundreds of kilograms.",
+          "labels": [
+            "syn-mc-photo-02"
+          ]
+        },
+        {
+          "id": "syn-cs-photosynthesis-r10",
+          "learnerRef": "syn-L138",
+          "text": "I think the mass is from the minerals in the soil and from plant food that the farmer puts. The plant gets food from the ground with its roots.",
+          "labels": [
+            "syn-mc-photo-01",
+            "syn-mc-photo-03"
+          ]
+        },
+        {
+          "id": "syn-cs-photosynthesis-r11",
+          "learnerRef": "syn-L139",
+          "text": "The sunlight turns into the wood in photosynthesis. The plant takes light and changes it into sugar and the sugar is what the tree is made of.",
+          "labels": [
+            "syn-mc-photo-05"
+          ]
+        },
+        {
+          "id": "syn-cs-photosynthesis-r12",
+          "learnerRef": "syn-L140",
+          "text": "Plants breathe the opposite of us, they breathe in carbon dioxide and breathe out oxygen, and they never use oxygen. Over time the carbon dioxide they take in becomes the tree.",
+          "labels": [
+            "syn-mc-photo-04"
+          ]
+        },
+        {
+          "id": "syn-cs-photosynthesis-r13",
+          "learnerRef": "syn-L141",
+          "text": "Most of the mass comes from the air, which sounds weird, but carbon dioxide has mass. The plant uses energy from light to make sugar from CO2 and water. Only a little of the mass is from the soil.",
+          "labels": []
+        },
+        {
+          "id": "syn-cs-photosynthesis-r14",
+          "learnerRef": "syn-L142",
+          "text": "The soil goes into the plant through the roots. Also it drinks water. My uncle has a big tree in his yard and the ground around it is lower now so the tree must of taken the dirt.",
+          "labels": [
+            "syn-mc-photo-01"
+          ]
+        }
+      ]
+    }
+  ]
+}
