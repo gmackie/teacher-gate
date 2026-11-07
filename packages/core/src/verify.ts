@@ -37,6 +37,8 @@ export type ExcerptOutput = z.infer<typeof ExcerptOutput>;
 export const FindingOutput = z.strictObject({
   criterionId: Id,
   observation: z.string().trim().min(1).max(800),
+  /** Teacher-only reasoning, kept apart from the student-facing observation. */
+  rationale: z.string().trim().min(1).max(800).optional(),
   suggestedLevel: Id.optional(),
   excerpts: z.array(ExcerptOutput).min(1).max(10),
   uncertainty: Uncertainty,
@@ -62,10 +64,12 @@ export const DropReason = z.enum([
   "forbidden-field",
   "unknown-criterion",
   "unselected-criterion",
+  "deprioritized-criterion",
   "unknown-level",
   "unknown-artifact",
   "quote-not-found",
   "range-mismatch",
+  "duplicate",
 ]);
 export type DropReason = z.infer<typeof DropReason>;
 
@@ -106,7 +110,10 @@ export interface Finding {
   id: string;
   source: "ai-suggested";
   criterionId: string;
+  /** The student-facing text. */
   observation: string;
+  /** Teacher-only reasoning; never shown to a student. */
+  rationale?: string;
   /** Teacher-only: never shown to a student. */
   suggestedLevelId?: string;
   excerpts: VerifiedExcerpt[];
@@ -128,14 +135,57 @@ function hasForbiddenField(value: unknown): boolean {
   return Object.keys(value).some((k) => (FORBIDDEN_FIELDS as readonly string[]).includes(k.toLowerCase()));
 }
 
+/** Text reduced to lowercase words, for comparing findings: punctuation and spacing are ignored. */
+export function normaliseText(text: string): string {
+  return text.toLowerCase().replace(/[‘’]/g, "'").replace(/[^\p{L}\p{N}']+/gu, " ").trim();
+}
+
+/**
+ * Whether two texts are the same or nearly so: equal once normalised, or sharing at least 90% of
+ * their distinct words (Jaccard) when both have five or more.
+ */
+export function nearlyIdentical(a: string, b: string): boolean {
+  const na = normaliseText(a);
+  const nb = normaliseText(b);
+  if (na === nb) return na.length > 0;
+  const wa = new Set(na.split(" "));
+  const wb = new Set(nb.split(" "));
+  if (wa.size < 5 || wb.size < 5) return false;
+  let shared = 0;
+  for (const w of wa) if (wb.has(w)) shared++;
+  return shared / (wa.size + wb.size - shared) >= 0.9;
+}
+
+/**
+ * Whether `text` repeats `other`: nearly identical to it, or containing any of its sentences of
+ * 24 or more characters word for word (after normalising).
+ */
+export function repeatsText(text: string, other: string): boolean {
+  if (nearlyIdentical(text, other)) return true;
+  const hay = ` ${normaliseText(text)} `;
+  return other.split(/(?<=[.!?])\s+/).some((sentence) => {
+    const n = normaliseText(sentence);
+    return n.length >= 24 && hay.includes(` ${n} `);
+  });
+}
+
 /**
  * Keeps only findings that pass every check: valid shape, no grading field, a criterion the
- * teacher selected, a level that criterion has, and every excerpt exactly in the work. A finding
+ * teacher selected and has not deprioritized, a level that criterion has, every excerpt exactly in
+ * the work, and an observation that does not repeat one already kept (on any criterion). A finding
  * is dropped whole when any check fails.
  */
 export function verifyFindings(
   raw: unknown,
-  input: { activity: Activity; artifacts: readonly Artifact[]; criteria: readonly Criterion[] },
+  input: {
+    activity: Activity;
+    artifacts: readonly Artifact[];
+    criteria: readonly Criterion[];
+    /** Selected criteria whose findings are dropped because the teacher keeps rejecting them. */
+    deprioritized?: readonly string[];
+    /** Drop findings whose observation repeats one already kept. Default true. */
+    dedupe?: boolean;
+  },
   policy: RangePolicy = "locate",
 ): VerifiedFindings {
   const list = typeof raw === "object" && raw !== null && Array.isArray((raw as { findings?: unknown }).findings)
@@ -161,6 +211,10 @@ export function verifyFindings(
       dropped.push({ reason: "unknown-criterion" });
       continue;
     }
+    if (input.deprioritized?.includes(criterion.id)) {
+      dropped.push({ reason: "deprioritized-criterion", criterionId: criterion.id });
+      continue;
+    }
     if (!input.criteria.some((c) => c.id === criterion.id)) {
       dropped.push({ reason: "unselected-criterion", criterionId: criterion.id });
       continue;
@@ -184,11 +238,18 @@ export function verifyFindings(
       dropped.push({ reason: failure, criterionId: criterion.id });
       continue;
     }
+    // The same words under two criteria would let one copy reach the student after the teacher
+    // rejected the other; the first copy is kept.
+    if (input.dedupe !== false && findings.some((k) => nearlyIdentical(k.observation, f.observation))) {
+      dropped.push({ reason: "duplicate", criterionId: criterion.id });
+      continue;
+    }
     findings.push({
       id: `f${findings.length + 1}`,
       source: "ai-suggested",
       criterionId: criterion.id,
       observation: f.observation,
+      ...(f.rationale === undefined ? {} : { rationale: f.rationale }),
       ...(f.suggestedLevel === undefined ? {} : { suggestedLevelId: f.suggestedLevel }),
       excerpts,
       uncertainty: f.uncertainty,

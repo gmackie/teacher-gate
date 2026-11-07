@@ -16,6 +16,13 @@ export interface Task3Arm {
   items: number;
   /** Findings on the criterion the simulated teacher always rejects, of all findings after warm-up. */
   rejectedCriterionShare: Rate;
+  /**
+   * The same share before the harness enforced the teacher's learned preferences: findings the
+   * model wrote on that criterion, kept or dropped as `deprioritized-criterion`, of all it wrote.
+   */
+  rejectedCriterionRaw: Rate;
+  /** Findings that reached the teacher per item after warm-up (coverage after enforcement). */
+  findingsPerItem: number;
   /** Findings accepted unedited, after warm-up. */
   acceptedUnedited: Rate;
   /** Findings already in the teacher's style (starting "Next step:"), after warm-up. */
@@ -39,8 +46,10 @@ export async function runTask3(model: ModelAdapter, ds: ScoredWritingDataset, op
     let onRejected = 0;
     let unedited = 0;
     let styled = 0;
+    let held = 0;
     for (const [n, item] of items.entries()) {
       const draft = await gate.draftFeedback(SERVICE, { id: item.id, activityId: ds.activity.id, learnerRef: "learner", artifacts: [{ id: "work", text: item.text }] });
+      if (n >= warmup) held += draft.dropped.filter((x) => x.reason === "deprioritized-criterion").length;
       for (const f of draft.findings) {
         const inStyle = f.observation.trim().startsWith(PREFIX);
         const decision = f.criterionId === options.rejectCriterion ? { decision: "reject" as const } : inStyle ? { decision: "accept" as const } : { decision: "edit" as const, text: `${PREFIX} ${f.observation}` };
@@ -57,6 +66,8 @@ export async function runTask3(model: ModelAdapter, ds: ScoredWritingDataset, op
       learning,
       items: items.length - warmup,
       rejectedCriterionShare: rate(onRejected, total),
+      rejectedCriterionRaw: rate(onRejected + held, total + held),
+      findingsPerItem: total / Math.max(1, items.length - warmup),
       acceptedUnedited: rate(unedited, total),
       inTeacherStyle: rate(styled, total),
       appliedPreferencesAtEnd: (await gate.preferencesFor(ds.activity.id)).applied.map((p) => p.id),

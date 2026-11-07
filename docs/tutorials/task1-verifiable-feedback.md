@@ -77,7 +77,7 @@ DRAFT=6ec30362-…
 curl -s "$BASE/drafts/$DRAFT" "${TEACHER[@]}"
 ```
 
-This adds `criterionTitle`, `suggestedLevelLabel`, any `gradeLanguage` flag, `droppedByReason`
+This adds `criterionTitle`, `suggestedLevelLabel`, any `gradeLanguage` or `repeatsRejected` flag, `droppedByReason`
 and `releaseBlockers`. A student calling it gets 403.
 
 ### 4. Decide on each finding
@@ -127,6 +127,9 @@ The same sequence runs end to end in [examples/node-client](../../examples/node-
 | Every quote is exactly in the work; a corrected spelling or paraphrase is dropped | `verify.ts` | `verify.test.ts` "drops a fabricated quote…" |
 | One bad quote drops the whole finding | `verify.ts` | `verify.test.ts` |
 | Findings with grading fields, unknown or unselected criteria, or unknown levels are dropped | `verify.ts` | `verify.test.ts` |
+| A finding whose observation repeats one already kept (on any criterion) is dropped as `duplicate` | `verify.ts` | `round2.test.ts` "de-duplicates identical findings…" |
+| An accepted finding that repeats a rejected finding's words is flagged (`repeatsRejected`) and blocks release | `views.ts` | `round2.test.ts` "regression (round 1, Llama 3.1 8B…)" |
+| By default observations address the student ("you") with one next step; teacher-only reasoning goes in `rationale`, never released. Override with `feedbackInstructions` | `context.ts` | `round2.test.ts` "student-addressed findings" |
 | Only a teacher on `direct` decides or releases; denials are audited | `gate.ts` | `gate.test.ts`, `server.test.ts` |
 | Every finding must be decided before release | `views.ts` `releaseBlockers` | `gate.test.ts` |
 | Text stating a grade or level blocks release until edited | `views.ts` `gradeLanguage` | `gate.test.ts` "blocks release of model text that states a level…" |

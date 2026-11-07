@@ -98,8 +98,8 @@ These features are meant to help every student, not only the group they were des
   time or improves learning.
 - **Verification is narrow.** It proves that evidence is real and that output has the right shape.
   It does not prove that an observation is correct, helpful or kind.
-- **The model can ignore instructions.** Teacher instructions, deprioritised criteria and style
-  examples go into the prompt; only criterion selection is enforced in code.
+- **The model can ignore instructions.** Teacher instructions and style examples go into the
+  prompt; criterion selection and deprioritised criteria are enforced in code.
 - **Grade-language detection is a set of patterns** and can miss phrasings.
 - **Synthetic data stands in for unreleased public goods.** Results on it measure the harness's
   mechanics, not classroom performance.

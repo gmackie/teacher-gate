@@ -66,6 +66,10 @@ export interface Task1Record {
   structuredLevels?: number;
   /** Harness only: the simulated teacher's decisions. */
   decisions?: { accept: number; edit: number; reject: number };
+  /** Harness only: accepted findings the teacher view flagged as repeating a rejected one, which the simulated teacher then rejected. */
+  repeatFlags?: number;
+  /** Harness only: findings the harness dropped, by reason (e.g. `duplicate`, `quote-not-found`). */
+  droppedByReason?: Record<string, number>;
   lc?: Partial<Record<LcFeedbackEvaluatorId, 0 | 1 | null>>;
   usage?: { inputTokens: number; outputTokens: number };
   raw?: string;
@@ -205,6 +209,18 @@ export async function runHarnessItem(o: Task1Options, item: ScoredItem): Promise
     decisions[d.decision]++;
     await gate.decide(TEACHER, draft.id, { findingId: f.id, ...d });
   }
+  // The teacher view flags an accepted finding that repeats words the teacher rejected elsewhere,
+  // and release is blocked until it is edited or rejected; the simulated teacher rejects it.
+  let repeatFlags = 0;
+  for (const f of (await gate.getDraft(TEACHER, draft.id)).findings) {
+    if (f.repeatsRejected === undefined || f.decision?.decision !== "accept") continue;
+    repeatFlags++;
+    decisions.accept--;
+    decisions.reject++;
+    await gate.decide(TEACHER, draft.id, { findingId: f.id, decision: "reject", reason: "repeats a rejected finding" });
+  }
+  const droppedByReason: Record<string, number> = {};
+  for (const x of draft.dropped) droppedByReason[x.reason] = (droppedByReason[x.reason] ?? 0) + 1;
   let studentFacing: string[] = [];
   let leaks: string[] = [];
   if (decisions.accept + decisions.edit > 0) {
@@ -224,6 +240,8 @@ export async function runHarnessItem(o: Task1Options, item: ScoredItem): Promise
     studentFacing,
     leaks,
     decisions,
+    repeatFlags,
+    droppedByReason,
     ...(await judgeAll(o, item.text, studentFacing).then((lc) => (lc === undefined ? {} : { lc }))),
     ...(model.last === undefined ? {} : { usage: model.last.usage }),
     ...(raw === undefined ? {} : { raw }),

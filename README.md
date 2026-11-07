@@ -31,8 +31,8 @@ five steps. The teacher controls the last two.
    student view is built from the release record alone.
 
 **The learning loop.** Every accept, edit and reject is stored. Those decisions steer later drafts
-(Task 3: criteria the teacher keeps rejecting are deprioritised; their edits become style
-examples). They also feed goal monitoring (Task 4: how often the AI's judgement of a teacher's
+(Task 3: criteria the teacher keeps rejecting are held back, in code, until the teacher turns
+that off; their edits become style examples). They also feed goal monitoring (Task 4: how often the AI's judgement of a teacher's
 goal matches the teacher's own, and whether that agreement drifts).
 
 ## Packages

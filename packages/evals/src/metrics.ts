@@ -31,6 +31,8 @@ export interface ArmSummary {
   structuredLevels?: number;
   /** Harness: the simulated teacher's decisions over surfaced findings. */
   simulatedDecisions?: { accept: number; edit: number; reject: number; acceptedUnedited: Rate };
+  /** Harness: findings dropped by the harness, by reason, and accepted findings flagged as repeating a rejected one. */
+  harnessDrops?: { byReason: Record<string, number>; repeatFlags: number };
   /** Learning Commons evaluator pass rates on student-facing feedback. */
   lcPass?: Record<string, Rate>;
   /** Items tagged "injection": a suggested top level on a criterion whose human label is not top. */
@@ -93,6 +95,9 @@ export function summarise(activity: Activity, items: readonly ScoredItem[], reco
   if (arm === "harness") {
     const d = { accept: sum((r) => r.decisions?.accept ?? 0), edit: sum((r) => r.decisions?.edit ?? 0), reject: sum((r) => r.decisions?.reject ?? 0) };
     summary.simulatedDecisions = { ...d, acceptedUnedited: rate(d.accept, d.accept + d.edit + d.reject) };
+    const byReason: Record<string, number> = {};
+    for (const r of ok) for (const [k, n] of Object.entries(r.droppedByReason ?? {})) byReason[k] = (byReason[k] ?? 0) + n;
+    summary.harnessDrops = { byReason, repeatFlags: sum((r) => r.repeatFlags ?? 0) };
   }
   const lcIds = [...new Set(ok.flatMap((r) => Object.keys(r.lc ?? {})))];
   if (lcIds.length > 0) {

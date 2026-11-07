@@ -45,6 +45,12 @@ export interface TeacherGateOptions {
   /** A misconception catalog; entries matching an activity's standards are added to its context. */
   misconceptions?: readonly Misconception[];
   limits?: Partial<ContextLimits>;
+  /**
+   * Replaces the opening feedback instructions. The default (`FEEDBACK_INSTRUCTIONS`) has
+   * findings address the student as "you" with one next step; `feedbackInstructions("teacher")`
+   * gives the first evaluation round's teacher-addressed wording.
+   */
+  feedbackInstructions?: string;
   rangePolicy?: RangePolicy;
   maxOutputTokens?: number;
   /** Retries after a model call throws. Default 1. */
@@ -170,6 +176,7 @@ export class TeacherGate {
       preferences,
       misconceptions: this.#o.misconceptions ?? [],
       ...(this.#o.limits === undefined ? {} : { limits: this.#o.limits }),
+      ...(this.#o.feedbackInstructions === undefined ? {} : { instructions: this.#o.feedbackInstructions }),
     });
     const base = {
       id: crypto.randomUUID(),
@@ -193,7 +200,7 @@ export class TeacherGate {
       if (response === undefined) {
         draft = { ...base, status: "failed", context: built.report };
       } else {
-        const verified = verifyFindings(extractJson(response.text), { activity, artifacts: built.artifacts, criteria: built.criteria }, this.#o.rangePolicy);
+        const verified = verifyFindings(extractJson(response.text), { activity, artifacts: built.artifacts, criteria: built.criteria, deprioritized: built.heldBack }, this.#o.rangePolicy);
         draft = {
           ...base,
           status: verified.parsed ? "completed" : "invalid-output",

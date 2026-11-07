@@ -11,7 +11,7 @@ model's output and turn any of it off.
 2. Reviews drafts as in [Tutorial 1](task1-verifiable-feedback.md). Each accept, edit and reject
    is stored.
 3. Sees, on each new draft, the preferences that shaped it: for example "You rejected 4 of 5
-   suggestions on Claim, so the model comments on it only when the evidence is strong", or "Your
+   suggestions on Claim, so new drafts leave it out", or "Your
    edit of an earlier suggestion on Evidence is used as a style example".
 4. Turns any preference off (or back on), or turns learning off for the activity.
 
@@ -24,7 +24,7 @@ decisions on it. It is a pure function: the same inputs always give the same pre
 |---|---|---|---|
 | `guidance:criteria` | `focus-criteria` | guidance | `guidance.criteria` is set. Only those criteria go to the model, and the verifier drops findings on any other (`unselected-criterion`) |
 | `guidance:instructions` | `instructions` | guidance | `guidance.instructions` is set. The text goes into the system prompt |
-| `deprioritize:<criterionId>` | `deprioritized-criterion` | past decisions | At least 3 decisions on that criterion and at least 60% rejected. The model is told to comment on it only when the evidence is strong |
+| `deprioritize:<criterionId>` | `deprioritized-criterion` | past decisions | At least 3 decisions on that criterion and at least 60% rejected. Enforced in code: the criterion is left out of the rubric the model sees, and the verifier drops any finding on it (`deprioritized-criterion`, counted in `droppedByReason`). If every selected criterion qualifies, none is held back |
 | `edit:<decisionId>` | `edit-example` | past decisions | The teacher edited a finding on a selected criterion. Up to the 3 most recent edits go into the prompt as before/after style examples |
 
 Past-decision preferences apply only while `guidance.learnFromDecisions` is not `false`. Only the
@@ -77,7 +77,7 @@ curl -s "$BASE/activities/syn-cer-ice/preferences" "${TEACHER[@]}"
   "applied": [
     { "id": "guidance:criteria", "kind": "focus-criteria", "source": "guidance", "description": "Feedback addresses only: Evidence, Reasoning." },
     { "id": "guidance:instructions", "kind": "instructions", "source": "guidance", "description": "Your written instructions for this activity." },
-    { "id": "deprioritize:reasoning", "kind": "deprioritized-criterion", "source": "past-decisions", "description": "You rejected 3 of 4 suggestions on \"Reasoning\", so the model comments on it only when the evidence is strong." },
+    { "id": "deprioritize:reasoning", "kind": "deprioritized-criterion", "source": "past-decisions", "description": "You rejected 3 of 4 suggestions on \"Reasoning\", so new drafts leave it out: the model is not asked about it and any suggestion on it is held back. Turn this off to get suggestions on it again." },
     { "id": "edit:9d2e…", "kind": "edit-example", "source": "past-decisions", "description": "Your edit of an earlier suggestion on \"Evidence\" is used as a style example." }
   ],
   "deprioritized": ["reasoning"],
@@ -107,13 +107,14 @@ To stop learning from decisions altogether, put the activity again with
 |---|---|---|
 | Guidance and learned preferences are applied to later drafts, and each is listed on the draft | `preferences.ts`, `gate.ts` | `preferences.test.ts` "applies guidance and learned preferences to later drafts and lists each one" |
 | Learning off means no learned preferences | `preferences.ts` | `preferences.test.ts` "does not learn when the teacher turns learning off" |
-| Findings on criteria the teacher did not select are dropped by the verifier | `verify.ts` | `verify.test.ts` |
+| Findings on criteria the teacher did not select are dropped by the verifier | `verify.ts` | `verify.test.ts`; `round2.test.ts` "respects the teacher's criteria focus deterministically" |
+| A deprioritized criterion is left out of the prompt and findings on it are dropped, even when the model writes nothing else (the round-1 Haiku inversion) | `context.ts`, `verify.ts` | `round2.test.ts` "regression (round 1, Haiku)…" |
 | Only a teacher on `direct` changes preferences | `gate.ts` `setPreference` | access rule shared with other teacher actions |
 
 ## What is not verified
 
-- That the model follows the instructions, the deprioritisation or the style examples. These go
-  into the prompt; the model may ignore them. Only the criteria selection is enforced in code.
+- That the model follows the written instructions or the style examples. These go into the
+  prompt; the model may ignore them. Criteria selection and deprioritisation are enforced in code.
 - That learning helps. The evaluation suite has a simulation with a rule-based simulated teacher
   (`teacher-gate-eval task3`); it is a simulation, not evidence from teachers. See
   [run on your own data](../run-on-your-own-data.md).
