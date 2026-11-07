@@ -74,6 +74,9 @@ evidence. "Who" names a role; assign a person per release.
 
 ## 7. Accessibility review
 
+- [x] Automated checks: the demo and the reference components pass axe-core (WCAG 2.0–2.2 A and
+      AA rules) at desktop and phone widths in CI (`pnpm test:a11y`). *Done 2026-11-07; this is
+      not conformance.*
 - [ ] The reference React components and the demo are reviewed against WCAG 2.2 AA (keyboard
       use, focus order, screen reader names, contrast, zoom). *Who: an accessibility reviewer.
       How:* automated checks plus manual testing with at least one screen reader.

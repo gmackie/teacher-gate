@@ -1,7 +1,8 @@
 // The components' stylesheet, as a string so it can be dropped into a `<style>` element or copied
 // into your own CSS. Plain CSS, no framework. Every class is prefixed `tg-`.
 //
-// Accessibility intent (WCAG 2.2 AA): text colors meet 4.5:1 on their backgrounds; highlights are
+// Accessibility intent (WCAG 2.2 AA; checked automatically with axe-core in apps/demo/e2e, not
+// manually audited): text colors meet 4.5:1 on their backgrounds; highlights are
 // underlined (double where findings overlap) so they never rely on color alone; the focused
 // highlight adds a solid outline; every control shows a visible focus ring and is at least 24px
 // (here 32px) tall.
@@ -45,5 +46,13 @@ export const teacherGateStyles = `
 .tg-root .tg-link { border: none; background: none; padding: 0; min-height: 24px; color: #1f4e9b; text-decoration: underline; }
 .tg-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .tg-pre { white-space: pre-wrap; overflow-wrap: anywhere; background: #f4f4f6; border: 1px solid #8a8a93; border-radius: 6px; padding: .75rem; font: 14px/1.5 ui-monospace, Menlo, Consolas, monospace; }
+.tg-table { border-collapse: collapse; width: 100%; margin: .5rem 0 1rem; }
+.tg-table caption { text-align: left; font-weight: 600; padding: .25rem 0; }
+.tg-table th, .tg-table td { border: 1px solid #8a8a93; padding: .5rem; text-align: left; vertical-align: top; }
+.tg-plain { margin: 0; padding-left: 1.1rem; }
+.tg-facts { display: grid; grid-template-columns: max-content 1fr; gap: .125rem .75rem; margin: .5rem 0; }
+.tg-facts dt { font-weight: 600; }
+.tg-facts dd { margin: 0; }
+.tg-variant { border-top: 1px solid #8a8a93; margin-top: 1rem; padding-top: .75rem; }
 .tg-quote { margin: .25rem 0; padding-left: .75rem; border-left: 3px solid #5f5f68; }
 `;

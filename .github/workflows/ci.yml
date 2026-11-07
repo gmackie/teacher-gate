@@ -27,3 +27,22 @@ jobs:
       - run: node --version
       - run: ./node_modules/.bin/tsc -p tsconfig.json --noEmit
       - run: ./node_modules/.bin/vitest run
+  a11y:
+    # Automated accessibility checks (axe-core, WCAG 2.0–2.2 A and AA rules) on every state of the
+    # demo, against a scripted service. Passing is not a WCAG conformance claim.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @teacher-gate/demo exec playwright install --with-deps chromium
+      - run: pnpm test:a11y
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: a11y-traces
+          path: apps/demo/test-results

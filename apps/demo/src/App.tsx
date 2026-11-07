@@ -1,17 +1,23 @@
-// The demo: one page with two tasks.
+// The demo: one page with three tasks.
 // - Feedback (Task 1 and 3): the teacher drafts AI feedback on a synthetic response, reviews it with
 //   <TeacherReview>, releases it, then switches to what that student sees.
+//   After release, the teacher can have it rewritten in another language or at a lower reading
+//   level, and approve the rewrite for the student.
 // - Misconception brief (Task 2): the teacher drafts a brief over a synthetic class set, confirms
 //   each mapping with <BriefReview>, and saves it.
+// - Goals and monitoring (Task 4): the teacher states a goal, dry-runs it, and compares the AI's
+//   judgements with their own.
 // All the rules (who may decide, what can be released) are enforced by the service; this page only
 // renders its views and sends the teacher's choices.
-import type { StudentFeedbackView, TeacherDraftView } from "@teacher-gate/core";
+import type { ReleaseVariant, StudentFeedbackView, TeacherDraftView } from "@teacher-gate/core";
 import { BriefReview, StudentFeedback, TeacherReview, teacherGateStyles, type BriefState } from "@teacher-gate/react";
 import { useEffect, useState, type ReactNode } from "react";
 import { api, TEACHER } from "./api";
 import { activity, classSet, misconceptions, submissions } from "./data";
+import { GoalsTask } from "./GoalsTask";
+import { VariantPanel, variantLabel } from "./VariantPanel";
 
-type Tab = "feedback" | "brief";
+type Tab = "feedback" | "brief" | "goals";
 
 function message(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
@@ -53,10 +59,11 @@ export function App(): ReactNode {
         <nav aria-label="Demo tasks" className="tg-actions">
           <button type="button" aria-pressed={tab === "feedback"} onClick={() => setTab("feedback")}>Feedback on one response</button>
           <button type="button" aria-pressed={tab === "brief"} onClick={() => setTab("brief")}>Class misconception brief</button>
+          <button type="button" aria-pressed={tab === "goals"} onClick={() => setTab("goals")}>Goals and monitoring</button>
         </nav>
       </header>
       <main>
-        {!ready ? null : tab === "feedback" ? <FeedbackTask /> : <BriefTask />}
+        {!ready ? null : tab === "feedback" ? <FeedbackTask /> : tab === "brief" ? <BriefTask /> : <GoalsTask />}
       </main>
     </div>
   );
@@ -70,8 +77,12 @@ function FeedbackTask(): ReactNode {
   const [as, setAs] = useState<"teacher" | "student">("teacher");
   const [busy, setBusy] = useState("");
   const [error, setError] = useState("");
+  const [variants, setVariants] = useState<Record<string, ReleaseVariant[]>>({});
+  const [shownIn, setShownIn] = useState("");
   const submission = submissions.find((s) => s.id === selected)!;
   const draftId = drafts[selected];
+  const approved = (draftId === undefined ? [] : variants[draftId] ?? []).filter((v) => v.approvedAt !== undefined);
+  const preferred = approved.find((v) => v.id === shownIn);
 
   // Load the teacher's or the student's view whenever the selection or the role changes.
   useEffect(() => {
@@ -83,7 +94,8 @@ function FeedbackTask(): ReactNode {
           const v = draftId === undefined ? undefined : await api.getDraft(TEACHER, draftId);
           if (live) setView(v);
         } else {
-          const v = await api.studentView({ id: submission.learnerRef, role: "student" }, submission.id);
+          const prefer = preferred === undefined ? {} : { ...(preferred.language === undefined ? {} : { language: preferred.language }), ...(preferred.readingLevel === undefined ? {} : { readingLevel: preferred.readingLevel }) };
+          const v = await api.studentView({ id: submission.learnerRef, role: "student" }, submission.id, prefer);
           if (live) setStudentView(v);
         }
       } catch (e) {
@@ -93,7 +105,7 @@ function FeedbackTask(): ReactNode {
     return () => {
       live = false;
     };
-  }, [as, draftId, submission]);
+  }, [as, draftId, submission, preferred]);
 
   const draft = async () => {
     setBusy("Drafting feedback with the model… a local model can take a minute.");
@@ -129,7 +141,18 @@ function FeedbackTask(): ReactNode {
       {error !== "" ? <p className="tg-blockers" role="alert">{error}</p> : null}
 
       {as === "student" ? (
-        studentView === undefined ? <p>Loading…</p> : <StudentFeedback view={studentView} work={submission.artifacts} headingLevel={3} />
+        <>
+          {approved.length > 0 ? (
+            <div>
+              <label htmlFor="shown-in">Show my feedback in</label>
+              <select id="shown-in" value={shownIn} onChange={(e) => setShownIn(e.target.value)}>
+                <option value="">My teacher's words</option>
+                {approved.map((v) => <option key={v.id} value={v.id}>{variantLabel(v)}</option>)}
+              </select>
+            </div>
+          ) : null}
+          {studentView === undefined ? <p>Loading…</p> : <StudentFeedback view={studentView} work={submission.artifacts} headingLevel={3} />}
+        </>
       ) : (
         <>
           {view === undefined ? (
@@ -158,6 +181,14 @@ function FeedbackTask(): ReactNode {
                 await api.release(TEACHER, view.draft.id);
                 await refresh();
               }}
+            />
+          ) : null}
+          {view !== undefined && view.released ? (
+            <VariantPanel
+              draftId={view.draft.id}
+              variants={variants[view.draft.id] ?? []}
+              onChange={(vs) => setVariants((m) => ({ ...m, [view.draft.id]: vs }))}
+              originals={Object.fromEntries(view.findings.filter((f) => f.decision !== undefined && f.decision.decision !== "reject").map((f) => [f.id, f.decision!.text ?? f.observation]))}
             />
           ) : null}
         </>

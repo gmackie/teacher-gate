@@ -76,5 +76,7 @@ Tests: `packages/core/test/phase2.test.ts` ("rewrites only released, teacher-app
 ## Accessibility
 
 The student view is plain text with quoted evidence, so it works with screen readers and
-read-aloud tools in principle. The reference `StudentFeedback` component has not had an
-accessibility audit.
+read-aloud tools in principle. The reference `StudentFeedback` component, including the view of an
+approved rewrite, passes automated axe checks in the demo; it has not had a manual accessibility
+audit. Rewritten text is marked with its `lang` in the teacher's review so screen readers switch
+voice.
