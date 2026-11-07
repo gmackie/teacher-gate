@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use Teacher Gate, please cite it using the metadata below."
+type: software
+title: "Teacher Gate"
+abstract: >-
+  An open-source harness that edtech developers put between a language model and their
+  classroom product so that teachers stay in control of AI formative feedback.
+authors:
+  - given-names: Graham
+    family-names: Mackie
+version: 0.1.0
+license: Apache-2.0
+repository-code: "https://github.com/gmackie/teacher-gate"
+keywords:
+  - education
+  - K-12
+  - formative feedback
+  - AI
+  - large language models
+  - human-in-the-loop
+  - teacher review
+  - evaluation

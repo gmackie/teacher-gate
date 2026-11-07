@@ -1,0 +1,9 @@
+session_id,participant_code,item_order,item_type,item_id,draft_id,findings_shown,start_time,end_time,review_seconds,accepts,edits,rejects,released,checked_evidence,software_issue,notes
+,,0,practice,,,,,,,,,,,,,
+,,1,feedback,,,,,,,,,,,,,
+,,2,feedback,,,,,,,,,,,,,
+,,3,feedback,,,,,,,,,,,,,
+,,4,feedback,,,,,,,,,,,,,
+,,5,feedback,,,,,,,,,,,,,
+,,6,feedback,,,,,,,,,,,,,
+,,7,brief,,,,,,,,,,,,,

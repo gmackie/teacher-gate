@@ -1,0 +1,56 @@
+{
+  "@context": "https://w3id.org/codemeta/3.0",
+  "@type": "SoftwareSourceCode",
+  "name": "Teacher Gate",
+  "description": "An open-source harness that edtech developers put between a language model and their classroom product so that teachers stay in control of AI formative feedback: right-sized context, an untrusted-content boundary around student work, verification of model output in code, teacher review and teacher-only release.",
+  "version": "0.1.0",
+  "softwareVersion": "0.1.0",
+  "dateCreated": "2026-11-07",
+  "license": "https://spdx.org/licenses/Apache-2.0",
+  "codeRepository": "https://github.com/gmackie/teacher-gate",
+  "issueTracker": "https://github.com/gmackie/teacher-gate/issues",
+  "readme": "https://github.com/gmackie/teacher-gate/blob/main/README.md",
+  "programmingLanguage": {
+    "@type": "ComputerLanguage",
+    "name": "TypeScript",
+    "url": "https://www.typescriptlang.org"
+  },
+  "runtimePlatform": "Node.js >=20",
+  "softwareRequirements": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Node.js",
+      "version": ">=20"
+    }
+  ],
+  "operatingSystem": ["Linux", "macOS", "Windows"],
+  "developmentStatus": "wip",
+  "applicationCategory": "Education",
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Graham",
+      "familyName": "Mackie"
+    }
+  ],
+  "copyrightHolder": {
+    "@type": "Person",
+    "givenName": "Graham",
+    "familyName": "Mackie"
+  },
+  "keywords": [
+    "education",
+    "K-12",
+    "formative feedback",
+    "AI",
+    "large language models",
+    "human-in-the-loop",
+    "teacher review",
+    "rubric",
+    "misconceptions",
+    "prompt injection",
+    "evaluation",
+    "Model Context Protocol",
+    "TypeScript"
+  ]
+}
