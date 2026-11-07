@@ -5,7 +5,9 @@ their classroom product. It drafts AI formative feedback, checks the model's out
 releases nothing to a student until a teacher has reviewed it.
 
 **Status: pre-release (0.1.0).** Not yet tested with teachers. No developer has integrated it yet.
-No accessibility audit or external safety review has been done. See
+The demo and the reference review components pass automated axe-core accessibility checks in CI;
+that is not a WCAG 2.2 AA conformance claim, and no manual accessibility audit or external safety
+review has been done. See
 [docs/release-checklist.md](docs/release-checklist.md) for what remains before a release.
 
 ## The five control points

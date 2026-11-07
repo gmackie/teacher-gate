@@ -2,7 +2,7 @@
 // demo the browser calls it directly through Vite's dev proxy, acting with a `product` token's
 // identity headers. A real product makes these calls from its own backend, after signing the user
 // in, and never lets the browser choose `X-Actor-Role`.
-import type { BriefDraft, DecisionInput, FeedbackDraft, MappingDecisionInput, ReleaseRecord, SavedBrief, StudentFeedbackView, TeacherDraftView } from "@teacher-gate/core";
+import type { BriefDraft, DecisionInput, DryRun, FeedbackDraft, Goal, GoalJudgement, GoalObservation, GoalReport, MappingDecisionInput, ReleaseRecord, ReleaseVariant, SavedBrief, StudentFeedbackView, TeacherDraftView } from "@teacher-gate/core";
 import type { BriefState } from "@teacher-gate/react";
 
 /** Who the demo is acting as. */
@@ -53,7 +53,19 @@ export const api = {
   getDraft: (as: As, id: string) => call<TeacherDraftView>(as, "GET", `/drafts/${enc(id)}`),
   decide: (as: As, id: string, input: DecisionInput) => call<unknown>(as, "POST", `/drafts/${enc(id)}/decisions`, input),
   release: (as: As, id: string) => call<ReleaseRecord>(as, "POST", `/drafts/${enc(id)}/release`),
-  studentView: (as: As, submissionId: string) => call<StudentFeedbackView>(as, "GET", `/submissions/${enc(submissionId)}/student-view`),
+  studentView: (as: As, submissionId: string, prefer: { language?: string; readingLevel?: number } = {}) => {
+    const q = new URLSearchParams();
+    if (prefer.language !== undefined) q.set("language", prefer.language);
+    if (prefer.readingLevel !== undefined) q.set("readingLevel", String(prefer.readingLevel));
+    return call<StudentFeedbackView>(as, "GET", `/submissions/${enc(submissionId)}/student-view${q.size > 0 ? `?${q}` : ""}`);
+  },
+  draftVariant: (as: As, draftId: string, request: { language?: string; readingLevel?: number }) => call<ReleaseVariant>(as, "POST", `/drafts/${enc(draftId)}/variants`, request),
+  approveVariant: (as: As, draftId: string, variantId: string) => call<ReleaseVariant>(as, "POST", `/drafts/${enc(draftId)}/variants/${enc(variantId)}/approve`),
+  createGoal: (as: As, goal: { activityId: string; statement: string; criterionId?: string }) => call<Goal>(as, "POST", "/goals", goal),
+  dryRunGoal: (as: As, goalId: string, submissions: unknown[]) => call<DryRun>(as, "POST", `/goals/${enc(goalId)}/dry-run`, { submissions }),
+  evaluateGoal: (as: As, goalId: string, submission: unknown) => call<GoalObservation & GoalJudgement>(as, "POST", `/goals/${enc(goalId)}/evaluations`, submission),
+  judgeGoal: (as: As, goalId: string, submissionId: string, met: boolean) => call<GoalObservation>(as, "POST", `/goals/${enc(goalId)}/judgements`, { submissionId, met }),
+  goalReport: (as: As, goalId: string) => call<GoalReport>(as, "GET", `/goals/${enc(goalId)}/report?minPairs=2`),
   draftBrief: (as: As, classSet: unknown, misconceptions: unknown) => call<BriefDraft>(as, "POST", "/briefs", { classSet, misconceptions }),
   getBrief: (as: As, id: string) => call<BriefState>(as, "GET", `/briefs/${enc(id)}`),
   decideMapping: (as: As, id: string, input: MappingDecisionInput) => call<unknown>(as, "POST", `/briefs/${enc(id)}/decisions`, input),

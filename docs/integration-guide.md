@@ -482,7 +482,11 @@ return promises; after each one, fetch the view again and pass it back in. `apps
 is a complete example.
 
 The components have DOM tests (`packages/react/test/components.dom.test.tsx`), including moving
-focus between a finding and its evidence. They have **not** had an accessibility audit.
+focus between a finding and its evidence. Rendered in the demo, they pass automated axe-core checks (WCAG 2.0–2.2 A and AA rules) in CI
+(`pnpm test:a11y`, `apps/demo/e2e/a11y.spec.ts`), at desktop and phone widths, in every state from
+draft to release, rewrite and the student view. That is **not** a WCAG 2.2 AA conformance claim:
+automated rules catch only part of the criteria, and no manual audit with a screen reader has
+been done.
 
 Show `TeacherReview` and `BriefReview` only in your signed-in teacher UI. Show students only
 `StudentFeedback` with a view fetched as that student.

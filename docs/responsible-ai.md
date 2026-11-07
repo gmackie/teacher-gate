@@ -88,7 +88,7 @@ and what does not.
 | Multilingual learners and their families | Feedback in English they may not read | Translated variants of released feedback, approved by the teacher (`transform.ts`) | Any check of translation quality; automatic selection of a family's language |
 | Students with reading difficulties | Dense written feedback | Reading-level variants (US grade 1–12), approved by the teacher; plain-text student view | A readability measure; any audio or read-aloud feature of its own |
 | Students whose dialect or writing style differs from model training data | More inaccurate AI comments | Subgroup reporting; synthetic dialect and multilingual items; rubric-level evidence checks; teacher review | Evidence from real students that these help |
-| Students using assistive technology | Interfaces that are hard to use | Reference components with semantic headings and keyboard focus between findings and evidence | An accessibility audit. The WCAG 2.2 AA target has not been verified |
+| Students using assistive technology | Interfaces that are hard to use | Reference components with semantic headings and keyboard focus between findings and evidence | A manual accessibility audit. Automated axe checks pass in CI; the WCAG 2.2 AA target has not been verified |
 
 These features are meant to help every student, not only the group they were designed for.
 

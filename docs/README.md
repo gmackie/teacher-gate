@@ -4,7 +4,8 @@ These documents describe Teacher Gate 0.1.0 as it is in this repository. They do
 the code does. Where something is planned but not built, or has not happened, they say so.
 
 Teacher Gate is pre-release. It has not been tested with teachers, no developer has integrated it,
-and no accessibility audit or external safety review has been done.
+and no manual accessibility audit or external safety review has been done (the demo and the
+reference components pass automated axe checks only).
 
 ## Start here
 
