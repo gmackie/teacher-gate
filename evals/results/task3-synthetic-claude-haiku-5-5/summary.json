@@ -1,0 +1,76 @@
+{
+  "run": "task3-synthetic-claude-haiku-5-5",
+  "model": "anthropic/claude-haiku-5-5",
+  "summary": [
+    {
+      "learning": false,
+      "items": 16,
+      "rejectedCriterionShare": {
+        "k": 15,
+        "n": 46,
+        "rate": 0.32608695652173914,
+        "ci95": [
+          0.20865764564493358,
+          0.47032537255672924
+        ]
+      },
+      "acceptedUnedited": {
+        "k": 0,
+        "n": 46,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.07707617732978073
+        ]
+      },
+      "inTeacherStyle": {
+        "k": 0,
+        "n": 46,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.07707617732978073
+        ]
+      },
+      "appliedPreferencesAtEnd": []
+    },
+    {
+      "learning": true,
+      "items": 16,
+      "rejectedCriterionShare": {
+        "k": 15,
+        "n": 15,
+        "rate": 1,
+        "ci95": [
+          0.7961107336956521,
+          1
+        ]
+      },
+      "acceptedUnedited": {
+        "k": 0,
+        "n": 15,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.20388926630434784
+        ]
+      },
+      "inTeacherStyle": {
+        "k": 0,
+        "n": 15,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.20388926630434784
+        ]
+      },
+      "appliedPreferencesAtEnd": [
+        "deprioritize:claim",
+        "edit:1d823c41-b353-4652-9eb2-f3d163aa2222",
+        "edit:cb7da6eb-c7b5-472d-ba19-b0087d4e0a11",
+        "edit:3fe0d475-9c27-4dcd-a9c3-fc2593bc163d"
+      ]
+    }
+  ],
+  "spentUsd": 0.029995600000000008
+}

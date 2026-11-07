@@ -1,0 +1,76 @@
+{
+  "run": "task3-synthetic-claude-sonnet-5-5",
+  "model": "anthropic/claude-sonnet-5-5",
+  "summary": [
+    {
+      "learning": false,
+      "items": 16,
+      "rejectedCriterionShare": {
+        "k": 16,
+        "n": 47,
+        "rate": 0.3404255319148936,
+        "ci95": [
+          0.22167260713762188,
+          0.4832934049469702
+        ]
+      },
+      "acceptedUnedited": {
+        "k": 0,
+        "n": 47,
+        "rate": 0,
+        "ci95": [
+          6.938893903907228e-18,
+          0.0755601711983887
+        ]
+      },
+      "inTeacherStyle": {
+        "k": 0,
+        "n": 47,
+        "rate": 0,
+        "ci95": [
+          6.938893903907228e-18,
+          0.0755601711983887
+        ]
+      },
+      "appliedPreferencesAtEnd": []
+    },
+    {
+      "learning": true,
+      "items": 16,
+      "rejectedCriterionShare": {
+        "k": 8,
+        "n": 40,
+        "rate": 0.2,
+        "ci95": [
+          0.10499864973166874,
+          0.34757607381856676
+        ]
+      },
+      "acceptedUnedited": {
+        "k": 16,
+        "n": 40,
+        "rate": 0.4,
+        "ci95": [
+          0.2634811061240136,
+          0.5540438017260649
+        ]
+      },
+      "inTeacherStyle": {
+        "k": 19,
+        "n": 40,
+        "rate": 0.475,
+        "ci95": [
+          0.32935229550181694,
+          0.6250289314607027
+        ]
+      },
+      "appliedPreferencesAtEnd": [
+        "deprioritize:claim",
+        "edit:29e0c88b-28bd-43a9-b425-67c4da253eb5",
+        "edit:533ce351-b8a9-4a40-bec6-d30504ac655d",
+        "edit:94a230cd-b013-4340-9454-bceb77c8dc80"
+      ]
+    }
+  ],
+  "spentUsd": 0.55796
+}

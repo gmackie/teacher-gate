@@ -1,0 +1,79 @@
+{
+  "run": "task1-synthetic-cer-claude-haiku-5-5",
+  "startedAt": "2026-11-07T19:02:24.413Z",
+  "gitCommit": "975da0c2a0a041b03a08de3d67c2fef8bb002a29",
+  "dataset": {
+    "id": "syn-cer-feedback",
+    "title": "Synthetic claim-evidence-reasoning paragraphs: ice on metal and plastic plates (SYNTHETIC placeholder for playlab-cer-feedback)",
+    "license": "CC-BY-4.0",
+    "synthetic": true,
+    "labelSource": "The synthetic data's author (not teacher-validated)"
+  },
+  "sampling": "all 40 items",
+  "n": 40,
+  "itemIds": [
+    "syn-cer-01",
+    "syn-cer-02",
+    "syn-cer-03",
+    "syn-cer-04",
+    "syn-cer-05",
+    "syn-cer-06",
+    "syn-cer-07",
+    "syn-cer-08",
+    "syn-cer-09",
+    "syn-cer-10",
+    "syn-cer-11",
+    "syn-cer-12",
+    "syn-cer-13",
+    "syn-cer-14",
+    "syn-cer-15",
+    "syn-cer-16",
+    "syn-cer-17",
+    "syn-cer-18",
+    "syn-cer-19",
+    "syn-cer-20",
+    "syn-cer-21",
+    "syn-cer-22",
+    "syn-cer-23",
+    "syn-cer-24",
+    "syn-cer-25",
+    "syn-cer-26",
+    "syn-cer-27",
+    "syn-cer-28",
+    "syn-cer-29",
+    "syn-cer-30",
+    "syn-cer-31",
+    "syn-cer-32",
+    "syn-cer-33",
+    "syn-cer-34",
+    "syn-cer-35",
+    "syn-cer-36",
+    "syn-cer-37",
+    "syn-cer-38",
+    "syn-cer-39",
+    "syn-cer-40"
+  ],
+  "model": "anthropic/claude-haiku-5-5",
+  "judge": "anthropic/claude-haiku-5-5",
+  "evaluators": [
+    {
+      "id": "student-response-specificity",
+      "stableId": "f81efc65-bbac-49a5-8f03-2440d4a4b5c8"
+    },
+    {
+      "id": "revision-actionability",
+      "stableId": "7300245f-8e78-4743-9e76-3c965e5a5f1f"
+    },
+    {
+      "id": "tone-appropriateness",
+      "stableId": "e6d674bd-2c0c-4f8d-9582-e9924c39445f"
+    }
+  ],
+  "settings": {
+    "temperature": "0 where the provider accepts it (Anthropic models take no sampling parameters)",
+    "ollamaSeed": 42,
+    "maxOutputTokens": 2000,
+    "rangePolicy": "locate",
+    "simulatedTeacher": "reject if suggested level is 2+ levels from the human label; edit out sentences stating a grade or level; else accept"
+  }
+}

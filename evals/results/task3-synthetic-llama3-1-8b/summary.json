@@ -1,0 +1,76 @@
+{
+  "run": "task3-synthetic-llama3-1-8b",
+  "model": "ollama/llama3.1:8b",
+  "summary": [
+    {
+      "learning": false,
+      "items": 16,
+      "rejectedCriterionShare": {
+        "k": 15,
+        "n": 46,
+        "rate": 0.32608695652173914,
+        "ci95": [
+          0.20865764564493358,
+          0.47032537255672924
+        ]
+      },
+      "acceptedUnedited": {
+        "k": 0,
+        "n": 46,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.07707617732978073
+        ]
+      },
+      "inTeacherStyle": {
+        "k": 0,
+        "n": 46,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.07707617732978073
+        ]
+      },
+      "appliedPreferencesAtEnd": []
+    },
+    {
+      "learning": true,
+      "items": 16,
+      "rejectedCriterionShare": {
+        "k": 15,
+        "n": 41,
+        "rate": 0.36585365853658536,
+        "ci95": [
+          0.23589630416936816,
+          0.5187957674783876
+        ]
+      },
+      "acceptedUnedited": {
+        "k": 0,
+        "n": 41,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.08567044886890744
+        ]
+      },
+      "inTeacherStyle": {
+        "k": 0,
+        "n": 41,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.08567044886890744
+        ]
+      },
+      "appliedPreferencesAtEnd": [
+        "deprioritize:claim",
+        "edit:675c1b27-df7c-47ff-82a4-33e1f9c8dc99",
+        "edit:a05c52da-5ce7-4c4d-9a7c-3f6edc1e5581",
+        "edit:252ae59a-d6c2-4eb5-bf27-7eb1d3fd0253"
+      ]
+    }
+  ],
+  "spentUsd": 0
+}
