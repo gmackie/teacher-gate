@@ -46,7 +46,7 @@ missing.
 | Dependency license audit | [licensing](licensing.md) | Done for 0.1.0 |
 | Tests | 62 tests across packages; CI on Node 20 and 22 (`.github/workflows/ci.yml`) | Done |
 | Examples and tutorials | `apps/demo`, `examples/`, [tutorials](tutorials/) | Done |
-| Reproducible evaluation | Seeds, configs and git commit recorded per run; raw model outputs in `records.jsonl` | Mechanism done; results not yet committed under `evals/results/` |
+| Reproducible evaluation | Seeds, configs and git commit recorded per run; raw model outputs in `records.jsonl` | Done: results, configs and records under `evals/results/` (Tasks 2–4 keep no `config.json`; commits recorded in `evals/results/README.md`) |
 | Community standards | `CONTRIBUTING`, `CODE_OF_CONDUCT`, `SECURITY` policy files | **Missing** |
 | Changelog | `CHANGELOG.md` | **Missing** |
 
@@ -57,7 +57,7 @@ missing.
 2. Archive the repository in Software Heritage.
 3. Publish an OpenAPI description of the HTTP API.
 4. Add `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md` and `CHANGELOG.md`.
-5. Commit evaluation results with their configs under `evals/results/`.
+5. Record a `config.json` (with git commit) for Task 2–4 runs, as Task 1 does.
 6. List the release on the Program Platform after the Program's review.
 
 These are also items on the [release checklist](release-checklist.md).

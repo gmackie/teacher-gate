@@ -1,0 +1,76 @@
+{
+  "run": "task3-synthetic-qwen2-5-7b",
+  "model": "ollama/qwen2.5:7b",
+  "summary": [
+    {
+      "learning": false,
+      "items": 16,
+      "rejectedCriterionShare": {
+        "k": 16,
+        "n": 46,
+        "rate": 0.34782608695652173,
+        "ci95": [
+          0.22680806269918055,
+          0.49230207822727434
+        ]
+      },
+      "acceptedUnedited": {
+        "k": 0,
+        "n": 46,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.07707617732978073
+        ]
+      },
+      "inTeacherStyle": {
+        "k": 0,
+        "n": 46,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.07707617732978073
+        ]
+      },
+      "appliedPreferencesAtEnd": []
+    },
+    {
+      "learning": true,
+      "items": 16,
+      "rejectedCriterionShare": {
+        "k": 16,
+        "n": 42,
+        "rate": 0.38095238095238093,
+        "ci95": [
+          0.24999520898785943,
+          0.5318623178000363
+        ]
+      },
+      "acceptedUnedited": {
+        "k": 0,
+        "n": 42,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.08380161250916197
+        ]
+      },
+      "inTeacherStyle": {
+        "k": 0,
+        "n": 42,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.08380161250916197
+        ]
+      },
+      "appliedPreferencesAtEnd": [
+        "deprioritize:claim",
+        "edit:62c0241a-0a60-48ea-95c9-bae920e7938f",
+        "edit:0e4af0af-294c-4f35-be3a-bfdfe558c97f",
+        "edit:5e7ac286-4612-41b3-9bf3-9b3165a01be9"
+      ]
+    }
+  ],
+  "spentUsd": 0
+}

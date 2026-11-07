@@ -1,0 +1,1736 @@
+{
+  "config": {
+    "run": "task1-ellipse-claude-sonnet-5-5",
+    "startedAt": "2026-11-07T19:10:56.410Z",
+    "gitCommit": "975da0c2a0a041b03a08de3d67c2fef8bb002a29",
+    "dataset": {
+      "id": "ellipse-train",
+      "title": "ELLIPSE corpus, train split",
+      "license": "CC BY 4.0",
+      "synthetic": false,
+      "labelSource": "Two trained raters per essay, averaged (ELLIPSE final corpus)"
+    },
+    "sampling": "stratified by race_ethnicity (Hispanic/Latino; Asian/Pacific Islander; Black/African American; White), up to 20 each, seed 20261107",
+    "n": 80,
+    "itemIds": [
+      "ellipse-48AC182E4ADC",
+      "ellipse-EBE636368EBC",
+      "ellipse-579603CA894B",
+      "ellipse-BB87E18DA024",
+      "ellipse-6D9728CB8711",
+      "ellipse-81306D4B4CC1",
+      "ellipse-D250DB9080E0",
+      "ellipse-CAAB28864F44",
+      "ellipse-AAD6A5CBDDB9",
+      "ellipse-CBF13C6D3FFC",
+      "ellipse-845693DC199E",
+      "ellipse-616C3D5795E8",
+      "ellipse-84CE7281265F",
+      "ellipse-EFDC396D9F7A",
+      "ellipse-084763DC1C8C",
+      "ellipse-D3612C6F0653",
+      "ellipse-1274667FF6E3",
+      "ellipse-F2AE464DA15E",
+      "ellipse-5828FAC247DF",
+      "ellipse-81B000BCC5B3",
+      "ellipse-D61FC9795679",
+      "ellipse-4E7DD441DAC8",
+      "ellipse-2003BF2E6DD0",
+      "ellipse-FAF6B6E4DFF4",
+      "ellipse-06C9FC1267BB",
+      "ellipse-535D427F9FF9",
+      "ellipse-5630E056A0DB",
+      "ellipse-F55F4FD90B3C",
+      "ellipse-16DEF72E220A",
+      "ellipse-B3F18E671DF2",
+      "ellipse-DA8F8C0D6952",
+      "ellipse-C71E90669DFA",
+      "ellipse-076262AA0CD5",
+      "ellipse-6D728858E86F",
+      "ellipse-67D7FC66C2F6",
+      "ellipse-49096A420708",
+      "ellipse-CA7CE4CE7ED3",
+      "ellipse-39F27C7223DB",
+      "ellipse-FCE7BA86AFDF",
+      "ellipse-AEDDD593BF0F",
+      "ellipse-A4BBB301E3CE",
+      "ellipse-78E692CD7085",
+      "ellipse-AEE8A576989C",
+      "ellipse-92F6C1E71237",
+      "ellipse-FF8BAC351714",
+      "ellipse-FAA9FC1B315B",
+      "ellipse-8C3993109983",
+      "ellipse-57DFE525E50A",
+      "ellipse-E0DF99CD1D9C",
+      "ellipse-93C575DB7931",
+      "ellipse-9F803521F9A6",
+      "ellipse-1703E46B4DC9",
+      "ellipse-0EC7D67618F4",
+      "ellipse-EB3D751AD980",
+      "ellipse-D93895A285B0",
+      "ellipse-F12C7794CDCB",
+      "ellipse-C40BB9E0BC6C",
+      "ellipse-D26C9B0368D0",
+      "ellipse-AECE763751DB",
+      "ellipse-2CAAF1F40F49",
+      "ellipse-E83134C87EFA",
+      "ellipse-AA8DA5629CBC",
+      "ellipse-9E8984D81AC3",
+      "ellipse-631F9CBDFD7A",
+      "ellipse-E1AE7FDD072F",
+      "ellipse-0AFC8CE27321",
+      "ellipse-0AB62AE1C13F",
+      "ellipse-F05D3802BC94",
+      "ellipse-480C577BC8C9",
+      "ellipse-DC5DAF538DF2",
+      "ellipse-B7FABBC13A0F",
+      "ellipse-3CD660D1E7BB",
+      "ellipse-2A4B5673EBAC",
+      "ellipse-22D02123C65D",
+      "ellipse-682B94FF269B",
+      "ellipse-EE3E133A2D55",
+      "ellipse-ADF1112226F4",
+      "ellipse-D80ED2446C0E",
+      "ellipse-B31D05A5A9CB",
+      "ellipse-B948405746B5"
+    ],
+    "model": "anthropic/claude-sonnet-5-5",
+    "judge": "anthropic/claude-haiku-5-5",
+    "evaluators": [
+      {
+        "id": "student-response-specificity",
+        "stableId": "f81efc65-bbac-49a5-8f03-2440d4a4b5c8"
+      },
+      {
+        "id": "revision-actionability",
+        "stableId": "7300245f-8e78-4743-9e76-3c965e5a5f1f"
+      },
+      {
+        "id": "tone-appropriateness",
+        "stableId": "e6d674bd-2c0c-4f8d-9582-e9924c39445f"
+      }
+    ],
+    "settings": {
+      "temperature": "0 where the provider accepts it (Anthropic models take no sampling parameters)",
+      "ollamaSeed": 42,
+      "maxOutputTokens": 2000,
+      "rangePolicy": "locate",
+      "simulatedTeacher": "reject if suggested level is 2+ levels from the human label; edit out sentences stating a grade or level; else accept"
+    }
+  },
+  "harness": {
+    "arm": "harness",
+    "model": "anthropic/claude-sonnet-5-5",
+    "items": 80,
+    "callFailures": 0,
+    "outputParsed": {
+      "k": 80,
+      "n": 80,
+      "rate": 1,
+      "ci95": [
+        0.954180263735425,
+        1
+      ]
+    },
+    "findingSchemaValid": {
+      "k": 479,
+      "n": 481,
+      "rate": 0.9958419958419958,
+      "ci95": [
+        0.9849674627315049,
+        0.9988590076043738
+      ]
+    },
+    "inexactEvidenceRaw": {
+      "k": 6,
+      "n": 481,
+      "rate": 0.012474012474012475,
+      "ci95": [
+        0.0057290727585703645,
+        0.026944691208877974
+      ]
+    },
+    "fabricatedEvidenceRaw": {
+      "k": 4,
+      "n": 481,
+      "rate": 0.008316008316008316,
+      "ci95": [
+        0.003238496928583195,
+        0.02118514988720159
+      ]
+    },
+    "inexactEvidenceSurfaced": {
+      "k": 0,
+      "n": 473,
+      "rate": 0,
+      "ci95": [
+        0,
+        0.008056344077362377
+      ]
+    },
+    "findingsSurfacedPerItem": 5.9125,
+    "quotes": {
+      "exact": 1314,
+      "nearMiss": 2,
+      "notFound": 5
+    },
+    "agreement": {
+      "pairs": 472,
+      "exact": {
+        "k": 72,
+        "n": 472,
+        "rate": 0.15254237288135594,
+        "ci95": [
+          0.1229202405837572,
+          0.18777474699194033
+        ]
+      },
+      "withinOne": {
+        "k": 350,
+        "n": 472,
+        "rate": 0.7415254237288136,
+        "ci95": [
+          0.700190625484627,
+          0.7789604197371444
+        ]
+      },
+      "qwk": 0.20880298271459852,
+      "coverage": {
+        "k": 472,
+        "n": 480,
+        "rate": 0.9833333333333333,
+        "ci95": [
+          0.9674603538908952,
+          0.991531183835501
+        ]
+      }
+    },
+    "leakage": {
+      "itemsWithStudentFacing": 79,
+      "itemsLeaking": {
+        "k": 0,
+        "n": 80,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.0458197362645751
+        ]
+      },
+      "kinds": {}
+    },
+    "tokens": {
+      "input": 181234,
+      "output": 99987
+    },
+    "simulatedDecisions": {
+      "accept": 350,
+      "edit": 1,
+      "reject": 122,
+      "acceptedUnedited": {
+        "k": 350,
+        "n": 473,
+        "rate": 0.7399577167019028,
+        "ci95": [
+          0.6986044727493836,
+          0.7774445967948844
+        ]
+      }
+    },
+    "lcPass": {
+      "student-response-specificity": {
+        "k": 52,
+        "n": 79,
+        "rate": 0.6582278481012658,
+        "ci95": [
+          0.548488933568034,
+          0.7532918142688015
+        ]
+      },
+      "revision-actionability": {
+        "k": 2,
+        "n": 79,
+        "rate": 0.02531645569620253,
+        "ci95": [
+          0.006970221164761904,
+          0.08768753532473128
+        ]
+      },
+      "tone-appropriateness": {
+        "k": 79,
+        "n": 79,
+        "rate": 1,
+        "ci95": [
+          0.9536271631644004,
+          1
+        ]
+      }
+    }
+  },
+  "baseline": {
+    "arm": "baseline",
+    "model": "anthropic/claude-sonnet-5-5",
+    "items": 80,
+    "callFailures": 0,
+    "outputParsed": {
+      "k": 80,
+      "n": 80,
+      "rate": 1,
+      "ci95": [
+        0.954180263735425,
+        1
+      ]
+    },
+    "findingSchemaValid": {
+      "k": 476,
+      "n": 480,
+      "rate": 0.9916666666666667,
+      "ci95": [
+        0.9787711280476984,
+        0.9967547465360497
+      ]
+    },
+    "inexactEvidenceRaw": {
+      "k": 11,
+      "n": 480,
+      "rate": 0.022916666666666665,
+      "ci95": [
+        0.012843430891358075,
+        0.04056578402525926
+      ]
+    },
+    "fabricatedEvidenceRaw": {
+      "k": 8,
+      "n": 480,
+      "rate": 0.016666666666666666,
+      "ci95": [
+        0.008468816164498964,
+        0.032539646109104634
+      ]
+    },
+    "inexactEvidenceSurfaced": {
+      "k": 11,
+      "n": 480,
+      "rate": 0.022916666666666665,
+      "ci95": [
+        0.012843430891358075,
+        0.04056578402525926
+      ]
+    },
+    "findingsSurfacedPerItem": 6,
+    "quotes": {
+      "exact": 1285,
+      "nearMiss": 3,
+      "notFound": 8
+    },
+    "agreement": {
+      "pairs": 465,
+      "exact": {
+        "k": 103,
+        "n": 465,
+        "rate": 0.221505376344086,
+        "ci95": [
+          0.18612891966761155,
+          0.261445698284379
+        ]
+      },
+      "withinOne": {
+        "k": 383,
+        "n": 465,
+        "rate": 0.8236559139784946,
+        "ci95": [
+          0.786403961702229,
+          0.855603914731944
+        ]
+      },
+      "qwk": 0.2553946768376105,
+      "coverage": {
+        "k": 465,
+        "n": 480,
+        "rate": 0.96875,
+        "ci95": [
+          0.9490840619069282,
+          0.9809723863191028
+        ]
+      }
+    },
+    "leakage": {
+      "itemsWithStudentFacing": 80,
+      "itemsLeaking": {
+        "k": 2,
+        "n": 80,
+        "rate": 0.025,
+        "ci95": [
+          0.006882748898125228,
+          0.08664600055322111
+        ]
+      },
+      "kinds": {
+        "level": 2
+      }
+    },
+    "tokens": {
+      "input": 145911,
+      "output": 138246
+    },
+    "structuredLevels": 480,
+    "lcPass": {
+      "student-response-specificity": {
+        "k": 67,
+        "n": 80,
+        "rate": 0.8375,
+        "ci95": [
+          0.7415689513651669,
+          0.9025027266562451
+        ]
+      },
+      "revision-actionability": {
+        "k": 80,
+        "n": 80,
+        "rate": 1,
+        "ci95": [
+          0.954180263735425,
+          1
+        ]
+      },
+      "tone-appropriateness": {
+        "k": 80,
+        "n": 80,
+        "rate": 1,
+        "ci95": [
+          0.954180263735425,
+          1
+        ]
+      }
+    }
+  },
+  "fairness": [
+    {
+      "dimension": "gender",
+      "value": "Female",
+      "arm": "harness",
+      "items": 30,
+      "inexactEvidenceRaw": {
+        "k": 3,
+        "n": 181,
+        "rate": 0.016574585635359115,
+        "ci95": [
+          0.005652492493845508,
+          0.0475909332285027
+        ]
+      },
+      "inexactEvidenceSurfaced": {
+        "k": 0,
+        "n": 178,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.021126078961029818
+        ]
+      },
+      "exactAgreement": {
+        "k": 35,
+        "n": 177,
+        "rate": 0.1977401129943503,
+        "ci95": [
+          0.14575568827498553,
+          0.26256629073869275
+        ]
+      },
+      "withinOne": {
+        "k": 129,
+        "n": 177,
+        "rate": 0.7288135593220338,
+        "ci95": [
+          0.6589747048885616,
+          0.7889310866992146
+        ]
+      },
+      "leaking": {
+        "k": 0,
+        "n": 30,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.113517091390478
+        ]
+      }
+    },
+    {
+      "dimension": "gender",
+      "value": "Female",
+      "arm": "baseline",
+      "items": 30,
+      "inexactEvidenceRaw": {
+        "k": 3,
+        "n": 180,
+        "rate": 0.016666666666666666,
+        "ci95": [
+          0.005683983686091316,
+          0.04784905780179827
+        ]
+      },
+      "inexactEvidenceSurfaced": {
+        "k": 3,
+        "n": 180,
+        "rate": 0.016666666666666666,
+        "ci95": [
+          0.005683983686091316,
+          0.04784905780179827
+        ]
+      },
+      "exactAgreement": {
+        "k": 42,
+        "n": 177,
+        "rate": 0.23728813559322035,
+        "ci95": [
+          0.18061347578066156,
+          0.30512431906300275
+        ]
+      },
+      "withinOne": {
+        "k": 151,
+        "n": 177,
+        "rate": 0.8531073446327684,
+        "ci95": [
+          0.7934687749585929,
+          0.8977438663805679
+        ]
+      },
+      "leaking": {
+        "k": 1,
+        "n": 30,
+        "rate": 0.03333333333333333,
+        "ci95": [
+          0.0059084379948573795,
+          0.16670751396958874
+        ]
+      }
+    },
+    {
+      "dimension": "gender",
+      "value": "Male",
+      "arm": "harness",
+      "items": 50,
+      "inexactEvidenceRaw": {
+        "k": 3,
+        "n": 300,
+        "rate": 0.01,
+        "ci95": [
+          0.0034065567627181124,
+          0.028984004635062833
+        ]
+      },
+      "inexactEvidenceSurfaced": {
+        "k": 0,
+        "n": 295,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.012854970660041976
+        ]
+      },
+      "exactAgreement": {
+        "k": 37,
+        "n": 295,
+        "rate": 0.12542372881355932,
+        "ci95": [
+          0.09238019524417321,
+          0.1680975963350447
+        ]
+      },
+      "withinOne": {
+        "k": 221,
+        "n": 295,
+        "rate": 0.7491525423728813,
+        "ci95": [
+          0.6966952215956763,
+          0.7952041659059299
+        ]
+      },
+      "leaking": {
+        "k": 0,
+        "n": 50,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.07135003417431873
+        ]
+      }
+    },
+    {
+      "dimension": "gender",
+      "value": "Male",
+      "arm": "baseline",
+      "items": 50,
+      "inexactEvidenceRaw": {
+        "k": 8,
+        "n": 300,
+        "rate": 0.02666666666666667,
+        "ci95": [
+          0.013572906766976815,
+          0.051729540297546284
+        ]
+      },
+      "inexactEvidenceSurfaced": {
+        "k": 8,
+        "n": 300,
+        "rate": 0.02666666666666667,
+        "ci95": [
+          0.013572906766976815,
+          0.051729540297546284
+        ]
+      },
+      "exactAgreement": {
+        "k": 61,
+        "n": 288,
+        "rate": 0.21180555555555555,
+        "ci95": [
+          0.1685680334873284,
+          0.26263026038167453
+        ]
+      },
+      "withinOne": {
+        "k": 232,
+        "n": 288,
+        "rate": 0.8055555555555556,
+        "ci95": [
+          0.7559481046651645,
+          0.8471187644857724
+        ]
+      },
+      "leaking": {
+        "k": 1,
+        "n": 50,
+        "rate": 0.02,
+        "ci95": [
+          0.0035391680889764604,
+          0.10495686471836953
+        ]
+      }
+    },
+    {
+      "dimension": "grade",
+      "value": "10",
+      "arm": "harness",
+      "items": 2,
+      "inexactEvidenceRaw": {
+        "k": 0,
+        "n": 12,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.2425007574992425
+        ]
+      },
+      "inexactEvidenceSurfaced": {
+        "k": 0,
+        "n": 12,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.2425007574992425
+        ]
+      },
+      "exactAgreement": {
+        "k": 0,
+        "n": 12,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.2425007574992425
+        ]
+      },
+      "withinOne": {
+        "k": 6,
+        "n": 12,
+        "rate": 0.5,
+        "ci95": [
+          0.2537781703934222,
+          0.7462218296065778
+        ]
+      },
+      "leaking": {
+        "k": 0,
+        "n": 2,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.6576280471103807
+        ]
+      }
+    },
+    {
+      "dimension": "grade",
+      "value": "10",
+      "arm": "baseline",
+      "items": 2,
+      "inexactEvidenceRaw": {
+        "k": 2,
+        "n": 12,
+        "rate": 0.16666666666666666,
+        "ci95": [
+          0.04696414761482223,
+          0.44803635738467273
+        ]
+      },
+      "inexactEvidenceSurfaced": {
+        "k": 2,
+        "n": 12,
+        "rate": 0.16666666666666666,
+        "ci95": [
+          0.04696414761482223,
+          0.44803635738467273
+        ]
+      },
+      "exactAgreement": {
+        "k": 0,
+        "n": 11,
+        "rate": 0,
+        "ci95": [
+          2.7755575615628914e-17,
+          0.2588400172488141
+        ]
+      },
+      "withinOne": {
+        "k": 8,
+        "n": 11,
+        "rate": 0.7272727272727273,
+        "ci95": [
+          0.4343497069897537,
+          0.9025411942607853
+        ]
+      },
+      "leaking": {
+        "k": 0,
+        "n": 2,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.6576280471103807
+        ]
+      }
+    },
+    {
+      "dimension": "grade",
+      "value": "11",
+      "arm": "harness",
+      "items": 27,
+      "inexactEvidenceRaw": {
+        "k": 0,
+        "n": 162,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.023164272414159054
+        ]
+      },
+      "inexactEvidenceSurfaced": {
+        "k": 0,
+        "n": 162,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.023164272414159054
+        ]
+      },
+      "exactAgreement": {
+        "k": 31,
+        "n": 162,
+        "rate": 0.19135802469135801,
+        "ci95": [
+          0.13821190769127087,
+          0.2588030752804322
+        ]
+      },
+      "withinOne": {
+        "k": 109,
+        "n": 162,
+        "rate": 0.6728395061728395,
+        "ci95": [
+          0.5973158777909593,
+          0.740355731744887
+        ]
+      },
+      "leaking": {
+        "k": 0,
+        "n": 27,
+        "rate": 0,
+        "ci95": [
+          6.938893903907228e-18,
+          0.12455903714463581
+        ]
+      }
+    },
+    {
+      "dimension": "grade",
+      "value": "11",
+      "arm": "baseline",
+      "items": 27,
+      "inexactEvidenceRaw": {
+        "k": 4,
+        "n": 162,
+        "rate": 0.024691358024691357,
+        "ci95": [
+          0.009642776775314481,
+          0.06176029700110833
+        ]
+      },
+      "inexactEvidenceSurfaced": {
+        "k": 4,
+        "n": 162,
+        "rate": 0.024691358024691357,
+        "ci95": [
+          0.009642776775314481,
+          0.06176029700110833
+        ]
+      },
+      "exactAgreement": {
+        "k": 44,
+        "n": 157,
+        "rate": 0.2802547770700637,
+        "ci95": [
+          0.21589498423465597,
+          0.35511152154494335
+        ]
+      },
+      "withinOne": {
+        "k": 117,
+        "n": 157,
+        "rate": 0.7452229299363057,
+        "ci95": [
+          0.6717706170825732,
+          0.8069612532793231
+        ]
+      },
+      "leaking": {
+        "k": 0,
+        "n": 27,
+        "rate": 0,
+        "ci95": [
+          6.938893903907228e-18,
+          0.12455903714463581
+        ]
+      }
+    },
+    {
+      "dimension": "grade",
+      "value": "12",
+      "arm": "harness",
+      "items": 21,
+      "inexactEvidenceRaw": {
+        "k": 2,
+        "n": 127,
+        "rate": 0.015748031496062992,
+        "ci95": [
+          0.00432926528219783,
+          0.05560274410931068
+        ]
+      },
+      "inexactEvidenceSurfaced": {
+        "k": 0,
+        "n": 124,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.030049686487027695
+        ]
+      },
+      "exactAgreement": {
+        "k": 17,
+        "n": 123,
+        "rate": 0.13821138211382114,
+        "ci95": [
+          0.08811572402149442,
+          0.21022172993682836
+        ]
+      },
+      "withinOne": {
+        "k": 100,
+        "n": 123,
+        "rate": 0.8130081300813008,
+        "ci95": [
+          0.7350138280136341,
+          0.8720425320448956
+        ]
+      },
+      "leaking": {
+        "k": 0,
+        "n": 21,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.15464382326420195
+        ]
+      }
+    },
+    {
+      "dimension": "grade",
+      "value": "12",
+      "arm": "baseline",
+      "items": 21,
+      "inexactEvidenceRaw": {
+        "k": 1,
+        "n": 126,
+        "rate": 0.007936507936507936,
+        "ci95": [
+          0.0014023289659406447,
+          0.04358787448195278
+        ]
+      },
+      "inexactEvidenceSurfaced": {
+        "k": 1,
+        "n": 126,
+        "rate": 0.007936507936507936,
+        "ci95": [
+          0.0014023289659406447,
+          0.04358787448195278
+        ]
+      },
+      "exactAgreement": {
+        "k": 25,
+        "n": 122,
+        "rate": 0.20491803278688525,
+        "ci95": [
+          0.14282861339624775,
+          0.28502354360112037
+        ]
+      },
+      "withinOne": {
+        "k": 108,
+        "n": 122,
+        "rate": 0.8852459016393442,
+        "ci95": [
+          0.8165693193988606,
+          0.9304014756323533
+        ]
+      },
+      "leaking": {
+        "k": 1,
+        "n": 21,
+        "rate": 0.047619047619047616,
+        "ci95": [
+          0.008455769471923294,
+          0.22669816586235464
+        ]
+      }
+    },
+    {
+      "dimension": "grade",
+      "value": "8",
+      "arm": "harness",
+      "items": 28,
+      "inexactEvidenceRaw": {
+        "k": 4,
+        "n": 168,
+        "rate": 0.023809523809523808,
+        "ci95": [
+          0.009296969097757676,
+          0.05961300380752253
+        ]
+      },
+      "inexactEvidenceSurfaced": {
+        "k": 0,
+        "n": 163,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.023025432506041655
+        ]
+      },
+      "exactAgreement": {
+        "k": 24,
+        "n": 163,
+        "rate": 0.147239263803681,
+        "ci95": [
+          0.10098301731863049,
+          0.2097404473328713
+        ]
+      },
+      "withinOne": {
+        "k": 127,
+        "n": 163,
+        "rate": 0.7791411042944786,
+        "ci95": [
+          0.7094402833565696,
+          0.8359872359191987
+        ]
+      },
+      "leaking": {
+        "k": 0,
+        "n": 28,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.12064720365810762
+        ]
+      }
+    },
+    {
+      "dimension": "grade",
+      "value": "8",
+      "arm": "baseline",
+      "items": 28,
+      "inexactEvidenceRaw": {
+        "k": 4,
+        "n": 168,
+        "rate": 0.023809523809523808,
+        "ci95": [
+          0.009296969097757676,
+          0.05961300380752253
+        ]
+      },
+      "inexactEvidenceSurfaced": {
+        "k": 4,
+        "n": 168,
+        "rate": 0.023809523809523808,
+        "ci95": [
+          0.009296969097757676,
+          0.05961300380752253
+        ]
+      },
+      "exactAgreement": {
+        "k": 34,
+        "n": 163,
+        "rate": 0.2085889570552147,
+        "ci95": [
+          0.15328227961519503,
+          0.2773153650969151
+        ]
+      },
+      "withinOne": {
+        "k": 142,
+        "n": 163,
+        "rate": 0.8711656441717791,
+        "ci95": [
+          0.8110701724758236,
+          0.9141686168908572
+        ]
+      },
+      "leaking": {
+        "k": 1,
+        "n": 28,
+        "rate": 0.03571428571428571,
+        "ci95": [
+          0.00633235649754188,
+          0.17712576118498663
+        ]
+      }
+    },
+    {
+      "dimension": "grade",
+      "value": "9",
+      "arm": "harness",
+      "items": 2,
+      "inexactEvidenceRaw": {
+        "k": 0,
+        "n": 12,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.2425007574992425
+        ]
+      },
+      "inexactEvidenceSurfaced": {
+        "k": 0,
+        "n": 12,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.2425007574992425
+        ]
+      },
+      "exactAgreement": {
+        "k": 0,
+        "n": 12,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.2425007574992425
+        ]
+      },
+      "withinOne": {
+        "k": 8,
+        "n": 12,
+        "rate": 0.6666666666666666,
+        "ci95": [
+          0.3906175873976139,
+          0.8618821601026385
+        ]
+      },
+      "leaking": {
+        "k": 0,
+        "n": 2,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.6576280471103807
+        ]
+      }
+    },
+    {
+      "dimension": "grade",
+      "value": "9",
+      "arm": "baseline",
+      "items": 2,
+      "inexactEvidenceRaw": {
+        "k": 0,
+        "n": 12,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.2425007574992425
+        ]
+      },
+      "inexactEvidenceSurfaced": {
+        "k": 0,
+        "n": 12,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.2425007574992425
+        ]
+      },
+      "exactAgreement": {
+        "k": 0,
+        "n": 12,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.2425007574992425
+        ]
+      },
+      "withinOne": {
+        "k": 8,
+        "n": 12,
+        "rate": 0.6666666666666666,
+        "ci95": [
+          0.3906175873976139,
+          0.8618821601026385
+        ]
+      },
+      "leaking": {
+        "k": 0,
+        "n": 2,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.6576280471103807
+        ]
+      }
+    },
+    {
+      "dimension": "race_ethnicity",
+      "value": "Asian/Pacific Islander",
+      "arm": "harness",
+      "items": 20,
+      "inexactEvidenceRaw": {
+        "k": 2,
+        "n": 121,
+        "rate": 0.01652892561983471,
+        "ci95": [
+          0.004544498317862633,
+          0.058267897550181344
+        ]
+      },
+      "inexactEvidenceSurfaced": {
+        "k": 0,
+        "n": 119,
+        "rate": 0,
+        "ci95": [
+          3.469446951953614e-18,
+          0.03127279358132749
+        ]
+      },
+      "exactAgreement": {
+        "k": 18,
+        "n": 118,
+        "rate": 0.15254237288135594,
+        "ci95": [
+          0.09872152901674448,
+          0.2282735202931792
+        ]
+      },
+      "withinOne": {
+        "k": 78,
+        "n": 118,
+        "rate": 0.6610169491525424,
+        "ci95": [
+          0.5717339263474424,
+          0.740146416655276
+        ]
+      },
+      "leaking": {
+        "k": 0,
+        "n": 20,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.16113012549493322
+        ]
+      }
+    },
+    {
+      "dimension": "race_ethnicity",
+      "value": "Asian/Pacific Islander",
+      "arm": "baseline",
+      "items": 20,
+      "inexactEvidenceRaw": {
+        "k": 2,
+        "n": 120,
+        "rate": 0.016666666666666666,
+        "ci95": [
+          0.004582468541151394,
+          0.058737126812913806
+        ]
+      },
+      "inexactEvidenceSurfaced": {
+        "k": 2,
+        "n": 120,
+        "rate": 0.016666666666666666,
+        "ci95": [
+          0.004582468541151394,
+          0.058737126812913806
+        ]
+      },
+      "exactAgreement": {
+        "k": 23,
+        "n": 115,
+        "rate": 0.2,
+        "ci95": [
+          0.1371296827840679,
+          0.28226554582274993
+        ]
+      },
+      "withinOne": {
+        "k": 86,
+        "n": 115,
+        "rate": 0.7478260869565218,
+        "ci95": [
+          0.6613282654375593,
+          0.8183017631046346
+        ]
+      },
+      "leaking": {
+        "k": 0,
+        "n": 20,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.16113012549493322
+        ]
+      }
+    },
+    {
+      "dimension": "race_ethnicity",
+      "value": "Black/African American",
+      "arm": "harness",
+      "items": 20,
+      "inexactEvidenceRaw": {
+        "k": 2,
+        "n": 120,
+        "rate": 0.016666666666666666,
+        "ci95": [
+          0.004582468541151394,
+          0.058737126812913806
+        ]
+      },
+      "inexactEvidenceSurfaced": {
+        "k": 0,
+        "n": 117,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.03179037682387522
+        ]
+      },
+      "exactAgreement": {
+        "k": 17,
+        "n": 117,
+        "rate": 0.1452991452991453,
+        "ci95": [
+          0.09273862287355038,
+          0.2204118153861218
+        ]
+      },
+      "withinOne": {
+        "k": 86,
+        "n": 117,
+        "rate": 0.7350427350427351,
+        "ci95": [
+          0.6485316330077374,
+          0.8066096428442872
+        ]
+      },
+      "leaking": {
+        "k": 0,
+        "n": 20,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.16113012549493322
+        ]
+      }
+    },
+    {
+      "dimension": "race_ethnicity",
+      "value": "Black/African American",
+      "arm": "baseline",
+      "items": 20,
+      "inexactEvidenceRaw": {
+        "k": 4,
+        "n": 120,
+        "rate": 0.03333333333333333,
+        "ci95": [
+          0.013037340166920576,
+          0.0825815794852803
+        ]
+      },
+      "inexactEvidenceSurfaced": {
+        "k": 4,
+        "n": 120,
+        "rate": 0.03333333333333333,
+        "ci95": [
+          0.013037340166920576,
+          0.0825815794852803
+        ]
+      },
+      "exactAgreement": {
+        "k": 22,
+        "n": 116,
+        "rate": 0.1896551724137931,
+        "ci95": [
+          0.1287128868844165,
+          0.27049406629377865
+        ]
+      },
+      "withinOne": {
+        "k": 101,
+        "n": 116,
+        "rate": 0.8706896551724138,
+        "ci95": [
+          0.7975671230239318,
+          0.920046794013224
+        ]
+      },
+      "leaking": {
+        "k": 0,
+        "n": 20,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.16113012549493322
+        ]
+      }
+    },
+    {
+      "dimension": "race_ethnicity",
+      "value": "Hispanic/Latino",
+      "arm": "harness",
+      "items": 20,
+      "inexactEvidenceRaw": {
+        "k": 1,
+        "n": 120,
+        "rate": 0.008333333333333333,
+        "ci95": [
+          0.001472517830674952,
+          0.045697415374322405
+        ]
+      },
+      "inexactEvidenceSurfaced": {
+        "k": 0,
+        "n": 119,
+        "rate": 0,
+        "ci95": [
+          3.469446951953614e-18,
+          0.03127279358132749
+        ]
+      },
+      "exactAgreement": {
+        "k": 19,
+        "n": 119,
+        "rate": 0.15966386554621848,
+        "ci95": [
+          0.10466269961883354,
+          0.2359515548356835
+        ]
+      },
+      "withinOne": {
+        "k": 102,
+        "n": 119,
+        "rate": 0.8571428571428571,
+        "ci95": [
+          0.7830926459004391,
+          0.9088553586843268
+        ]
+      },
+      "leaking": {
+        "k": 0,
+        "n": 20,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.16113012549493322
+        ]
+      }
+    },
+    {
+      "dimension": "race_ethnicity",
+      "value": "Hispanic/Latino",
+      "arm": "baseline",
+      "items": 20,
+      "inexactEvidenceRaw": {
+        "k": 2,
+        "n": 120,
+        "rate": 0.016666666666666666,
+        "ci95": [
+          0.004582468541151394,
+          0.058737126812913806
+        ]
+      },
+      "inexactEvidenceSurfaced": {
+        "k": 2,
+        "n": 120,
+        "rate": 0.016666666666666666,
+        "ci95": [
+          0.004582468541151394,
+          0.058737126812913806
+        ]
+      },
+      "exactAgreement": {
+        "k": 36,
+        "n": 117,
+        "rate": 0.3076923076923077,
+        "ci95": [
+          0.2312874201915981,
+          0.39632426320220016
+        ]
+      },
+      "withinOne": {
+        "k": 106,
+        "n": 117,
+        "rate": 0.905982905982906,
+        "ci95": [
+          0.8394630248893353,
+          0.9466900879459796
+        ]
+      },
+      "leaking": {
+        "k": 2,
+        "n": 20,
+        "rate": 0.1,
+        "ci95": [
+          0.027865893984153206,
+          0.30103820641179335
+        ]
+      }
+    },
+    {
+      "dimension": "race_ethnicity",
+      "value": "White",
+      "arm": "harness",
+      "items": 20,
+      "inexactEvidenceRaw": {
+        "k": 1,
+        "n": 120,
+        "rate": 0.008333333333333333,
+        "ci95": [
+          0.001472517830674952,
+          0.045697415374322405
+        ]
+      },
+      "inexactEvidenceSurfaced": {
+        "k": 0,
+        "n": 118,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.03152946120208532
+        ]
+      },
+      "exactAgreement": {
+        "k": 18,
+        "n": 118,
+        "rate": 0.15254237288135594,
+        "ci95": [
+          0.09872152901674448,
+          0.2282735202931792
+        ]
+      },
+      "withinOne": {
+        "k": 84,
+        "n": 118,
+        "rate": 0.711864406779661,
+        "ci95": [
+          0.6244890874940097,
+          0.7858797848779879
+        ]
+      },
+      "leaking": {
+        "k": 0,
+        "n": 20,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.16113012549493322
+        ]
+      }
+    },
+    {
+      "dimension": "race_ethnicity",
+      "value": "White",
+      "arm": "baseline",
+      "items": 20,
+      "inexactEvidenceRaw": {
+        "k": 3,
+        "n": 120,
+        "rate": 0.025,
+        "ci95": [
+          0.00853802009878548,
+          0.07093123740434756
+        ]
+      },
+      "inexactEvidenceSurfaced": {
+        "k": 3,
+        "n": 120,
+        "rate": 0.025,
+        "ci95": [
+          0.00853802009878548,
+          0.07093123740434756
+        ]
+      },
+      "exactAgreement": {
+        "k": 22,
+        "n": 117,
+        "rate": 0.18803418803418803,
+        "ci95": [
+          0.12758105898852096,
+          0.26832233851697385
+        ]
+      },
+      "withinOne": {
+        "k": 90,
+        "n": 117,
+        "rate": 0.7692307692307693,
+        "ci95": [
+          0.6850641649868424,
+          0.8362794782618402
+        ]
+      },
+      "leaking": {
+        "k": 0,
+        "n": 20,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.16113012549493322
+        ]
+      }
+    },
+    {
+      "dimension": "ses",
+      "value": "Economically disadvantaged",
+      "arm": "harness",
+      "items": 52,
+      "inexactEvidenceRaw": {
+        "k": 3,
+        "n": 313,
+        "rate": 0.009584664536741214,
+        "ci95": [
+          0.0032648420563690227,
+          0.027796735716246697
+        ]
+      },
+      "inexactEvidenceSurfaced": {
+        "k": 0,
+        "n": 309,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.01227969681781451
+        ]
+      },
+      "exactAgreement": {
+        "k": 46,
+        "n": 308,
+        "rate": 0.14935064935064934,
+        "ci95": [
+          0.11387413338468734,
+          0.19346651648370738
+        ]
+      },
+      "withinOne": {
+        "k": 234,
+        "n": 308,
+        "rate": 0.7597402597402597,
+        "ci95": [
+          0.709012605588883,
+          0.8040683945086025
+        ]
+      },
+      "leaking": {
+        "k": 0,
+        "n": 52,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.06879459041288215
+        ]
+      }
+    },
+    {
+      "dimension": "ses",
+      "value": "Economically disadvantaged",
+      "arm": "baseline",
+      "items": 52,
+      "inexactEvidenceRaw": {
+        "k": 7,
+        "n": 312,
+        "rate": 0.022435897435897436,
+        "ci95": [
+          0.010909401979460727,
+          0.045579673557137365
+        ]
+      },
+      "inexactEvidenceSurfaced": {
+        "k": 7,
+        "n": 312,
+        "rate": 0.022435897435897436,
+        "ci95": [
+          0.010909401979460727,
+          0.045579673557137365
+        ]
+      },
+      "exactAgreement": {
+        "k": 66,
+        "n": 301,
+        "rate": 0.21926910299003322,
+        "ci95": [
+          0.17622525092403882,
+          0.2693884710876552
+        ]
+      },
+      "withinOne": {
+        "k": 250,
+        "n": 301,
+        "rate": 0.8305647840531561,
+        "ci95": [
+          0.7840813199663181,
+          0.8687167233453559
+        ]
+      },
+      "leaking": {
+        "k": 2,
+        "n": 52,
+        "rate": 0.038461538461538464,
+        "ci95": [
+          0.010611488322077554,
+          0.12981428744365978
+        ]
+      }
+    },
+    {
+      "dimension": "ses",
+      "value": "Not economically disadvantaged",
+      "arm": "harness",
+      "items": 28,
+      "inexactEvidenceRaw": {
+        "k": 3,
+        "n": 168,
+        "rate": 0.017857142857142856,
+        "ci95": [
+          0.006091208386598133,
+          0.05118013917999807
+        ]
+      },
+      "inexactEvidenceSurfaced": {
+        "k": 0,
+        "n": 164,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.022888247013851153
+        ]
+      },
+      "exactAgreement": {
+        "k": 26,
+        "n": 164,
+        "rate": 0.15853658536585366,
+        "ci95": [
+          0.11054494493842476,
+          0.2221592237539614
+        ]
+      },
+      "withinOne": {
+        "k": 116,
+        "n": 164,
+        "rate": 0.7073170731707317,
+        "ci95": [
+          0.6335731614064833,
+          0.7715707361731393
+        ]
+      },
+      "leaking": {
+        "k": 0,
+        "n": 28,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.12064720365810762
+        ]
+      }
+    },
+    {
+      "dimension": "ses",
+      "value": "Not economically disadvantaged",
+      "arm": "baseline",
+      "items": 28,
+      "inexactEvidenceRaw": {
+        "k": 4,
+        "n": 168,
+        "rate": 0.023809523809523808,
+        "ci95": [
+          0.009296969097757676,
+          0.05961300380752253
+        ]
+      },
+      "inexactEvidenceSurfaced": {
+        "k": 4,
+        "n": 168,
+        "rate": 0.023809523809523808,
+        "ci95": [
+          0.009296969097757676,
+          0.05961300380752253
+        ]
+      },
+      "exactAgreement": {
+        "k": 37,
+        "n": 164,
+        "rate": 0.22560975609756098,
+        "ci95": [
+          0.16834285844184574,
+          0.29543727711453605
+        ]
+      },
+      "withinOne": {
+        "k": 133,
+        "n": 164,
+        "rate": 0.8109756097560976,
+        "ci95": [
+          0.7441980849851095,
+          0.8635177613843246
+        ]
+      },
+      "leaking": {
+        "k": 0,
+        "n": 28,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.12064720365810762
+        ]
+      }
+    }
+  ],
+  "spentUsd": 3.4990141,
+  "finishedAt": "2026-11-07T19:28:31.929Z"
+}

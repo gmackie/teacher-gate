@@ -1,0 +1,176 @@
+{
+  "capUsd": 40,
+  "totalUsd": 8.0825944,
+  "runs": [
+    {
+      "run": "task1-ellipse-claude-haiku-5-5",
+      "at": "2026-11-07T19:02:23.126Z",
+      "models": {
+        "anthropic/claude-haiku-5-5": 0.2659908999999999,
+        "judge:anthropic/claude-haiku-5-5": 0.4862654000000004
+      }
+    },
+    {
+      "run": "task1-ellipse-qwen2-5-7b (aborted at ~45/160 to restart Ollama with parallel slots; judge spend not metered at abort, conservative estimate from the last logged $0.1139)",
+      "at": "2026-11-07T19:05:00Z",
+      "models": {
+        "judge:anthropic/claude-haiku-5-5": 0.13
+      }
+    },
+    {
+      "run": "task1-synthetic-cer-claude-haiku-5-5",
+      "at": "2026-11-07T19:09:43.701Z",
+      "models": {
+        "anthropic/claude-haiku-5-5": 0.06027839999999998,
+        "judge:anthropic/claude-haiku-5-5": 0.2014024
+      }
+    },
+    {
+      "run": "task2-synthetic-claude-haiku-5-5",
+      "at": "2026-11-07T19:10:55.000Z",
+      "models": {
+        "anthropic/claude-haiku-5-5": 0.0084419
+      }
+    },
+    {
+      "run": "task1-ellipse-claude-sonnet-5-5",
+      "at": "2026-11-07T19:28:31.928Z",
+      "models": {
+        "anthropic/claude-sonnet-5-5": 3.03662,
+        "judge:anthropic/claude-haiku-5-5": 0.4623940999999998
+      }
+    },
+    {
+      "run": "task1-synthetic-cer-claude-sonnet-5-5",
+      "at": "2026-11-07T19:35:11.122Z",
+      "models": {
+        "anthropic/claude-sonnet-5-5": 0.7776559999999999,
+        "judge:anthropic/claude-haiku-5-5": 0.18765079999999998
+      }
+    },
+    {
+      "run": "task2-synthetic-claude-sonnet-5-5",
+      "at": "2026-11-07T19:35:54.421Z",
+      "models": {
+        "anthropic/claude-sonnet-5-5": 0.105188
+      }
+    },
+    {
+      "run": "task1-ellipse-qwen2-5-7b",
+      "at": "2026-11-07T20:14:29.559Z",
+      "models": {
+        "ollama/qwen2.5:7b": 0,
+        "judge:anthropic/claude-haiku-5-5": 0.4389067000000001
+      }
+    },
+    {
+      "run": "task1-synthetic-cer-qwen2-5-7b",
+      "at": "2026-11-07T20:31:31.440Z",
+      "models": {
+        "ollama/qwen2.5:7b": 0,
+        "judge:anthropic/claude-haiku-5-5": 0.21693569999999998
+      }
+    },
+    {
+      "run": "task2-synthetic-qwen2-5-7b",
+      "at": "2026-11-07T20:35:38.434Z",
+      "models": {
+        "ollama/qwen2.5:7b": 0
+      }
+    },
+    {
+      "run": "task1-ellipse-llama3-1-8b",
+      "at": "2026-11-07T21:36:09.176Z",
+      "models": {
+        "ollama/llama3.1:8b": 0,
+        "judge:anthropic/claude-haiku-5-5": 0.3815179000000001
+      }
+    },
+    {
+      "run": "task1-synthetic-cer-llama3-1-8b",
+      "at": "2026-11-07T21:51:16.954Z",
+      "models": {
+        "ollama/llama3.1:8b": 0,
+        "judge:anthropic/claude-haiku-5-5": 0.22114650000000008
+      }
+    },
+    {
+      "run": "task2-synthetic-llama3-1-8b",
+      "at": "2026-11-07T21:54:21.365Z",
+      "models": {
+        "ollama/llama3.1:8b": 0
+      }
+    },
+    {
+      "run": "task3-synthetic-qwen2-5-7b",
+      "at": "2026-11-07T22:05:20.883Z",
+      "models": {
+        "ollama/qwen2.5:7b": 0
+      }
+    },
+    {
+      "run": "task4-synthetic-qwen2-5-7b",
+      "at": "2026-11-07T22:07:25.571Z",
+      "models": {
+        "ollama/qwen2.5:7b": 0
+      }
+    },
+    {
+      "run": "task3-synthetic-llama3-1-8b",
+      "at": "2026-11-07T22:18:15.829Z",
+      "models": {
+        "ollama/llama3.1:8b": 0
+      }
+    },
+    {
+      "run": "task4-synthetic-llama3-1-8b",
+      "at": "2026-11-07T22:20:15.914Z",
+      "models": {
+        "ollama/llama3.1:8b": 0
+      }
+    },
+    {
+      "run": "task3-synthetic-claude-haiku-5-5",
+      "at": "2026-11-07T22:23:41.236Z",
+      "models": {
+        "anthropic/claude-haiku-5-5": 0.029995600000000008
+      }
+    },
+    {
+      "run": "task4-synthetic-claude-haiku-5-5",
+      "at": "2026-11-07T22:25:19.933Z",
+      "models": {
+        "anthropic/claude-haiku-5-5": 0.0102424
+      }
+    },
+    {
+      "run": "task3-synthetic-claude-sonnet-5-5",
+      "at": "2026-11-07T22:29:43.124Z",
+      "models": {
+        "anthropic/claude-sonnet-5-5": 0.55796
+      }
+    },
+    {
+      "run": "task4-synthetic-claude-sonnet-5-5",
+      "at": "2026-11-07T22:31:20.418Z",
+      "models": {
+        "anthropic/claude-sonnet-5-5": 0.13279599999999997
+      }
+    },
+    {
+      "run": "exp-student-voice-ellipse-claude-haiku-5-5 (separate experiment; results in a separate directory)",
+      "at": "2026-11-07T21:20:59.408Z",
+      "models": {
+        "anthropic/claude-haiku-5-5": 0.1336879,
+        "judge:anthropic/claude-haiku-5-5": 0.22573470000000004
+      }
+    },
+    {
+      "run": "diag-task3-haiku-learning (two ad-hoc reproductions of the Task 3 learning-on result; no results kept)",
+      "at": "2026-11-07T22:40:00Z",
+      "models": {
+        "anthropic/claude-haiku-5-5": 0.0117831
+      }
+    }
+  ]
+}
