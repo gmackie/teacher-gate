@@ -10,14 +10,20 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        # The library supports Node 20+. pnpm itself needs Node 22, so dependencies are installed
+        # under Node 22 and the checks then run under the matrix version.
         node: [20, 22]
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm typecheck
-      - run: pnpm test
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: node --version
+      - run: ./node_modules/.bin/tsc -p tsconfig.json --noEmit
+      - run: ./node_modules/.bin/vitest run
