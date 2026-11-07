@@ -1,0 +1,10 @@
+Teacher Gate
+Copyright 2026 Graham Mackie and Teacher Gate contributors
+
+Code is licensed under the Apache License, Version 2.0 (LICENSE).
+Documentation, evaluation definitions, evaluation results and the synthetic
+datasets authored for this project are licensed under Creative Commons
+Attribution 4.0 International (LICENSE-CC-BY-4.0).
+
+Portions of packages/core are adapted from EducateOS
+(https://github.com/gmackie/educate-os), Apache-2.0.

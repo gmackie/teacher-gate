@@ -1,0 +1,9 @@
+node_modules/
+dist/
+coverage/
+.env
+.env.*
+*.log
+.DS_Store
+# Downloaded third-party datasets are never committed: see data/README.md
+data/downloads/
