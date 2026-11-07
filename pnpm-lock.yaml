@@ -36,6 +36,15 @@ importers:
         specifier: workspace:*
         version: link:../core
 
+  packages/server:
+    dependencies:
+      '@teacher-gate/core':
+        specifier: workspace:*
+        version: link:../core
+      '@teacher-gate/models':
+        specifier: workspace:*
+        version: link:../models
+
 packages:
 
   '@anthropic-ai/sdk@1.6.0':
