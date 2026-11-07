@@ -6,9 +6,9 @@ careful prompt and no checks. You can run Task 1 on your own scored writing to s
 behaves on your rubric and your students' work before you put it in front of teachers.
 
 This page explains the dataset format, the commands and what each measure means. It does not
-report results. Results from this repository's runs will be reported in a technical white paper
-(`docs/white-paper.md`, forthcoming in this repository) and their raw outputs committed under
-`evals/results/`.
+report results. Results from this repository's runs are reported in the
+[white paper](white-paper.md), with raw outputs and the full table under
+[`evals/results/`](../evals/results/).
 
 ## Before you start
 

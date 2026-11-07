@@ -32,9 +32,9 @@ Also: [language and reading-level variants](language-and-reading-level.md).
   placeholders and which are unavailable; how to add a loader and swap a placeholder.
 - [Run on your own data](run-on-your-own-data.md): the dataset format, the evaluation CLI and what
   each measure means.
-
-Evaluation results are not reported in these documents. A technical white paper will report them
-(`docs/white-paper.md`, forthcoming in this repository).
+- [White paper](white-paper.md) (draft): design, methods and results, including where the
+  harness loses to direct prompting. The full results table is
+  [`evals/results/RESULTS.md`](../evals/results/RESULTS.md).
 
 ## Agents
 
