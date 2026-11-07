@@ -10,3 +10,5 @@ export * from "./moderation";
 export * from "./views";
 export * from "./gate";
 export * from "./misconceptions";
+export * from "./goals";
+export * from "./transform";
