@@ -99,6 +99,7 @@ export function GoalsTask(): ReactNode {
 
       {goal !== undefined && dry !== undefined ? (
         <>
+          <div className="tg-table-wrap" role="region" aria-label="Dry run results" tabIndex={0}>
           <table className="tg-table">
             <caption>{`Dry run: met ${dry.met}, not met ${dry.notMet}, could not verify ${dry.unverified}`}</caption>
             <thead>
@@ -125,6 +126,7 @@ export function GoalsTask(): ReactNode {
               ))}
             </tbody>
           </table>
+          </div>
 
           <h3>2. Monitor agreement</h3>
           <p>Record the AI's judgements for tracking, give your own above, then compare. In use, this runs as students submit, and you are warned when agreement drifts down.</p>

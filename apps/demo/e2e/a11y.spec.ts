@@ -79,7 +79,11 @@ test("goals and monitoring", async ({ page }) => {
   }
   await page.getByRole("button", { name: "Record the AI's judgements" }).click();
   await expect(page.getByRole("button", { name: "AI judgements recorded" })).toBeVisible();
-  await page.getByRole("button", { name: "Compare with my judgements" }).click();
+  // Activated from the keyboard, as a keyboard user would (and independent of layout settling).
+  const compare = page.getByRole("button", { name: "Compare with my judgements" });
+  await expect(compare).toBeEnabled();
+  await compare.focus();
+  await page.keyboard.press("Enter");
   await expect(page.getByRole("heading", { name: "Agreement report" })).toBeVisible();
   await audit(page, "agreement report");
 });
