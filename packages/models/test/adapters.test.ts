@@ -35,6 +35,7 @@ describe("adapters", () => {
   it("picks a provider from the environment", () => {
     expect(modelFromEnv({ TEACHER_GATE_PROVIDER: "anthropic", ANTHROPIC_API_KEY: "x" }).label).toBe("anthropic/claude-haiku-5-5");
     expect(modelFromEnv({}).label).toBe("ollama/qwen2.5:7b");
+    expect(modelFromEnv({ TEACHER_GATE_PROVIDER: "", TEACHER_GATE_MODEL: "" }).label).toBe("ollama/qwen2.5:7b");
     expect(modelFromEnv({ TEACHER_GATE_PROVIDER: "vllm", TEACHER_GATE_MODEL: "m" }).label).toBe("vllm/m");
     expect(() => modelFromEnv({ TEACHER_GATE_PROVIDER: "nope" })).toThrow();
   });

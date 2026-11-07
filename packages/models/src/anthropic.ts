@@ -41,11 +41,14 @@ export class AnthropicModel implements ModelAdapter {
       // Room for adaptive thinking on top of the requested answer length.
       max_tokens: request.maxOutputTokens + 8000,
       system: request.system,
-      output_config: { effort: this.#effort },
+      output_config: { effort: this.#effort, ...(request.jsonSchema === undefined ? {} : { format: { type: "json_schema", schema: request.jsonSchema } }) },
       messages: [{ role: "user", content: request.user }],
     });
     if (response.stop_reason === "refusal") throw new ModelRefusal(response.stop_details?.category ?? null);
     const text = response.content.flatMap((b) => (b.type === "text" ? [b.text] : [])).join("");
-    return { text, model: response.model, usage: { inputTokens: response.usage.input_tokens, outputTokens: response.usage.output_tokens } };
+    // Input counts cache writes and reads too, so spend estimates at the input price are an upper bound.
+    const u = response.usage;
+    const inputTokens = u.input_tokens + (u.cache_creation_input_tokens ?? 0) + (u.cache_read_input_tokens ?? 0);
+    return { text, model: response.model, usage: { inputTokens, outputTokens: u.output_tokens } };
   }
 }

@@ -18,6 +18,11 @@ export interface ModelRequest {
   maxOutputTokens: number;
   /** Ask for a JSON object where the provider supports it. Output is still parsed and verified. */
   json: boolean;
+  /**
+   * A JSON Schema the output must match, for providers with structured output. Adapters without
+   * support ignore it; output is still parsed and checked by the caller.
+   */
+  jsonSchema?: Record<string, unknown>;
   /** Sampling temperature. Adapters default to 0 for reproducible evaluation. */
   temperature?: number;
   /** Optional seed, for providers that support one. */

@@ -36,7 +36,7 @@ export class OllamaModel implements ModelAdapter {
       body: JSON.stringify({
         model: o.model,
         stream: false,
-        ...(request.json ? { format: "json" } : {}),
+        ...(request.jsonSchema !== undefined ? { format: request.jsonSchema } : request.json ? { format: "json" } : {}),
         messages: [
           { role: "system", content: request.system },
           { role: "user", content: request.user },

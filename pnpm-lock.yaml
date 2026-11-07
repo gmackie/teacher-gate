@@ -27,6 +27,18 @@ importers:
         specifier: ^4.1.0
         version: 4.6.7
 
+  packages/evals:
+    dependencies:
+      '@teacher-gate/core':
+        specifier: workspace:*
+        version: link:../core
+      '@teacher-gate/models':
+        specifier: workspace:*
+        version: link:../models
+      '@teacher-gate/public-goods':
+        specifier: workspace:*
+        version: link:../public-goods
+
   packages/mcp:
     dependencies:
       '@modelcontextprotocol/sdk':
@@ -51,6 +63,15 @@ importers:
       '@teacher-gate/core':
         specifier: workspace:*
         version: link:../core
+
+  packages/public-goods:
+    dependencies:
+      '@teacher-gate/core':
+        specifier: workspace:*
+        version: link:../core
+      zod:
+        specifier: ^4.1.0
+        version: 4.6.7
 
   packages/server:
     dependencies:
