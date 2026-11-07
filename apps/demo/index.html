@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Teacher Gate demo</title>
+    <style>
+      body { margin: 0; background: #f7f7f9; color: #1b1b1f; }
+      .demo { max-width: 1200px; margin: 0 auto; padding: 1rem 16px 3rem; }
+      .demo button[aria-pressed="true"] { background: #1b1b1f; color: #fff; font-weight: 600; }
+      .demo button[aria-pressed="true"]::before { content: "✓ "; }
+      .demo details { margin: .5rem 0; }
+      .demo summary { cursor: pointer; min-height: 24px; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
