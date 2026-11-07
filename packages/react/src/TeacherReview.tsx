@@ -2,8 +2,9 @@
 //
 // It shows the student's work with each finding's evidence highlighted in place, and beside it every
 // finding with what the teacher needs to judge it: the criterion, the observation, the suggested
-// level (teacher only), the model's uncertainty, whether the evidence had to be re-anchored, and a
-// warning when the text states a grade. The teacher accepts, edits or rejects each one, and releases
+// level and rationale (teacher only), the model's uncertainty, whether the evidence had to be
+// re-anchored, and a warning when the text states a grade or repeats words the teacher rejected on
+// another finding. The teacher accepts, edits or rejects each one, and releases
 // only when nothing blocks release. The component holds no data of its own: it renders a
 // `TeacherDraftView` from the service and calls back with `DecisionInput`s, so the service's rules
 // (only a teacher acting directly decides; nothing is released with open findings) stay in force.
@@ -22,6 +23,8 @@ export const DROP_REASON_LABELS: Record<string, string> = {
   "unknown-artifact": "it cited work that was not submitted",
   "quote-not-found": "quote not found in the work",
   "range-mismatch": "its quote did not match the cited position",
+  "deprioritized-criterion": "it addressed a criterion your past rejections hold back (see the preferences above)",
+  duplicate: "it repeated another finding's words",
 };
 
 const UNCERTAINTY_LABELS: Record<string, string> = { low: "Low (the model is fairly sure)", medium: "Medium", high: "High (treat with caution)" };
@@ -244,7 +247,18 @@ function FindingCard({ finding: f, number, id, headingId, focused, locked, level
           <strong>States a grade or level.</strong> Students must not see grades in AI feedback; edit this text before release. Accepting it as written will block release.
         </p>
       ) : null}
+      {f.repeatsRejected !== undefined ? (
+        <p className="tg-warning">
+          <strong>Repeats words you rejected</strong> {`(finding ${f.repeatsRejected.map((id) => id.replace(/^f/, "")).join(", ")}).`} Accepting it as written will block release; edit those words out or reject it.
+        </p>
+      ) : null}
       <dl>
+        {f.rationale !== undefined ? (
+          <>
+            <dt>Why (for you)</dt>
+            <dd>{f.rationale}<span className="tg-tag">teacher only</span></dd>
+          </>
+        ) : null}
         {f.suggestedLevelLabel !== undefined ? (
           <>
             <dt>Suggested level</dt>

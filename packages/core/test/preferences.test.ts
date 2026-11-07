@@ -19,13 +19,15 @@ describe("teacher guidance and past decisions (Task 3)", () => {
     const prompt = model.requests.at(-1)!.system;
     expect(prompt).toContain("Start with a strength.");
     expect(prompt).toContain("Nice use of data (2).");
-    expect(prompt).toContain('["reasoning"]');
+    // Deprioritized criteria are left out of the rubric the model sees, not described to it.
+    expect(prompt).not.toContain('"id":"reasoning"');
     expect(prompt).not.toContain('"id":"claim"');
+    expect(next.context?.criteria).toEqual(["evidence"]);
 
     await gate.setPreference(teacher, activity.id, "deprioritize:reasoning", false);
     const after = await gate.draftFeedback(teacher, { ...submission, id: "s10" });
     expect(after.appliedPreferences.map((p) => p.id)).not.toContain("deprioritize:reasoning");
-    expect(model.requests.at(-1)!.system).not.toContain("usually rejects");
+    expect(model.requests.at(-1)!.system).toContain('"id":"reasoning"');
   });
 
   it("does not learn when the teacher turns learning off", async () => {

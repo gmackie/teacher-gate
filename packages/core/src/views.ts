@@ -3,7 +3,7 @@
 // approve. `findLeaks` checks that independently, for tests and the evaluation suite.
 import type { DecisionRecord, FeedbackDraft, ReleaseRecord } from "./records";
 import type { Activity, Criterion } from "./schemas";
-import type { Finding } from "./verify";
+import { repeatsText, type Finding } from "./verify";
 
 /** The notice shown beside AI-drafted feedback. */
 export const AI_NOTICE = "Drafted with AI and reviewed by your teacher.";
@@ -34,6 +34,29 @@ export function gradeLanguage(text: string, criterion: Criterion | undefined): s
   return [...new Set(hits)];
 }
 
+/** The text a finding would release with under a decision: the teacher's edit, or the model's words. */
+function releaseText(f: Finding, d: DecisionRecord | undefined): string {
+  return d?.decision === "edit" && d.editedObservation !== undefined ? d.editedObservation : f.observation;
+}
+
+/**
+ * Findings that would release words the teacher rejected on another finding: for each finding not
+ * rejected, the ids of rejected findings whose text it repeats (see {@link repeatsText}). This
+ * keeps release safe even if near-duplicates were not removed when the draft was made.
+ */
+export function repeatsRejected(draft: FeedbackDraft, decisions: ReadonlyMap<string, DecisionRecord>): Map<string, string[]> {
+  const rejected = draft.findings.filter((f) => decisions.get(f.id)?.decision === "reject");
+  const out = new Map<string, string[]>();
+  if (rejected.length === 0) return out;
+  for (const f of draft.findings) {
+    const d = decisions.get(f.id);
+    if (d?.decision === "reject") continue;
+    const hits = rejected.filter((r) => repeatsText(releaseText(f, d), r.observation)).map((r) => r.id);
+    if (hits.length > 0) out.set(f.id, hits);
+  }
+  return out;
+}
+
 /** The decision in force on each finding of a draft: the latest recorded. */
 export function decisionsInForce(decisions: readonly DecisionRecord[], draftId: string): Map<string, DecisionRecord> {
   const m = new Map<string, DecisionRecord>();
@@ -48,6 +71,8 @@ export interface TeacherFindingView extends Finding {
   decision?: { decision: DecisionRecord["decision"]; text?: string; levelId?: string; reason?: string; decidedBy: string; decidedAt: string };
   /** Present when the model's text states a grade or level; the teacher must edit it before release. */
   gradeLanguage?: string[];
+  /** Rejected findings whose words this one repeats; accepting it as written cannot be released. */
+  repeatsRejected?: string[];
 }
 
 /** The teacher's view of a draft. */
@@ -78,6 +103,9 @@ export function releaseBlockers(activity: Activity, draft: FeedbackDraft, decisi
       if (hits.length > 0) blockers.push(`Finding ${f.id} states a grade or level; edit it before release.`);
     }
   }
+  for (const [id, rejected] of repeatsRejected(draft, decisions)) {
+    if (decisions.get(id)?.decision === "accept") blockers.push(`Finding ${id} repeats the words of rejected finding ${rejected.join(", ")}; edit it or reject it before release.`);
+  }
   return blockers;
 }
 
@@ -85,6 +113,7 @@ export function releaseBlockers(activity: Activity, draft: FeedbackDraft, decisi
 export function teacherDraftView(activity: Activity, draft: FeedbackDraft, decisions: readonly DecisionRecord[], release: ReleaseRecord | undefined): TeacherDraftView {
   const inForce = decisionsInForce(decisions, draft.id);
   const { findings, ...rest } = draft;
+  const repeats = repeatsRejected(draft, inForce);
   const droppedByReason: Record<string, number> = {};
   for (const d of draft.dropped) droppedByReason[d.reason] = (droppedByReason[d.reason] ?? 0) + 1;
   return {
@@ -100,6 +129,7 @@ export function teacherDraftView(activity: Activity, draft: FeedbackDraft, decis
         ...(f.suggestedLevelId === undefined ? {} : { suggestedLevelLabel: criterion?.levels.find((l) => l.id === f.suggestedLevelId)?.label ?? f.suggestedLevelId }),
         ...(d === undefined ? {} : { decision: { decision: d.decision, ...(d.editedObservation === undefined ? {} : { text: d.editedObservation }), ...(d.levelId === undefined ? {} : { levelId: d.levelId }), ...(d.reason === undefined ? {} : { reason: d.reason }), decidedBy: d.decidedBy, decidedAt: d.decidedAt } }),
         ...(hits.length === 0 ? {} : { gradeLanguage: hits }),
+        ...(repeats.has(f.id) ? { repeatsRejected: repeats.get(f.id)! } : {}),
       };
     }),
     droppedByReason,
@@ -147,7 +177,7 @@ export interface Leak {
   detail: string;
 }
 
-const FORBIDDEN_KEYS = new Set(["suggestedLevelId", "suggestedLevelLabel", "levelId", "level", "points", "score", "grade", "uncertainty", "model", "reason", "dropped", "decision"]);
+const FORBIDDEN_KEYS = new Set(["suggestedLevelId", "suggestedLevelLabel", "levelId", "level", "points", "score", "grade", "uncertainty", "rationale", "model", "reason", "dropped", "decision"]);
 
 function keysOf(value: unknown, out: Set<string> = new Set()): Set<string> {
   if (Array.isArray(value)) for (const v of value) keysOf(v, out);
@@ -167,7 +197,7 @@ function keysOf(value: unknown, out: Set<string> = new Set()): Set<string> {
  */
 export function findLeaks(view: unknown, input: { activity: Activity; draft: FeedbackDraft; decisions: readonly DecisionRecord[]; release?: ReleaseRecord }): Leak[] {
   const leaks: Leak[] = [];
-  for (const k of keysOf(view)) if (FORBIDDEN_KEYS.has(k)) leaks.push({ kind: k === "uncertainty" || k === "model" || k === "reason" || k === "dropped" || k === "decision" ? "teacher-only-field" : "grade-field", detail: k });
+  for (const k of keysOf(view)) if (FORBIDDEN_KEYS.has(k)) leaks.push({ kind: k === "uncertainty" || k === "rationale" || k === "model" || k === "reason" || k === "dropped" || k === "decision" ? "teacher-only-field" : "grade-field", detail: k });
   const text = JSON.stringify(view);
   const inForce = decisionsInForce(input.decisions, input.draft.id);
   const releasedIds = new Set(input.release?.findings.map((f) => f.findingId) ?? []);

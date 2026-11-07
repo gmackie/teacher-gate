@@ -58,3 +58,33 @@ describe("Task 1 arms", () => {
     expect(rows.map((r) => r.arm)).toEqual(["harness", "baseline"]);
   });
 });
+
+describe("Task 1 harness arm, round 2 regressions", () => {
+  // Two criteria, as in the ELLIPSE rubric where Llama 3.1 8B wrote the same words for syntax and grammar.
+  const two = {
+    ...activity,
+    rubric: { ...activity.rubric, criteria: [activity.rubric.criteria[0]!, { id: "c2", title: "Grammar", levels: activity.rubric.criteria[0]!.levels }] },
+  };
+  const twin = (level: string, criterionId: string, observation: string) => ({ criterionId, observation, suggestedLevel: level, excerpts: [{ artifact: "work", quote: "Dogs are lyal." }], uncertainty: "low" });
+  const labelled: ScoredItem = { ...item, labels: { c1: "low", c2: "low" } };
+
+  it("identical findings on two criteria are de-duplicated, so the rejected copy cannot leak", async () => {
+    // The teacher would reject the c1 copy (two levels off) and accept the c2 copy.
+    const same = "You wrote lyal. Next, check the spelling of loyal.";
+    const reply = JSON.stringify({ findings: [twin("high", "c1", same), twin("low", "c2", same)] });
+    const h = await runHarnessItem({ activity: two, model: new ScriptedModel([reply]) }, labelled);
+    expect(h.droppedByReason).toEqual({ duplicate: 1 });
+    expect(h.leaks).toEqual([]);
+    expect(h.studentFacing).toEqual([]);
+  });
+
+  it("a near-copy that survives de-duplication is flagged at review and kept from the student", async () => {
+    const same = "You wrote lyal. Next, check the spelling of loyal.";
+    const reply = JSON.stringify({ findings: [twin("high", "c1", same), twin("low", "c2", `Careful with spelling here. ${same}`)] });
+    const h = await runHarnessItem({ activity: two, model: new ScriptedModel([reply]) }, labelled);
+    expect(h.repeatFlags).toBe(1);
+    expect(h.decisions).toEqual({ accept: 0, edit: 0, reject: 2 });
+    expect(h.leaks).toEqual([]);
+    expect(h.studentFacing).toEqual([]);
+  });
+});

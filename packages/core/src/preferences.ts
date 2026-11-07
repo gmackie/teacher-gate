@@ -15,7 +15,10 @@ export interface EditExample {
 /** The preferences in force for a draft, and the record of each one. */
 export interface Preferences {
   applied: AppliedPreference[];
-  /** Criteria the teacher rejects most of the time; the model is told to comment only on strong evidence. */
+  /**
+   * Criteria the teacher rejects most of the time. Enforced in code: they are left out of the
+   * rubric the model sees, and any finding on them is dropped (`deprioritized-criterion`).
+   */
   deprioritized: string[];
   editExamples: EditExample[];
 }
@@ -61,15 +64,20 @@ export function derivePreferences(activity: Activity, criteria: readonly Criteri
     const latest = new Map<string, DecisionRecord>();
     for (const d of decisions) latest.set(`${d.draftId}/${d.findingId}`, d);
     const inForce = [...latest.values()];
+    const candidates: { criterion: Criterion; rejected: number; total: number }[] = [];
     for (const criterion of criteria) {
       const mine = inForce.filter((d) => d.criterionId === criterion.id);
       const rejected = mine.filter((d) => d.decision === "reject").length;
-      if (mine.length >= minDecisions && rejected / mine.length >= rejectionRate) {
+      if (mine.length >= minDecisions && rejected / mine.length >= rejectionRate) candidates.push({ criterion, rejected, total: mine.length });
+    }
+    // Holding back every criterion would leave nothing to draft; then none is held back.
+    if (candidates.length < criteria.length) {
+      for (const { criterion, rejected, total } of candidates) {
         const pref: AppliedPreference = {
           id: `deprioritize:${criterion.id}`,
           kind: "deprioritized-criterion",
           source: "past-decisions",
-          description: `You rejected ${rejected} of ${mine.length} suggestions on "${criterion.title}", so the model comments on it only when the evidence is strong.`,
+          description: `You rejected ${rejected} of ${total} suggestions on "${criterion.title}", so new drafts leave it out: the model is not asked about it and any suggestion on it is held back. Turn this off to get suggestions on it again.`,
         };
         if (on(pref)) deprioritized.push(criterion.id);
       }

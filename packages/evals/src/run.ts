@@ -93,7 +93,7 @@ export async function runTask1(o: Task1RunOptions): Promise<{ harness: ArmSummar
     model: model.label,
     judge: judge?.label ?? null,
     evaluators: evaluators.map((e) => ({ id: e.id, stableId: e.stableId })),
-    settings: { temperature: "0 where the provider accepts it (Anthropic models take no sampling parameters)", ollamaSeed: 42, maxOutputTokens: 2000, rangePolicy: "locate", simulatedTeacher: "reject if suggested level is 2+ levels from the human label; edit out sentences stating a grade or level; else accept" },
+    settings: { temperature: "0 where the provider accepts it (Anthropic models take no sampling parameters)", ollamaSeed: 42, maxOutputTokens: 2000, rangePolicy: "locate", simulatedTeacher: "reject if suggested level is 2+ levels from the human label; edit out sentences stating a grade or level; else accept; then reject any accepted finding the teacher view flags as repeating a rejected one" },
   };
   writeFileSync(join(dir, "config.json"), JSON.stringify(config, null, 2));
   const opts = { activity: o.dataset.activity, model, ...(judge === undefined ? {} : { judge, evaluators }) };
@@ -167,6 +167,7 @@ export function report(s: { config: { run: string; dataset: { title: string; syn
     row("Tokens in / out", `${h.tokens.input} / ${h.tokens.output}`, `${b.tokens.input} / ${b.tokens.output}`),
     "",
     h.simulatedDecisions === undefined ? "" : `Simulated teacher (driven by the human labels, not a real teacher): accepted ${h.simulatedDecisions.accept}, edited ${h.simulatedDecisions.edit}, rejected ${h.simulatedDecisions.reject}; accepted unedited ${fmt(h.simulatedDecisions.acceptedUnedited)}.`,
+    h.harnessDrops === undefined ? "" : `Findings the harness dropped, by reason: ${Object.entries(h.harnessDrops.byReason).map(([k, n]) => `${k} ${n}`).join(", ") || "none"}. Accepted findings flagged as repeating a rejected one (then rejected): ${h.harnessDrops.repeatFlags}.`,
     "",
     "Notes: the harness drops findings whose evidence is not exactly in the work, so its surfaced rate is zero by construction; the raw rates show what the model produced under each prompt. Agreement compares a model's suggested level (teacher-only in the harness) with the human label. Leakage for the baseline counts grade or level language in the observations it would show the student; its structured `suggestedLevel` is counted separately.",
     "",
