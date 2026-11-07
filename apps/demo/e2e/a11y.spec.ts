@@ -67,13 +67,18 @@ test("goals and monitoring", async ({ page }) => {
   await page.getByRole("button", { name: "Goals and monitoring" }).click();
   await audit(page, "goal form");
   await page.getByRole("button", { name: "Create goal" }).click();
+  await expect(page.getByText(/^Goal saved/)).toBeVisible();
   await page.getByRole("button", { name: "Dry run" }).click();
   await expect(page.getByRole("table")).toBeVisible();
   await audit(page, "dry run");
   for (const [who, met] of [["student-A", "Met"], ["student-B", "Not met"], ["student-C", "Met"]] as const) {
-    await page.getByRole("group", { name: `Your judgement for ${who}` }).getByRole("button", { name: met, exact: true }).click();
+    // Matched on text content: the demo's pressed style adds "✓ " to the accessible name.
+    const button = page.getByRole("group", { name: `Your judgement for ${who}` }).locator("button", { hasText: new RegExp(`^${met}$`) });
+    await button.click();
+    await expect(button).toHaveAttribute("aria-pressed", "true");
   }
   await page.getByRole("button", { name: "Record the AI's judgements" }).click();
+  await expect(page.getByRole("button", { name: "AI judgements recorded" })).toBeVisible();
   await page.getByRole("button", { name: "Compare with my judgements" }).click();
   await expect(page.getByRole("heading", { name: "Agreement report" })).toBeVisible();
   await audit(page, "agreement report");
