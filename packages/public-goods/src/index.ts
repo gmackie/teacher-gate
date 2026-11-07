@@ -3,5 +3,6 @@ export * from "./types";
 export * from "./download";
 export * from "./ellipse";
 export * from "./lc-evaluators";
+export * from "./lc-goal-evaluator";
 export * from "./lc-knowledge-graph";
 export * from "./synthetic";

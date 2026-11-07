@@ -77,6 +77,11 @@ export class TeacherGate {
     this.#now = options.now ?? (() => new Date());
   }
 
+  /** The moderator student-facing text passes through. */
+  get moderator(): Moderator {
+    return this.#moderator;
+  }
+
   /** The current time as ISO 8601. */
   now(): string {
     return this.#now().toISOString();
