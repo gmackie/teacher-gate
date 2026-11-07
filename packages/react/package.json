@@ -5,8 +5,7 @@
   "license": "Apache-2.0",
   "type": "module",
   "exports": {
-    ".": "./src/index.ts",
-    "./styles.css": "./src/styles.css"
+    ".": "./src/index.ts"
   },
   "dependencies": {
     "@teacher-gate/core": "workspace:*"

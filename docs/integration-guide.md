@@ -454,9 +454,7 @@ createServer(gate, {
 }).listen(8787);
 ```
 
-`phase2Routes(evaluators)` (goals and variants) lives in `packages/server/src/phase2.ts`. The
-package entry point exports only `server.ts` in 0.1.0, so import it from that file
-(`main.ts` does) until it is exported. Pass extra goal evaluators, such as
+`phase2Routes(evaluators)` (goals and variants) is exported from `@teacher-gate/server` alongside `createServer`. Pass extra goal evaluators, such as
 `lcGoalEvaluator(model, evaluator)` from `@teacher-gate/public-goods`, as its argument.
 
 ### Testing your integration
@@ -479,8 +477,7 @@ freely. They need React 18 or 19.
 | `BriefReview` | `brief: { draft, decisions, saved?, open }`, `onDecide(input: MappingDecisionInput)`, `onSave()`, `headingLevel?` | Mappings grouped by misconception with quotes; confirm, reject, reassign; Save once nothing is open |
 | `AppliedPreferences`, `WorkView`, `HighlightedText` | see source | Building blocks |
 
-Styles are in `teacherGateStyles`, a CSS string you add to the page. (The package also declares a
-`./styles.css` export, but 0.1.0 does not include that file; use `teacherGateStyles`.) Callbacks
+Styles are in `teacherGateStyles`, a CSS string you add to the page. Callbacks
 return promises; after each one, fetch the view again and pass it back in. `apps/demo/src/App.tsx`
 is a complete example.
 
