@@ -1,0 +1,96 @@
+{
+  "run": "task3-synthetic-claude-haiku-5-5",
+  "model": "anthropic/claude-haiku-5-5",
+  "summary": [
+    {
+      "learning": false,
+      "items": 16,
+      "rejectedCriterionShare": {
+        "k": 16,
+        "n": 47,
+        "rate": 0.3404255319148936,
+        "ci95": [
+          0.22167260713762188,
+          0.4832934049469702
+        ]
+      },
+      "rejectedCriterionRaw": {
+        "k": 16,
+        "n": 47,
+        "rate": 0.3404255319148936,
+        "ci95": [
+          0.22167260713762188,
+          0.4832934049469702
+        ]
+      },
+      "findingsPerItem": 2.9375,
+      "acceptedUnedited": {
+        "k": 0,
+        "n": 47,
+        "rate": 0,
+        "ci95": [
+          6.938893903907228e-18,
+          0.0755601711983887
+        ]
+      },
+      "inTeacherStyle": {
+        "k": 0,
+        "n": 47,
+        "rate": 0,
+        "ci95": [
+          6.938893903907228e-18,
+          0.0755601711983887
+        ]
+      },
+      "appliedPreferencesAtEnd": []
+    },
+    {
+      "learning": true,
+      "items": 16,
+      "rejectedCriterionShare": {
+        "k": 0,
+        "n": 31,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.11025900073475385
+        ]
+      },
+      "rejectedCriterionRaw": {
+        "k": 0,
+        "n": 31,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.11025900073475385
+        ]
+      },
+      "findingsPerItem": 1.9375,
+      "acceptedUnedited": {
+        "k": 0,
+        "n": 31,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.11025900073475385
+        ]
+      },
+      "inTeacherStyle": {
+        "k": 0,
+        "n": 31,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.11025900073475385
+        ]
+      },
+      "appliedPreferencesAtEnd": [
+        "deprioritize:claim",
+        "edit:7ec7def4-7cf4-4462-b0e3-f660cfb7183d",
+        "edit:652d7059-9d73-40ec-8d3d-23dc50541d66",
+        "edit:5c108542-5e70-49b2-8109-b5aab0829ea4"
+      ]
+    }
+  ],
+  "spentUsd": 0.0460092
+}

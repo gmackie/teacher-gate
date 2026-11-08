@@ -1,0 +1,34 @@
+{
+  "run": "task4-synthetic-claude-sonnet-5-5",
+  "model": "anthropic/claude-sonnet-5-5",
+  "summary": {
+    "goal": "Uses measured data from the investigation as evidence for the claim.",
+    "items": 40,
+    "agreement": {
+      "k": 35,
+      "n": 40,
+      "rate": 0.875,
+      "ci95": [
+        0.7388757932976187,
+        0.9454058022645873
+      ]
+    },
+    "unverified": {
+      "k": 0,
+      "n": 40,
+      "rate": 0,
+      "ci95": [
+        0,
+        0.08762453925039232
+      ]
+    },
+    "kappa": 0.7461928934010152,
+    "confusion": {
+      "tp": 21,
+      "fp": 0,
+      "fn": 5,
+      "tn": 14
+    }
+  },
+  "spentUsd": 0.13438
+}
