@@ -1,0 +1,34 @@
+{
+  "run": "task4-synthetic-claude-haiku-5-5",
+  "model": "anthropic/claude-haiku-5-5",
+  "summary": {
+    "goal": "Uses measured data from the investigation as evidence for the claim.",
+    "items": 40,
+    "agreement": {
+      "k": 34,
+      "n": 40,
+      "rate": 0.85,
+      "ci95": [
+        0.7092737396097997,
+        0.9293890829149256
+      ]
+    },
+    "unverified": {
+      "k": 0,
+      "n": 40,
+      "rate": 0,
+      "ci95": [
+        0,
+        0.08762453925039232
+      ]
+    },
+    "kappa": 0.6907216494845361,
+    "confusion": {
+      "tp": 21,
+      "fp": 1,
+      "fn": 5,
+      "tn": 13
+    }
+  },
+  "spentUsd": 0.0105305
+}

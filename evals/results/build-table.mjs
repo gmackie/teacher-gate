@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 // Builds evals/results/RESULTS.md: one table of every committed run, from each run's summary.json
 // and the spend ledger. No dependencies. Usage: node evals/results/build-table.mjs [results dir]
+// When the directory has a `round2` folder, the round 1 → round 2 comparison (compare-rounds.mjs)
+// is appended. Run it once for evals/results and once for evals/results/round2.
 //
 // Rates print as "k/n (pp.p%)", rounded half-up to one decimal in both arms alike; the exact k/n
 // is always shown. The "Result" column compares point estimates and says when the 95% Wilson
@@ -8,6 +10,7 @@
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { compareRounds } from "./compare-rounds.mjs";
 
 const dir = process.argv[2] ?? dirname(fileURLToPath(import.meta.url));
 const ledger = JSON.parse(readFileSync(join(dir, "spend-ledger.json"), "utf8"));
@@ -164,5 +167,6 @@ const md = [
   ...fair,
   "",
 ].join("\n");
-writeFileSync(join(dir, "RESULTS.md"), md);
+const withRounds = existsSync(join(dir, "round2", "spend-ledger.json")) ? `${md}\n${compareRounds(dir, join(dir, "round2"))}` : md;
+writeFileSync(join(dir, "RESULTS.md"), withRounds);
 console.log(`wrote RESULTS.md: ${runs.length} runs, ${rows.length} rows, ${losses.length} losses or ties`);

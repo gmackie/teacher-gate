@@ -1,6 +1,6 @@
 # Teacher Gate: keeping teachers in control of AI formative feedback
 
-*Technical white paper, draft 0.1, November 2026. Licensed CC-BY-4.0. Code Apache-2.0 at
+*Technical white paper, draft 0.2, November 2026. Licensed CC-BY-4.0. Code Apache-2.0 at
 <https://github.com/gmackie/teacher-gate>.*
 
 > **Status of this draft.** Every number here comes from the run folders in
@@ -44,9 +44,17 @@ four of the program's tasks. The results go both ways:
   through the existing guidance field brought Haiku's actionability to 39 of 39 essays (direct
   prompting: 40 of 40) and specificity to 38 of 39 (direct prompting: 32 of 40), on a separate
   40-essay sample. This is a separate experiment, not a replacement for the main results.
+- **Round 2, after three fixes (§5.7).** We made student-addressed wording the default, enforced
+  learned teacher preferences in code, and removed duplicate findings. We then re-ran every task with
+  the same data, seeds and judge for Haiku, Sonnet and Qwen. Llama's re-run was stopped unfinished
+  and is not reported. On real essays, actionability rose to 79/79 for Haiku and Sonnet (a tie with
+  direct prompting) and to 48/77 for Qwen (direct prompting: 22/80). Inexact evidence reaching a person
+  and leakage stayed at zero. Findings on a criterion the teacher always rejects fell to zero for all
+  three models (round 1: 15/15, 8/40 and 16/42). Specificity is still slightly below direct prompting
+  for Sonnet and Qwen, and agreement with human scores is still lower for Haiku and Sonnet.
 
-Total hosted spend for every run, the experiment and diagnostics was **$8.08** (estimated from
-token counts and list prices), under a $40 cap.
+Total hosted spend for round 1, the experiment and diagnostics was **$8.08**. Round 2 brought the
+total to **$15.86** (estimated from token counts and list prices), under a $40 cap.
 
 ## 2. The problem
 
@@ -326,7 +334,64 @@ direct prompting, without losing the verification or leakage results. The sample
 the main run and not the same essays, only Haiku was tested, and the judge is unvalidated. Details:
 [`evals/results/experiments/README.md`](../evals/results/experiments/README.md).
 
-### 5.7 Every loss and tie, in brief
+### 5.7 Round 2: after the three fixes
+
+Round 2 (commit `132c1c6`, PR #9) changed three things and nothing else:
+
+- findings address the student as "you", with one concrete next step, by default;
+- criteria the teacher keeps rejecting are held back in code, not only described in the prompt;
+- near-duplicate findings are removed, and release is blocked when an accepted finding repeats
+  rejected text.
+
+We re-ran every task with the same datasets, samples, seeds, n and judge. Haiku, Sonnet and Qwen
+finished. **Llama's round 2 was stopped unfinished**, at 60 of 160 calls on Task 1, to close out
+the evaluation. It is not reported, and its round 1 results stand. Hosted outputs vary between
+runs, so Tasks 2 and 4 serve as a noise check: the fixes did not change their prompts.
+
+Task 1, real essays (ELLIPSE, n = 80). Each cell is round 1 → round 2 for the harness, with
+round 2 direct prompting in brackets.
+
+| Measure | Haiku 5.5 | Sonnet 5.5 | Qwen 2.5 7B |
+|---|---|---|---|
+| Judge: actionability | 10/79 → **79/79** [79/79] | 2/79 → **79/79** [80/80] | 3/66 → **48/77** [22/80] |
+| Judge: specificity | 61/79 → **70/79** [61/79] | 52/79 → 70/79 [71/80] | 18/66 → 43/77 [46/80] |
+| Judge: tone | 79/79 → 79/79 [79/79] | 79/79 → 79/79 [80/80] | 64/66 → 77/77 [77/80] |
+| Inexact evidence reaching a person | 0 → 0 [23/486] | 0 → 0 [13/480] | 0 → 0 [63/473] |
+| Essays leaking to the student | 0 → 0 [3/80] | 0 → 0 [5/80] | 0 → 0 [2/80] |
+| Quadratic weighted kappa | .182 → .209 [.220] | .209 → .225 [.269] | .046 → **.174** [.073] |
+
+Tasks 2–4 (synthetic):
+
+| Measure | Haiku 5.5 | Sonnet 5.5 | Qwen 2.5 7B |
+|---|---|---|---|
+| Task 3: findings on the always-rejected criterion reaching the teacher (learning on) | 15/15 → **0/31** | 8/40 → **0/32** | 16/42 → **0/33** |
+| Task 2: F1 (prompt unchanged; noise check) | .960 → .960 [.987] | .973 → .959 [.974] | .370 → .456 [.410] |
+| Task 4: agreement (prompt unchanged; noise check) | 90.0% → 85.0% | 85.0% → 87.5% | 82.1% → 81.6% |
+
+What got better:
+
+- **Actionability:** rose for every model. It now ties direct prompting for Haiku and Sonnet, and
+  is well above it for Qwen.
+- **Specificity:** now beats direct prompting for Haiku.
+- **Task 3 inversion:** fixed. Nothing on a rejected criterion reached the teacher for any model.
+- **Qwen's agreement with human scores:** kappa rose from .046 to .174, above direct prompting.
+
+What is still worse or unchanged:
+
+- **Specificity** is slightly below direct prompting for Sonnet (70/79 vs 71/80) and Qwen (43/77
+  vs 46/80). Both intervals overlap.
+- **Agreement with human scores** (kappa) is still below direct prompting for Haiku (.209 vs .220)
+  and Sonnet (.225 vs .269).
+- **Synthetic Task 1:**
+  - Kappa fell slightly for all three models from round 1 (e.g. Haiku .922 → .881).
+  - Haiku's specificity fell from 39/40 to 37/40.
+  - Sonnet's fell from 39/40 to 35/39.
+- **Task 2 and Task 4** moved within the range expected from run-to-run variation, since their
+  prompts did not change. Haiku's Task 4 kappa fell from .794 to .691 on an unchanged prompt.
+- **Llama:** not re-run, so we cannot say whether the de-duplication fix removes its round 1 leak
+  in an end-to-end run. It is covered by a regression test only.
+
+### 5.8 Every loss and tie in round 1, in brief
 
 - **Judged quality (Task 1):** actionability and specificity worse for every model on real data;
   actionability worse for every model on synthetic data; tone tied (Haiku, Sonnet) or slightly
@@ -409,13 +474,13 @@ What the data cannot show:
 
 ## 8. Next steps
 
-1. **Fix the student-facing voice.** Make student-addressed wording with one next step the default
-   for findings meant for release (or a documented default teacher instruction), then re-run Task 1
-   for all four models. §5.6 suggests this removes the largest loss.
-2. **Enforce learned preferences in code.** Apply deprioritized criteria by removing or ranking
-   them rather than by prompt text, and re-run Task 3 (fixes the Haiku inversion).
-3. **De-duplicate findings** with identical text across criteria before review, so a teacher's
-   rejection covers every copy (fixes the Llama leak).
+1. **Done in round 2 (§5.7):**
+   - student-addressed default wording;
+   - preferences enforced in code;
+   - de-duplication, with release blocked on repeated rejected text.
+2. **Re-run Llama** end to end with the round 2 fixes, to confirm the leak fix outside the
+   regression test.
+3. **Close the remaining specificity gap** for Sonnet and Qwen.
 4. **Investigate the agreement loss** for Sonnet and the open-weight models: separate the effect of
    coverage (more criteria scored) from the effect of the prompt.
 5. **Swap placeholders for real public goods** as Playlab, Learning Equality, National Trail, Pitt

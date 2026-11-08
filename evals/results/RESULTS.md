@@ -325,3 +325,220 @@ Gap = highest minus lowest group rate in percentage points, per arm, over groups
 | task1-ellipse-qwen2-5-7b | ses | Exact agreement | 2.4 pp (Not economically disadvantaged 13/64 (20.3%) to Economically disadvantaged 35/154 (22.7%)) | 4.1 pp (Economically disadvantaged 37/270 (13.7%) to Not economically disadvantaged 24/135 (17.8%)) | **harness wider** |  |
 | task1-ellipse-qwen2-5-7b | ses | Within one | 17.0 pp (Economically disadvantaged 99/154 (64.3%) to Not economically disadvantaged 52/64 (81.3%)) | 3.7 pp (Economically disadvantaged 150/270 (55.6%) to Not economically disadvantaged 80/135 (59.3%)) | harness narrower |  |
 | task1-ellipse-qwen2-5-7b | ses | Items leaking | 3.8 pp (Not economically disadvantaged 0/28 (0.0%) to Economically disadvantaged 2/52 (3.8%)) | 0.0 pp (Economically disadvantaged 0/52 (0.0%) to Economically disadvantaged 0/52 (0.0%)) | harness narrower |  |
+
+## Round 1 → round 2
+
+Round 2 re-ran every task on every model with the same datasets, samples, seeds, n and judge, after three changes (SCHO-347, PR #9): findings address the student with one next step by default; criteria the teacher keeps rejecting are held back in code; near-duplicate findings are removed and release is blocked when an accepted finding repeats a rejected one. Round 1 is the table above; round 2's own table is in [`round2/RESULTS.md`](round2/RESULTS.md).
+
+Hosted model outputs differ run to run even with the same prompt, so some change is noise: Tasks 2 and 4 use prompts the fixes did not touch, and their round-to-round differences show the size of that noise. Task 3's arms differ by design: "baseline" is learning off, "harness" learning on.
+
+Spend: round 1 ledger $8.0826 (including its separate experiment and diagnostics); round 2 $7.7742 (its ledger carries round 1 over, total $15.8568 of the $40 cap).
+
+| Run | Measure | Baseline r1 | Baseline r2 | Harness r1 | Harness r2 | Harness r1 → r2 | Harness vs baseline, r2 |
+|---|---|---|---|---|---|---|---|
+| task1-ellipse-claude-haiku-5-5 | Findings with inexact evidence, raw (lower better) | 25/481 (5.2%) | 23/486 (4.7%) | 17/501 (3.4%) | 10/497 (2.0%) | better (CIs overlap) | harness better (CIs overlap) |
+| task1-ellipse-claude-haiku-5-5 | Findings with fabricated evidence, raw (lower better) | 18/481 (3.7%) | 11/486 (2.3%) | 9/501 (1.8%) | 4/497 (0.8%) | better (CIs overlap) | harness better (CIs overlap) |
+| task1-ellipse-claude-haiku-5-5 | Inexact evidence reaching a person (lower better) | 25/481 (5.2%) | 23/486 (4.7%) | 0/484 (0.0%) | 0/486 (0.0%) | same | harness better |
+| task1-ellipse-claude-haiku-5-5 | Findings schema-valid (higher better) | 480/481 (99.8%) | 486/486 (100.0%) | 501/501 (100.0%) | 496/497 (99.8%) | **worse** (CIs overlap) | **harness worse** (CIs overlap) |
+| task1-ellipse-claude-haiku-5-5 | Output parsed (higher better) | 80/80 (100.0%) | 79/80 (98.8%) | 80/80 (100.0%) | 80/80 (100.0%) | same | harness better (CIs overlap) |
+| task1-ellipse-claude-haiku-5-5 | Findings reaching a person per item | 6.013 | 6.075 | 6.050 | 6.075 | up | **tie** |
+| task1-ellipse-claude-haiku-5-5 | Criterion coverage (item×criterion with a suggested level) (higher better) | 282/480 (58.8%) | 240/480 (50.0%) | 464/480 (96.7%) | 470/480 (97.9%) | better (CIs overlap) | harness better |
+| task1-ellipse-claude-haiku-5-5 | Suggested level = label, exact (higher better) | 48/282 (17.0%) | 47/240 (19.6%) | 105/464 (22.6%) | 107/470 (22.8%) | better (CIs overlap) | harness better (CIs overlap) |
+| task1-ellipse-claude-haiku-5-5 | Suggested level within one (higher better) | 200/282 (70.9%) | 188/240 (78.3%) | 354/464 (76.3%) | 372/470 (79.1%) | better (CIs overlap) | harness better (CIs overlap) |
+| task1-ellipse-claude-haiku-5-5 | Quadratic weighted kappa (higher better) | 0.163 | 0.220 | 0.182 | 0.209 | better | **harness worse** |
+| task1-ellipse-claude-haiku-5-5 | Items leaking grade/level/rejected text to student (lower better) | 3/80 (3.8%) | 3/80 (3.8%) | 0/80 (0.0%) | 0/80 (0.0%) | same | harness better (CIs overlap) |
+| task1-ellipse-claude-haiku-5-5 | LC judge `student-response-specificity` pass (higher better) | 74/80 (92.5%) | 61/79 (77.2%) | 61/79 (77.2%) | 70/79 (88.6%) | better (CIs overlap) | harness better (CIs overlap) |
+| task1-ellipse-claude-haiku-5-5 | LC judge `revision-actionability` pass (higher better) | 80/80 (100.0%) | 79/79 (100.0%) | 10/79 (12.7%) | 79/79 (100.0%) | better | **tie** |
+| task1-ellipse-claude-haiku-5-5 | LC judge `tone-appropriateness` pass (higher better) | 80/80 (100.0%) | 79/79 (100.0%) | 79/79 (100.0%) | 79/79 (100.0%) | same | **tie** |
+| task1-ellipse-claude-sonnet-5-5 | Findings with inexact evidence, raw (lower better) | 11/480 (2.3%) | 13/480 (2.7%) | 6/481 (1.2%) | 7/480 (1.5%) | **worse** (CIs overlap) | harness better (CIs overlap) |
+| task1-ellipse-claude-sonnet-5-5 | Findings with fabricated evidence, raw (lower better) | 8/480 (1.7%) | 10/480 (2.1%) | 4/481 (0.8%) | 6/480 (1.3%) | **worse** (CIs overlap) | harness better (CIs overlap) |
+| task1-ellipse-claude-sonnet-5-5 | Inexact evidence reaching a person (lower better) | 11/480 (2.3%) | 13/480 (2.7%) | 0/473 (0.0%) | 0/473 (0.0%) | same | harness better |
+| task1-ellipse-claude-sonnet-5-5 | Findings schema-valid (higher better) | 476/480 (99.2%) | 477/480 (99.4%) | 479/481 (99.6%) | 480/480 (100.0%) | better (CIs overlap) | harness better (CIs overlap) |
+| task1-ellipse-claude-sonnet-5-5 | Output parsed (higher better) | 80/80 (100.0%) | 80/80 (100.0%) | 80/80 (100.0%) | 80/80 (100.0%) | same | **tie** |
+| task1-ellipse-claude-sonnet-5-5 | Findings reaching a person per item | 6.000 | 6.000 | 5.912 | 5.912 | same | down |
+| task1-ellipse-claude-sonnet-5-5 | Criterion coverage (item×criterion with a suggested level) (higher better) | 465/480 (96.9%) | 470/480 (97.9%) | 472/480 (98.3%) | 473/480 (98.5%) | better (CIs overlap) | harness better (CIs overlap) |
+| task1-ellipse-claude-sonnet-5-5 | Suggested level = label, exact (higher better) | 103/465 (22.2%) | 101/470 (21.5%) | 72/472 (15.3%) | 87/473 (18.4%) | better (CIs overlap) | **harness worse** (CIs overlap) |
+| task1-ellipse-claude-sonnet-5-5 | Suggested level within one (higher better) | 383/465 (82.4%) | 397/470 (84.5%) | 350/472 (74.2%) | 365/473 (77.2%) | better (CIs overlap) | **harness worse** |
+| task1-ellipse-claude-sonnet-5-5 | Quadratic weighted kappa (higher better) | 0.255 | 0.269 | 0.209 | 0.225 | better | **harness worse** |
+| task1-ellipse-claude-sonnet-5-5 | Items leaking grade/level/rejected text to student (lower better) | 2/80 (2.5%) | 5/80 (6.3%) | 0/80 (0.0%) | 0/80 (0.0%) | same | harness better (CIs overlap) |
+| task1-ellipse-claude-sonnet-5-5 | LC judge `student-response-specificity` pass (higher better) | 67/80 (83.8%) | 71/80 (88.8%) | 52/79 (65.8%) | 70/79 (88.6%) | better | **harness worse** (CIs overlap) |
+| task1-ellipse-claude-sonnet-5-5 | LC judge `revision-actionability` pass (higher better) | 80/80 (100.0%) | 80/80 (100.0%) | 2/79 (2.5%) | 79/79 (100.0%) | better | **tie** |
+| task1-ellipse-claude-sonnet-5-5 | LC judge `tone-appropriateness` pass (higher better) | 80/80 (100.0%) | 80/80 (100.0%) | 79/79 (100.0%) | 79/79 (100.0%) | same | **tie** |
+| task1-ellipse-llama3-1-8b | Findings with inexact evidence, raw (lower better) | 124/437 (28.4%) | n/a | 100/480 (20.8%) | n/a | n/a | not in round 2 |
+| task1-ellipse-llama3-1-8b | Findings with fabricated evidence, raw (lower better) | 89/437 (20.4%) | n/a | 68/480 (14.2%) | n/a | n/a | not in round 2 |
+| task1-ellipse-llama3-1-8b | Inexact evidence reaching a person (lower better) | 124/437 (28.4%) | n/a | 0/362 (0.0%) | n/a | n/a | not in round 2 |
+| task1-ellipse-llama3-1-8b | Findings schema-valid (higher better) | 242/437 (55.4%) | n/a | 461/480 (96.0%) | n/a | n/a | not in round 2 |
+| task1-ellipse-llama3-1-8b | Output parsed (higher better) | 76/80 (95.0%) | n/a | 80/80 (100.0%) | n/a | n/a | not in round 2 |
+| task1-ellipse-llama3-1-8b | Findings reaching a person per item | 5.463 | n/a | 4.525 | n/a | n/a | not in round 2 |
+| task1-ellipse-llama3-1-8b | Criterion coverage (item×criterion with a suggested level) (higher better) | 242/480 (50.4%) | n/a | 345/480 (71.9%) | n/a | n/a | not in round 2 |
+| task1-ellipse-llama3-1-8b | Suggested level = label, exact (higher better) | 69/242 (28.5%) | n/a | 29/345 (8.4%) | n/a | n/a | not in round 2 |
+| task1-ellipse-llama3-1-8b | Suggested level within one (higher better) | 202/242 (83.5%) | n/a | 155/345 (44.9%) | n/a | n/a | not in round 2 |
+| task1-ellipse-llama3-1-8b | Quadratic weighted kappa (higher better) | 0.118 | n/a | 0.129 | n/a | n/a | not in round 2 |
+| task1-ellipse-llama3-1-8b | Items leaking grade/level/rejected text to student (lower better) | 0/80 (0.0%) | n/a | 3/80 (3.8%) | n/a | n/a | not in round 2 |
+| task1-ellipse-llama3-1-8b | LC judge `student-response-specificity` pass (higher better) | 12/76 (15.8%) | n/a | 6/61 (9.8%) | n/a | n/a | not in round 2 |
+| task1-ellipse-llama3-1-8b | LC judge `revision-actionability` pass (higher better) | 5/76 (6.6%) | n/a | 0/61 (0.0%) | n/a | n/a | not in round 2 |
+| task1-ellipse-llama3-1-8b | LC judge `tone-appropriateness` pass (higher better) | 73/76 (96.1%) | n/a | 55/61 (90.2%) | n/a | n/a | not in round 2 |
+| task1-ellipse-qwen2-5-7b | Findings with inexact evidence, raw (lower better) | 67/471 (14.2%) | 63/473 (13.3%) | 75/480 (15.6%) | 58/471 (12.3%) | better (CIs overlap) | harness better (CIs overlap) |
+| task1-ellipse-qwen2-5-7b | Findings with fabricated evidence, raw (lower better) | 47/471 (10.0%) | 40/473 (8.5%) | 55/480 (11.5%) | 35/471 (7.4%) | better (CIs overlap) | harness better (CIs overlap) |
+| task1-ellipse-qwen2-5-7b | Inexact evidence reaching a person (lower better) | 67/471 (14.2%) | 63/473 (13.3%) | 0/405 (0.0%) | 0/409 (0.0%) | same | harness better |
+| task1-ellipse-qwen2-5-7b | Findings schema-valid (higher better) | 230/471 (48.8%) | 236/473 (49.9%) | 479/480 (99.8%) | 471/471 (100.0%) | better (CIs overlap) | harness better |
+| task1-ellipse-qwen2-5-7b | Output parsed (higher better) | 80/80 (100.0%) | 80/80 (100.0%) | 80/80 (100.0%) | 80/80 (100.0%) | same | **tie** |
+| task1-ellipse-qwen2-5-7b | Findings reaching a person per item | 5.888 | 5.912 | 5.063 | 5.112 | up | down |
+| task1-ellipse-qwen2-5-7b | Criterion coverage (item×criterion with a suggested level) (higher better) | 218/480 (45.4%) | 224/480 (46.7%) | 405/480 (84.4%) | 400/480 (83.3%) | **worse** (CIs overlap) | harness better |
+| task1-ellipse-qwen2-5-7b | Suggested level = label, exact (higher better) | 48/218 (22.0%) | 50/224 (22.3%) | 61/405 (15.1%) | 87/400 (21.8%) | better (CIs overlap) | **harness worse** (CIs overlap) |
+| task1-ellipse-qwen2-5-7b | Suggested level within one (higher better) | 151/218 (69.3%) | 154/224 (68.8%) | 230/405 (56.8%) | 287/400 (71.8%) | better | harness better (CIs overlap) |
+| task1-ellipse-qwen2-5-7b | Quadratic weighted kappa (higher better) | 0.067 | 0.073 | 0.046 | 0.174 | better | harness better |
+| task1-ellipse-qwen2-5-7b | Items leaking grade/level/rejected text to student (lower better) | 2/80 (2.5%) | 2/80 (2.5%) | 0/80 (0.0%) | 0/80 (0.0%) | same | harness better (CIs overlap) |
+| task1-ellipse-qwen2-5-7b | LC judge `student-response-specificity` pass (higher better) | 45/80 (56.3%) | 46/80 (57.5%) | 18/66 (27.3%) | 43/77 (55.8%) | better | **harness worse** (CIs overlap) |
+| task1-ellipse-qwen2-5-7b | LC judge `revision-actionability` pass (higher better) | 28/80 (35.0%) | 22/80 (27.5%) | 3/66 (4.5%) | 48/77 (62.3%) | better | harness better |
+| task1-ellipse-qwen2-5-7b | LC judge `tone-appropriateness` pass (higher better) | 78/80 (97.5%) | 77/80 (96.3%) | 64/66 (97.0%) | 77/77 (100.0%) | better (CIs overlap) | harness better (CIs overlap) |
+| task1-synthetic-cer-claude-haiku-5-5 | Findings with inexact evidence, raw (lower better) | 1/120 (0.8%) | 1/120 (0.8%) | 2/124 (1.6%) | 0/120 (0.0%) | better (CIs overlap) | harness better (CIs overlap) |
+| task1-synthetic-cer-claude-haiku-5-5 | Findings with fabricated evidence, raw (lower better) | 0/120 (0.0%) | 0/120 (0.0%) | 1/124 (0.8%) | 0/120 (0.0%) | better (CIs overlap) | **tie** |
+| task1-synthetic-cer-claude-haiku-5-5 | Inexact evidence reaching a person (lower better) | 1/120 (0.8%) | 1/120 (0.8%) | 0/122 (0.0%) | 0/120 (0.0%) | same | harness better (CIs overlap) |
+| task1-synthetic-cer-claude-haiku-5-5 | Findings schema-valid (higher better) | 119/120 (99.2%) | 120/120 (100.0%) | 123/124 (99.2%) | 120/120 (100.0%) | better (CIs overlap) | **tie** |
+| task1-synthetic-cer-claude-haiku-5-5 | Output parsed (higher better) | 40/40 (100.0%) | 40/40 (100.0%) | 40/40 (100.0%) | 40/40 (100.0%) | same | **tie** |
+| task1-synthetic-cer-claude-haiku-5-5 | Findings reaching a person per item | 3.000 | 3.000 | 3.050 | 3.000 | down | **tie** |
+| task1-synthetic-cer-claude-haiku-5-5 | Criterion coverage (item×criterion with a suggested level) (higher better) | 120/120 (100.0%) | 118/120 (98.3%) | 119/120 (99.2%) | 120/120 (100.0%) | better (CIs overlap) | harness better (CIs overlap) |
+| task1-synthetic-cer-claude-haiku-5-5 | Suggested level = label, exact (higher better) | 98/120 (81.7%) | 101/118 (85.6%) | 107/119 (89.9%) | 102/120 (85.0%) | **worse** (CIs overlap) | **harness worse** (CIs overlap) |
+| task1-synthetic-cer-claude-haiku-5-5 | Suggested level within one (higher better) | 120/120 (100.0%) | 118/118 (100.0%) | 119/119 (100.0%) | 120/120 (100.0%) | same | **tie** |
+| task1-synthetic-cer-claude-haiku-5-5 | Quadratic weighted kappa (higher better) | 0.859 | 0.890 | 0.922 | 0.881 | **worse** | **harness worse** |
+| task1-synthetic-cer-claude-haiku-5-5 | Items leaking grade/level/rejected text to student (lower better) | 1/40 (2.5%) | 1/40 (2.5%) | 0/40 (0.0%) | 0/40 (0.0%) | same | harness better (CIs overlap) |
+| task1-synthetic-cer-claude-haiku-5-5 | LC judge `student-response-specificity` pass (higher better) | 38/40 (95.0%) | 37/40 (92.5%) | 39/40 (97.5%) | 37/40 (92.5%) | **worse** (CIs overlap) | **tie** |
+| task1-synthetic-cer-claude-haiku-5-5 | LC judge `revision-actionability` pass (higher better) | 40/40 (100.0%) | 40/40 (100.0%) | 13/40 (32.5%) | 40/40 (100.0%) | better | **tie** |
+| task1-synthetic-cer-claude-haiku-5-5 | LC judge `tone-appropriateness` pass (higher better) | 40/40 (100.0%) | 40/40 (100.0%) | 40/40 (100.0%) | 40/40 (100.0%) | same | **tie** |
+| task1-synthetic-cer-claude-sonnet-5-5 | Findings with inexact evidence, raw (lower better) | 0/95 (0.0%) | 0/84 (0.0%) | 0/121 (0.0%) | 0/118 (0.0%) | same | **tie** |
+| task1-synthetic-cer-claude-sonnet-5-5 | Findings with fabricated evidence, raw (lower better) | 0/95 (0.0%) | 0/84 (0.0%) | 0/121 (0.0%) | 0/118 (0.0%) | same | **tie** |
+| task1-synthetic-cer-claude-sonnet-5-5 | Inexact evidence reaching a person (lower better) | 0/95 (0.0%) | 0/84 (0.0%) | 0/120 (0.0%) | 0/118 (0.0%) | same | **tie** |
+| task1-synthetic-cer-claude-sonnet-5-5 | Findings schema-valid (higher better) | 90/95 (94.7%) | 82/84 (97.6%) | 120/121 (99.2%) | 118/118 (100.0%) | better (CIs overlap) | harness better (CIs overlap) |
+| task1-synthetic-cer-claude-sonnet-5-5 | Output parsed (higher better) | 33/40 (82.5%) | 30/40 (75.0%) | 40/40 (100.0%) | 39/40 (97.5%) | **worse** (CIs overlap) | harness better |
+| task1-synthetic-cer-claude-sonnet-5-5 | Findings reaching a person per item | 2.375 | 2.100 | 3.000 | 2.950 | down | up |
+| task1-synthetic-cer-claude-sonnet-5-5 | Criterion coverage (item×criterion with a suggested level) (higher better) | 95/120 (79.2%) | 82/120 (68.3%) | 119/120 (99.2%) | 117/120 (97.5%) | **worse** (CIs overlap) | harness better |
+| task1-synthetic-cer-claude-sonnet-5-5 | Suggested level = label, exact (higher better) | 80/95 (84.2%) | 69/82 (84.1%) | 111/119 (93.3%) | 108/117 (92.3%) | **worse** (CIs overlap) | harness better (CIs overlap) |
+| task1-synthetic-cer-claude-sonnet-5-5 | Suggested level within one (higher better) | 95/95 (100.0%) | 82/82 (100.0%) | 119/119 (100.0%) | 117/117 (100.0%) | same | **tie** |
+| task1-synthetic-cer-claude-sonnet-5-5 | Quadratic weighted kappa (higher better) | 0.885 | 0.879 | 0.950 | 0.941 | **worse** | harness better |
+| task1-synthetic-cer-claude-sonnet-5-5 | Items leaking grade/level/rejected text to student (lower better) | 0/40 (0.0%) | 0/40 (0.0%) | 0/40 (0.0%) | 0/40 (0.0%) | same | **tie** |
+| task1-synthetic-cer-claude-sonnet-5-5 | LC judge `student-response-specificity` pass (higher better) | 29/33 (87.9%) | 28/30 (93.3%) | 39/40 (97.5%) | 35/39 (89.7%) | **worse** (CIs overlap) | **harness worse** (CIs overlap) |
+| task1-synthetic-cer-claude-sonnet-5-5 | LC judge `revision-actionability` pass (higher better) | 33/33 (100.0%) | 29/30 (96.7%) | 8/40 (20.0%) | 39/39 (100.0%) | better | harness better (CIs overlap) |
+| task1-synthetic-cer-claude-sonnet-5-5 | LC judge `tone-appropriateness` pass (higher better) | 33/33 (100.0%) | 30/30 (100.0%) | 39/40 (97.5%) | 39/39 (100.0%) | better (CIs overlap) | **tie** |
+| task1-synthetic-cer-llama3-1-8b | Findings with inexact evidence, raw (lower better) | 4/120 (3.3%) | n/a | 4/122 (3.3%) | n/a | n/a | not in round 2 |
+| task1-synthetic-cer-llama3-1-8b | Findings with fabricated evidence, raw (lower better) | 3/120 (2.5%) | n/a | 0/122 (0.0%) | n/a | n/a | not in round 2 |
+| task1-synthetic-cer-llama3-1-8b | Inexact evidence reaching a person (lower better) | 4/120 (3.3%) | n/a | 0/118 (0.0%) | n/a | n/a | not in round 2 |
+| task1-synthetic-cer-llama3-1-8b | Findings schema-valid (higher better) | 96/120 (80.0%) | n/a | 122/122 (100.0%) | n/a | n/a | not in round 2 |
+| task1-synthetic-cer-llama3-1-8b | Output parsed (higher better) | 40/40 (100.0%) | n/a | 40/40 (100.0%) | n/a | n/a | not in round 2 |
+| task1-synthetic-cer-llama3-1-8b | Findings reaching a person per item | 3.000 | n/a | 2.950 | n/a | n/a | not in round 2 |
+| task1-synthetic-cer-llama3-1-8b | Criterion coverage (item×criterion with a suggested level) (higher better) | 99/120 (82.5%) | n/a | 114/120 (95.0%) | n/a | n/a | not in round 2 |
+| task1-synthetic-cer-llama3-1-8b | Suggested level = label, exact (higher better) | 40/99 (40.4%) | n/a | 70/114 (61.4%) | n/a | n/a | not in round 2 |
+| task1-synthetic-cer-llama3-1-8b | Suggested level within one (higher better) | 99/99 (100.0%) | n/a | 110/114 (96.5%) | n/a | n/a | not in round 2 |
+| task1-synthetic-cer-llama3-1-8b | Quadratic weighted kappa (higher better) | 0.356 | n/a | 0.556 | n/a | n/a | not in round 2 |
+| task1-synthetic-cer-llama3-1-8b | Items leaking grade/level/rejected text to student (lower better) | 0/40 (0.0%) | n/a | 0/40 (0.0%) | n/a | n/a | not in round 2 |
+| task1-synthetic-cer-llama3-1-8b | LC judge `student-response-specificity` pass (higher better) | 15/40 (37.5%) | n/a | 21/40 (52.5%) | n/a | n/a | not in round 2 |
+| task1-synthetic-cer-llama3-1-8b | LC judge `revision-actionability` pass (higher better) | 23/40 (57.5%) | n/a | 5/40 (12.5%) | n/a | n/a | not in round 2 |
+| task1-synthetic-cer-llama3-1-8b | LC judge `tone-appropriateness` pass (higher better) | 40/40 (100.0%) | n/a | 39/40 (97.5%) | n/a | n/a | not in round 2 |
+| task1-synthetic-cer-qwen2-5-7b | Findings with inexact evidence, raw (lower better) | 5/120 (4.2%) | 5/120 (4.2%) | 4/120 (3.3%) | 3/120 (2.5%) | better (CIs overlap) | harness better (CIs overlap) |
+| task1-synthetic-cer-qwen2-5-7b | Findings with fabricated evidence, raw (lower better) | 5/120 (4.2%) | 5/120 (4.2%) | 3/120 (2.5%) | 3/120 (2.5%) | same | harness better (CIs overlap) |
+| task1-synthetic-cer-qwen2-5-7b | Inexact evidence reaching a person (lower better) | 5/120 (4.2%) | 5/120 (4.2%) | 0/116 (0.0%) | 0/117 (0.0%) | same | harness better (CIs overlap) |
+| task1-synthetic-cer-qwen2-5-7b | Findings schema-valid (higher better) | 120/120 (100.0%) | 120/120 (100.0%) | 120/120 (100.0%) | 120/120 (100.0%) | same | **tie** |
+| task1-synthetic-cer-qwen2-5-7b | Output parsed (higher better) | 40/40 (100.0%) | 40/40 (100.0%) | 40/40 (100.0%) | 40/40 (100.0%) | same | **tie** |
+| task1-synthetic-cer-qwen2-5-7b | Findings reaching a person per item | 3.000 | 3.000 | 2.900 | 2.925 | up | down |
+| task1-synthetic-cer-qwen2-5-7b | Criterion coverage (item×criterion with a suggested level) (higher better) | 120/120 (100.0%) | 120/120 (100.0%) | 116/120 (96.7%) | 117/120 (97.5%) | better (CIs overlap) | **harness worse** (CIs overlap) |
+| task1-synthetic-cer-qwen2-5-7b | Suggested level = label, exact (higher better) | 67/120 (55.8%) | 69/120 (57.5%) | 70/116 (60.3%) | 70/117 (59.8%) | **worse** (CIs overlap) | harness better (CIs overlap) |
+| task1-synthetic-cer-qwen2-5-7b | Suggested level within one (higher better) | 119/120 (99.2%) | 119/120 (99.2%) | 112/116 (96.6%) | 113/117 (96.6%) | better (CIs overlap) | **harness worse** (CIs overlap) |
+| task1-synthetic-cer-qwen2-5-7b | Quadratic weighted kappa (higher better) | 0.605 | 0.624 | 0.618 | 0.613 | **worse** | **harness worse** |
+| task1-synthetic-cer-qwen2-5-7b | Items leaking grade/level/rejected text to student (lower better) | 0/40 (0.0%) | 0/40 (0.0%) | 0/40 (0.0%) | 0/40 (0.0%) | same | **tie** |
+| task1-synthetic-cer-qwen2-5-7b | LC judge `student-response-specificity` pass (higher better) | 29/40 (72.5%) | 32/40 (80.0%) | 18/40 (45.0%) | 21/40 (52.5%) | better (CIs overlap) | **harness worse** (CIs overlap) |
+| task1-synthetic-cer-qwen2-5-7b | LC judge `revision-actionability` pass (higher better) | 29/40 (72.5%) | 27/40 (67.5%) | 10/40 (25.0%) | 37/40 (92.5%) | better | harness better |
+| task1-synthetic-cer-qwen2-5-7b | LC judge `tone-appropriateness` pass (higher better) | 40/40 (100.0%) | 40/40 (100.0%) | 39/40 (97.5%) | 40/40 (100.0%) | better (CIs overlap) | **tie** |
+| task2-synthetic-claude-haiku-5-5 | Mapping precision vs labels (higher better) | 36/38 (94.7%) | 37/37 (100.0%) | 36/37 (97.3%) | 36/37 (97.3%) | same | **harness worse** (CIs overlap) |
+| task2-synthetic-claude-haiku-5-5 | Mapping recall vs labels (higher better) | 36/38 (94.7%) | 37/38 (97.4%) | 36/38 (94.7%) | 36/38 (94.7%) | same | **harness worse** (CIs overlap) |
+| task2-synthetic-claude-haiku-5-5 | F1 (higher better) | 0.947 | 0.987 | 0.960 | 0.960 | same | **harness worse** |
+| task2-synthetic-claude-haiku-5-5 | Mappings with a quote not in the response, raw (lower better) | 1/40 (2.5%) | 0/39 (0.0%) | 0/37 (0.0%) | 0/40 (0.0%) | same | **tie** |
+| task2-synthetic-claude-haiku-5-5 | Such mappings reaching the teacher (lower better) | 1/40 (2.5%) | 0/39 (0.0%) | 0/37 (0.0%) | 0/37 (0.0%) | same | **tie** |
+| task2-synthetic-claude-haiku-5-5 | Mappings naming an unknown misconception (lower better) | 0/40 (0.0%) | 0/39 (0.0%) | 0/37 (0.0%) | 0/40 (0.0%) | same | **tie** |
+| task2-synthetic-claude-sonnet-5-5 | Mapping precision vs labels (higher better) | 38/39 (97.4%) | 38/40 (95.0%) | 36/36 (100.0%) | 35/35 (100.0%) | same | harness better (CIs overlap) |
+| task2-synthetic-claude-sonnet-5-5 | Mapping recall vs labels (higher better) | 38/38 (100.0%) | 38/38 (100.0%) | 36/38 (94.7%) | 35/38 (92.1%) | **worse** (CIs overlap) | **harness worse** (CIs overlap) |
+| task2-synthetic-claude-sonnet-5-5 | F1 (higher better) | 0.987 | 0.974 | 0.973 | 0.959 | **worse** | **harness worse** |
+| task2-synthetic-claude-sonnet-5-5 | Mappings with a quote not in the response, raw (lower better) | 0/39 (0.0%) | 0/40 (0.0%) | 0/39 (0.0%) | 0/35 (0.0%) | same | **tie** |
+| task2-synthetic-claude-sonnet-5-5 | Such mappings reaching the teacher (lower better) | 0/39 (0.0%) | 0/40 (0.0%) | 0/36 (0.0%) | 0/35 (0.0%) | same | **tie** |
+| task2-synthetic-claude-sonnet-5-5 | Mappings naming an unknown misconception (lower better) | 0/39 (0.0%) | 0/40 (0.0%) | 0/39 (0.0%) | 0/35 (0.0%) | same | **tie** |
+| task2-synthetic-llama3-1-8b | Mapping precision vs labels (higher better) | 25/40 (62.5%) | n/a | 21/21 (100.0%) | n/a | n/a | not in round 2 |
+| task2-synthetic-llama3-1-8b | Mapping recall vs labels (higher better) | 25/38 (65.8%) | n/a | 21/38 (55.3%) | n/a | n/a | not in round 2 |
+| task2-synthetic-llama3-1-8b | F1 (higher better) | 0.641 | n/a | 0.712 | n/a | n/a | not in round 2 |
+| task2-synthetic-llama3-1-8b | Mappings with a quote not in the response, raw (lower better) | 5/40 (12.5%) | n/a | 3/24 (12.5%) | n/a | n/a | not in round 2 |
+| task2-synthetic-llama3-1-8b | Such mappings reaching the teacher (lower better) | 5/40 (12.5%) | n/a | 0/21 (0.0%) | n/a | n/a | not in round 2 |
+| task2-synthetic-llama3-1-8b | Mappings naming an unknown misconception (lower better) | 10/40 (25.0%) | n/a | 2/24 (8.3%) | n/a | n/a | not in round 2 |
+| task2-synthetic-qwen2-5-7b | Mapping precision vs labels (higher better) | 16/40 (40.0%) | 16/40 (40.0%) | 10/16 (62.5%) | 13/19 (68.4%) | better (CIs overlap) | harness better (CIs overlap) |
+| task2-synthetic-qwen2-5-7b | Mapping recall vs labels (higher better) | 16/38 (42.1%) | 16/38 (42.1%) | 10/38 (26.3%) | 13/38 (34.2%) | better (CIs overlap) | **harness worse** (CIs overlap) |
+| task2-synthetic-qwen2-5-7b | F1 (higher better) | 0.410 | 0.410 | 0.370 | 0.456 | better | harness better |
+| task2-synthetic-qwen2-5-7b | Mappings with a quote not in the response, raw (lower better) | 7/40 (17.5%) | 7/40 (17.5%) | 22/42 (52.4%) | 10/42 (23.8%) | better (CIs overlap) | **harness worse** (CIs overlap) |
+| task2-synthetic-qwen2-5-7b | Such mappings reaching the teacher (lower better) | 7/40 (17.5%) | 7/40 (17.5%) | 0/16 (0.0%) | 0/19 (0.0%) | same | harness better (CIs overlap) |
+| task2-synthetic-qwen2-5-7b | Mappings naming an unknown misconception (lower better) | 5/40 (12.5%) | 5/40 (12.5%) | 12/42 (28.6%) | 16/42 (38.1%) | **worse** (CIs overlap) | **harness worse** (CIs overlap) |
+| task3-synthetic-claude-haiku-5-5 | Findings on the always-rejected criterion, reaching the teacher (lower better) | 15/46 (32.6%) | 16/47 (34.0%) | 15/15 (100.0%) | 0/31 (0.0%) | better | harness better |
+| task3-synthetic-claude-haiku-5-5 | Findings reaching the teacher per item (after warm-up) | n/a | 2.938 | n/a | 1.938 | n/a | down |
+| task3-synthetic-claude-haiku-5-5 | Findings accepted unedited (higher better) | 0/46 (0.0%) | 0/47 (0.0%) | 0/15 (0.0%) | 0/31 (0.0%) | same | **tie** |
+| task3-synthetic-claude-haiku-5-5 | Findings already in the teacher's style (higher better) | 0/46 (0.0%) | 0/47 (0.0%) | 0/15 (0.0%) | 0/31 (0.0%) | same | **tie** |
+| task3-synthetic-claude-sonnet-5-5 | Findings on the always-rejected criterion, reaching the teacher (lower better) | 16/47 (34.0%) | 16/47 (34.0%) | 8/40 (20.0%) | 0/32 (0.0%) | better (CIs overlap) | harness better |
+| task3-synthetic-claude-sonnet-5-5 | Findings reaching the teacher per item (after warm-up) | n/a | 2.938 | n/a | 2.000 | n/a | down |
+| task3-synthetic-claude-sonnet-5-5 | Findings accepted unedited (higher better) | 0/47 (0.0%) | 0/47 (0.0%) | 16/40 (40.0%) | 4/32 (12.5%) | **worse** (CIs overlap) | harness better (CIs overlap) |
+| task3-synthetic-claude-sonnet-5-5 | Findings already in the teacher's style (higher better) | 0/47 (0.0%) | 0/47 (0.0%) | 19/40 (47.5%) | 4/32 (12.5%) | **worse** | harness better (CIs overlap) |
+| task3-synthetic-llama3-1-8b | Findings on the always-rejected criterion, reaching the teacher (lower better) | 15/46 (32.6%) | n/a | 15/41 (36.6%) | n/a | n/a | not in round 2 |
+| task3-synthetic-llama3-1-8b | Findings reaching the teacher per item (after warm-up) | n/a | n/a | n/a | n/a | n/a | not in round 2 |
+| task3-synthetic-llama3-1-8b | Findings accepted unedited (higher better) | 0/46 (0.0%) | n/a | 0/41 (0.0%) | n/a | n/a | not in round 2 |
+| task3-synthetic-llama3-1-8b | Findings already in the teacher's style (higher better) | 0/46 (0.0%) | n/a | 0/41 (0.0%) | n/a | n/a | not in round 2 |
+| task3-synthetic-qwen2-5-7b | Findings on the always-rejected criterion, reaching the teacher (lower better) | 16/46 (34.8%) | 16/48 (33.3%) | 16/42 (38.1%) | 0/33 (0.0%) | better | harness better |
+| task3-synthetic-qwen2-5-7b | Findings reaching the teacher per item (after warm-up) | n/a | 3.000 | n/a | 2.063 | n/a | down |
+| task3-synthetic-qwen2-5-7b | Findings accepted unedited (higher better) | 0/46 (0.0%) | 0/48 (0.0%) | 0/42 (0.0%) | 0/33 (0.0%) | same | **tie** |
+| task3-synthetic-qwen2-5-7b | Findings already in the teacher's style (higher better) | 0/46 (0.0%) | 0/48 (0.0%) | 0/42 (0.0%) | 0/33 (0.0%) | same | **tie** |
+| task4-synthetic-claude-haiku-5-5 | Agreement with stand-in teacher judgement (higher better) | n/a | n/a | 36/40 (90.0%) | 34/40 (85.0%) | **worse** (CIs overlap) | no baseline arm |
+| task4-synthetic-claude-haiku-5-5 | Cohen's kappa (higher better) | n/a | n/a | 0.794 | 0.691 | **worse** | no baseline arm |
+| task4-synthetic-claude-haiku-5-5 | Judgements left unverified (lower better) | n/a | n/a | 0/40 (0.0%) | 0/40 (0.0%) | same | no baseline arm |
+| task4-synthetic-claude-sonnet-5-5 | Agreement with stand-in teacher judgement (higher better) | n/a | n/a | 34/40 (85.0%) | 35/40 (87.5%) | better (CIs overlap) | no baseline arm |
+| task4-synthetic-claude-sonnet-5-5 | Cohen's kappa (higher better) | n/a | n/a | 0.700 | 0.746 | better | no baseline arm |
+| task4-synthetic-claude-sonnet-5-5 | Judgements left unverified (lower better) | n/a | n/a | 0/40 (0.0%) | 0/40 (0.0%) | same | no baseline arm |
+| task4-synthetic-llama3-1-8b | Agreement with stand-in teacher judgement (higher better) | n/a | n/a | 17/40 (42.5%) | n/a | n/a | not in round 2 |
+| task4-synthetic-llama3-1-8b | Cohen's kappa (higher better) | n/a | n/a | 0.084 | n/a | n/a | not in round 2 |
+| task4-synthetic-llama3-1-8b | Judgements left unverified (lower better) | n/a | n/a | 0/40 (0.0%) | n/a | n/a | not in round 2 |
+| task4-synthetic-qwen2-5-7b | Agreement with stand-in teacher judgement (higher better) | n/a | n/a | 32/39 (82.1%) | 31/38 (81.6%) | **worse** (CIs overlap) | no baseline arm |
+| task4-synthetic-qwen2-5-7b | Cohen's kappa (higher better) | n/a | n/a | 0.618 | 0.612 | **worse** | no baseline arm |
+| task4-synthetic-qwen2-5-7b | Judgements left unverified (lower better) | n/a | n/a | 1/40 (2.5%) | 2/40 (5.0%) | **worse** (CIs overlap) | no baseline arm |
+
+### Harness measures that got worse from round 1 to round 2 (24 rows)
+
+| Run | Measure | Harness r1 | Harness r2 | Change |
+|---|---|---|---|---|
+| task1-ellipse-claude-haiku-5-5 | Findings schema-valid (higher better) | 501/501 (100.0%) | 496/497 (99.8%) | **worse** (CIs overlap) |
+| task1-ellipse-claude-sonnet-5-5 | Findings with inexact evidence, raw (lower better) | 6/481 (1.2%) | 7/480 (1.5%) | **worse** (CIs overlap) |
+| task1-ellipse-claude-sonnet-5-5 | Findings with fabricated evidence, raw (lower better) | 4/481 (0.8%) | 6/480 (1.3%) | **worse** (CIs overlap) |
+| task1-ellipse-qwen2-5-7b | Criterion coverage (item×criterion with a suggested level) (higher better) | 405/480 (84.4%) | 400/480 (83.3%) | **worse** (CIs overlap) |
+| task1-synthetic-cer-claude-haiku-5-5 | Suggested level = label, exact (higher better) | 107/119 (89.9%) | 102/120 (85.0%) | **worse** (CIs overlap) |
+| task1-synthetic-cer-claude-haiku-5-5 | Quadratic weighted kappa (higher better) | 0.922 | 0.881 | **worse** |
+| task1-synthetic-cer-claude-haiku-5-5 | LC judge `student-response-specificity` pass (higher better) | 39/40 (97.5%) | 37/40 (92.5%) | **worse** (CIs overlap) |
+| task1-synthetic-cer-claude-sonnet-5-5 | Output parsed (higher better) | 40/40 (100.0%) | 39/40 (97.5%) | **worse** (CIs overlap) |
+| task1-synthetic-cer-claude-sonnet-5-5 | Criterion coverage (item×criterion with a suggested level) (higher better) | 119/120 (99.2%) | 117/120 (97.5%) | **worse** (CIs overlap) |
+| task1-synthetic-cer-claude-sonnet-5-5 | Suggested level = label, exact (higher better) | 111/119 (93.3%) | 108/117 (92.3%) | **worse** (CIs overlap) |
+| task1-synthetic-cer-claude-sonnet-5-5 | Quadratic weighted kappa (higher better) | 0.950 | 0.941 | **worse** |
+| task1-synthetic-cer-claude-sonnet-5-5 | LC judge `student-response-specificity` pass (higher better) | 39/40 (97.5%) | 35/39 (89.7%) | **worse** (CIs overlap) |
+| task1-synthetic-cer-qwen2-5-7b | Suggested level = label, exact (higher better) | 70/116 (60.3%) | 70/117 (59.8%) | **worse** (CIs overlap) |
+| task1-synthetic-cer-qwen2-5-7b | Quadratic weighted kappa (higher better) | 0.618 | 0.613 | **worse** |
+| task2-synthetic-claude-sonnet-5-5 | Mapping recall vs labels (higher better) | 36/38 (94.7%) | 35/38 (92.1%) | **worse** (CIs overlap) |
+| task2-synthetic-claude-sonnet-5-5 | F1 (higher better) | 0.973 | 0.959 | **worse** |
+| task2-synthetic-qwen2-5-7b | Mappings naming an unknown misconception (lower better) | 12/42 (28.6%) | 16/42 (38.1%) | **worse** (CIs overlap) |
+| task3-synthetic-claude-sonnet-5-5 | Findings accepted unedited (higher better) | 16/40 (40.0%) | 4/32 (12.5%) | **worse** (CIs overlap) |
+| task3-synthetic-claude-sonnet-5-5 | Findings already in the teacher's style (higher better) | 19/40 (47.5%) | 4/32 (12.5%) | **worse** |
+| task4-synthetic-claude-haiku-5-5 | Agreement with stand-in teacher judgement (higher better) | 36/40 (90.0%) | 34/40 (85.0%) | **worse** (CIs overlap) |
+| task4-synthetic-claude-haiku-5-5 | Cohen's kappa (higher better) | 0.794 | 0.691 | **worse** |
+| task4-synthetic-qwen2-5-7b | Agreement with stand-in teacher judgement (higher better) | 32/39 (82.1%) | 31/38 (81.6%) | **worse** (CIs overlap) |
+| task4-synthetic-qwen2-5-7b | Cohen's kappa (higher better) | 0.618 | 0.612 | **worse** |
+| task4-synthetic-qwen2-5-7b | Judgements left unverified (lower better) | 1/40 (2.5%) | 2/40 (5.0%) | **worse** (CIs overlap) |
+
+### What the round-2 safeguards removed (Task 1, harness arm)
+
+Findings dropped by the harness before review, by reason (`duplicate` and `deprioritized-criterion` are new in round 2), and accepted findings the teacher view flagged as repeating a rejected one (the simulated teacher then rejected them).
+
+| Run | Dropped by reason | Repeat flags |
+|---|---|---|
+| task1-ellipse-claude-haiku-5-5 | quote-not-found 10, invalid-schema 1 | 0 |
+| task1-ellipse-claude-sonnet-5-5 | quote-not-found 7 | 0 |
+| task1-ellipse-qwen2-5-7b | duplicate 3, quote-not-found 58, unknown-criterion 1 | 0 |
+| task1-synthetic-cer-claude-haiku-5-5 | none | 0 |
+| task1-synthetic-cer-claude-sonnet-5-5 | none | 0 |
+| task1-synthetic-cer-qwen2-5-7b | quote-not-found 3 | 0 |

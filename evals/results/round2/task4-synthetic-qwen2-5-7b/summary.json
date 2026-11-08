@@ -1,0 +1,34 @@
+{
+  "run": "task4-synthetic-qwen2-5-7b",
+  "model": "ollama/qwen2.5:7b",
+  "summary": {
+    "goal": "Uses measured data from the investigation as evidence for the claim.",
+    "items": 40,
+    "agreement": {
+      "k": 31,
+      "n": 38,
+      "rate": 0.8157894736842105,
+      "ci95": [
+        0.6658083165848865,
+        0.907783515467425
+      ]
+    },
+    "unverified": {
+      "k": 2,
+      "n": 40,
+      "rate": 0.05,
+      "ci95": [
+        0.013820377146101098,
+        0.165041708179252
+      ]
+    },
+    "kappa": 0.6122448979591837,
+    "confusion": {
+      "tp": 20,
+      "fp": 2,
+      "fn": 5,
+      "tn": 11
+    }
+  },
+  "spentUsd": 0
+}

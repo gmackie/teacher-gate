@@ -1,0 +1,96 @@
+{
+  "run": "task3-synthetic-claude-sonnet-5-5",
+  "model": "anthropic/claude-sonnet-5-5",
+  "summary": [
+    {
+      "learning": false,
+      "items": 16,
+      "rejectedCriterionShare": {
+        "k": 16,
+        "n": 47,
+        "rate": 0.3404255319148936,
+        "ci95": [
+          0.22167260713762188,
+          0.4832934049469702
+        ]
+      },
+      "rejectedCriterionRaw": {
+        "k": 16,
+        "n": 47,
+        "rate": 0.3404255319148936,
+        "ci95": [
+          0.22167260713762188,
+          0.4832934049469702
+        ]
+      },
+      "findingsPerItem": 2.9375,
+      "acceptedUnedited": {
+        "k": 0,
+        "n": 47,
+        "rate": 0,
+        "ci95": [
+          6.938893903907228e-18,
+          0.0755601711983887
+        ]
+      },
+      "inTeacherStyle": {
+        "k": 0,
+        "n": 47,
+        "rate": 0,
+        "ci95": [
+          6.938893903907228e-18,
+          0.0755601711983887
+        ]
+      },
+      "appliedPreferencesAtEnd": []
+    },
+    {
+      "learning": true,
+      "items": 16,
+      "rejectedCriterionShare": {
+        "k": 0,
+        "n": 32,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.1071827150573635
+        ]
+      },
+      "rejectedCriterionRaw": {
+        "k": 0,
+        "n": 32,
+        "rate": 0,
+        "ci95": [
+          0,
+          0.1071827150573635
+        ]
+      },
+      "findingsPerItem": 2,
+      "acceptedUnedited": {
+        "k": 4,
+        "n": 32,
+        "rate": 0.125,
+        "ci95": [
+          0.04970053844474301,
+          0.2806864978482796
+        ]
+      },
+      "inTeacherStyle": {
+        "k": 4,
+        "n": 32,
+        "rate": 0.125,
+        "ci95": [
+          0.04970053844474301,
+          0.2806864978482796
+        ]
+      },
+      "appliedPreferencesAtEnd": [
+        "deprioritize:claim",
+        "edit:bf02d453-83f8-4d95-8fc8-9740137b070b",
+        "edit:ef5011ac-ad5f-4296-bf98-c980655e2a96",
+        "edit:8f969387-48b3-4b49-a56d-4082d6126722"
+      ]
+    }
+  ],
+  "spentUsd": 0.6426320000000001
+}
